@@ -27,7 +27,9 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2>게시판 목록</h2>
+			<div class="align-center">
+				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900">
+			</div>
 			<form id="search_form" action="list.do" method="get">
 				<ul class="align-right">
 					<li>
@@ -78,7 +80,7 @@
 						<td>${board.board_hit}</td>
 					</tr>	
 				</table>
-					
+
 				<div>
 				<div class="align-right">
 					<input type="button" value="글쓰기" onclick="location.href='writeForm.do'">
