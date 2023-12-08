@@ -1,0 +1,84 @@
+package kr.car.vo;
+
+import java.sql.Date;
+
+public class CarList_DetailVO {
+	private int carlist_num;		//글번호
+	private int car_seller;			//판매자
+	private int car_buyer;			//구매자
+	private int car_type;			//차종
+	private int car_fuel;			//연료 종류
+	private int car_price;			//가격
+	private int car_model_year;		//연식
+	private int car_distance;		//주행거리
+	private int car_origin;			//연식
+	private String car_image;		//중고차 이미지
+	private Date car_tradedate;		//판매 완료일
+	
+	public int getCarlist_num() {
+		return carlist_num;
+	}
+	public void setCarlist_num(int carlist_num) {
+		this.carlist_num = carlist_num;
+	}
+	public int getCar_seller() {
+		return car_seller;
+	}
+	public void setCar_seller(int car_seller) {
+		this.car_seller = car_seller;
+	}
+	public int getCar_buyer() {
+		return car_buyer;
+	}
+	public void setCar_buyer(int car_buyer) {
+		this.car_buyer = car_buyer;
+	}
+	public int getCar_type() {
+		return car_type;
+	}
+	public void setCar_type(int car_type) {
+		this.car_type = car_type;
+	}
+	public int getCar_fuel() {
+		return car_fuel;
+	}
+	public void setCar_fuel(int car_fuel) {
+		this.car_fuel = car_fuel;
+	}
+	public int getCar_price() {
+		return car_price;
+	}
+	public void setCar_price(int car_price) {
+		this.car_price = car_price;
+	}
+	public int getCar_model_year() {
+		return car_model_year;
+	}
+	public void setCar_model_year(int car_model_year) {
+		this.car_model_year = car_model_year;
+	}
+	public int getCar_distance() {
+		return car_distance;
+	}
+	public void setCar_distance(int car_distance) {
+		this.car_distance = car_distance;
+	}
+	public int getCar_origin() {
+		return car_origin;
+	}
+	public void setCar_origin(int car_origin) {
+		this.car_origin = car_origin;
+	}
+	public String getCar_image() {
+		return car_image;
+	}
+	public void setCar_image(String car_image) {
+		this.car_image = car_image;
+	}
+	public Date getCar_tradedate() {
+		return car_tradedate;
+	}
+	public void setCar_tradedate(Date car_tradedate) {
+		this.car_tradedate = car_tradedate;
+	}
+}
