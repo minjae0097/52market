@@ -4,9 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고차 직거래</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-car 리스트 입니다
+<div class="page-main">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<div class="content-main">
+		<h2>등록 매물</h2>
+	</div>
+	<div class="align-right">
+		<input type="button" value="글쓰기" onclick="location.href='writeCar.do'">
+	</div>
+</div>
 </body>
 </html>

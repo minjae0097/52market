@@ -10,7 +10,6 @@ public class CarlistVO {
 	private Date carlist_modify_date;	//수정일
 	private int carlist_status;			//판매여부 default 0
 	
-	private CarList_DetailVO carlist_DetailVO;
 
 	public int getCarlist_num() {
 		return carlist_num;
@@ -60,14 +59,7 @@ public class CarlistVO {
 		this.carlist_status = carlist_status;
 	}
 
-	public CarList_DetailVO getCarlist_DetailVO() {
-		return carlist_DetailVO;
-	}
-
-	public void setCarlist_DetailVO(CarList_DetailVO carlist_DetailVO) {
-		this.carlist_DetailVO = carlist_DetailVO;
-	}
-
+	
 	
 	
 }
