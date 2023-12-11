@@ -87,7 +87,7 @@ public class CarDAO {
 		
 	}
 	//중고차 리스트
-	public List<CarList_DetailVO> getCarList(int start, int end, String keyfield, String keyword, int carlist_status)throws Exception{
+	public List<CarList_DetailVO> getList(int start, int end, String keyfield, String keyword, int carlist_status)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -121,6 +121,7 @@ public class CarDAO {
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {
 				CarList_DetailVO detail = new CarList_DetailVO();
+				detail.setCarlist_num(rs.getInt("carlist_num"));
 				detail.setCar_title(rs.getString("car_title"));
 				detail.setCar_buyer(rs.getInt("car_buyer"));
 				detail.setCar_type(rs.getInt("car_type"));
@@ -144,7 +145,76 @@ public class CarDAO {
 		
 		return list;
 	}
-	
+	//중고차 상세 detail
+	public CarList_DetailVO getCarList_Detail(int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CarList_DetailVO detail = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM  carlist_detail d INNER JOIN member m on d.car_seller=m.mem_num WHERE carlist_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carlist_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				detail = new CarList_DetailVO();
+				detail.setCar_seller(rs.getInt("car_seller"));
+				detail.setCar_type(rs.getInt("car_type"));
+				detail.setCar_fuel(rs.getInt("car_fuel"));
+				detail.setCar_price(rs.getInt("car_price"));
+				detail.setCar_model_year(rs.getInt("car_model_year"));
+				detail.setCar_distance(rs.getInt("car_distance"));
+				detail.setCar_transmission(rs.getInt("car_transmission"));
+				detail.setCar_origin(rs.getInt("car_origin"));
+				detail.setCar_image(rs.getString("car_image"));
+				detail.setCar_tradedate(rs.getDate("car_tradedate"));
+				detail.setCar_title(rs.getString("car_title"));
+				detail.setMem_nickname(rs.getString("mem_nickname"));
+			}
+			
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return detail;
+	}
+	// 중고차 상세 list
+	public CarlistVO getCarList(int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		CarlistVO list = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM carlist WHERE carlist_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carlist_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				list = new CarlistVO();
+				list.setCarlist_content(rs.getString("carlist_content"));
+				list.setCarlist_reg_date(rs.getDate("carlist_reg_date"));
+				list.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
+				list.setCarlist_status(rs.getInt("carlist_status"));
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
 	//중고차 수정
 	//중고차 삭제
 	

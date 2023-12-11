@@ -14,6 +14,16 @@ public class CarList_DetailVO {
 	private int car_transmission;	//변속기 종류
 	private String car_title; 	//글제목
 	
+	private String mem_nickname;		//닉네임
+
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
+	}
+	
 	
 	public String getCar_title() {
 		return car_title;

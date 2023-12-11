@@ -15,7 +15,7 @@ public class ListAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		CarDAO dao = CarDAO.getInstance();
-		List<CarList_DetailVO> carList = dao.getCarList(1, 8, null, null, 0);
+		List<CarList_DetailVO> carList = dao.getList(1, 8, null, null, 0);
 		
 		request.setAttribute("carList", carList);
 		
