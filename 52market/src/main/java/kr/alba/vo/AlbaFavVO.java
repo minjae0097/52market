@@ -1,21 +1,21 @@
 package kr.alba.vo;
 
 public class AlbaFavVO {
-	private int albalist_num;
+	private int alba_num;
 	private int mem_num;
 	
 	public AlbaFavVO () {}
 	
-	public AlbaFavVO(int albalist_num, int mem_num) {
-		this.albalist_num = albalist_num;
+	public AlbaFavVO(int alba_num, int mem_num) {
+		this.alba_num = alba_num;
 		this.mem_num = mem_num;
 	}
 
-	public int getAlbalist_num() {
-		return albalist_num;
+	public int getAlba_num() {
+		return alba_num;
 	}
-	public void setAlbalist_num(int albalist_num) {
-		this.albalist_num = albalist_num;
+	public void setAlbalist_num(int alba_num) {
+		this.alba_num = alba_num;
 	}
 	public int getMem_num() {
 		return mem_num;

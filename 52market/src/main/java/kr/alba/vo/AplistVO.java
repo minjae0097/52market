@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class AplistVO {
 	private int aplist_num;
-	private int albalist_num;
+	private int alba_num;
 	private int mem_num;
 	private String aplist_title;
 	private Date aplist_reg_date;
-	private String albalist_filename;
-	
+	private String alba_filename;
+
 	private AplistVO aplistVO;
 
 	public int getAplist_num() {
@@ -18,11 +18,11 @@ public class AplistVO {
 	public void setAplist_num(int aplist_num) {
 		this.aplist_num = aplist_num;
 	}
-	public int getAlbalist_num() {
-		return albalist_num;
+	public int getAlba_num() {
+		return alba_num;
 	}
-	public void setAlbalist_num(int albalist_num) {
-		this.albalist_num = albalist_num;
+	public void setAlba_num(int alba_num) {
+		this.alba_num = alba_num;
 	}
 	public int getMem_num() {
 		return mem_num;
@@ -42,11 +42,11 @@ public class AplistVO {
 	public void setAplist_reg_date(Date aplist_reg_date) {
 		this.aplist_reg_date = aplist_reg_date;
 	}
-	public String getAlbalist_filename() {
-		return albalist_filename;
+	public String getAlba_filename() {
+		return alba_filename;
 	}
-	public void setAlbalist_filename(String albalist_filename) {
-		this.albalist_filename = albalist_filename;
+	public void setAlba_filename(String alba_filename) {
+		this.alba_filename = alba_filename;
 	}
 	public AplistVO getAplistVO() {
 		return aplistVO;
