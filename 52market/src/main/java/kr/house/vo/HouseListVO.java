@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class HouseListVO {
 	private int house_num;			//부동산 판매글 번호
-	private String house_title;		//부동산 판매글 제목
 	private String house_content;	//내용
 	private Date house_reg_date;	//부동산 판매글 작성일
 	private Date house_modify_date;	//부동산 판매글 수정일
@@ -19,15 +18,6 @@ public class HouseListVO {
 	public void setHouse_num(int house_num) {
 		this.house_num = house_num;
 	}
-
-	public String getHouse_title() {
-		return house_title;
-	}
-
-	public void setHouse_title(String house_title) {
-		this.house_title = house_title;
-	}
-
 	public String getHouse_content() {
 		return house_content;
 	}

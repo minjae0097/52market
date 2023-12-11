@@ -9,7 +9,9 @@ house_status number(1) default 0 not null,
 constraint houselist_pk primary key (house_num),
 constraint houselist_detail_fk foreign key (house_num) references house_detail (house_num) 
 );
-   
+
+create sequence house_detail_seq;
+
 --부동산 게시글 테이블
 create table house_detail(
 house_num number not null,

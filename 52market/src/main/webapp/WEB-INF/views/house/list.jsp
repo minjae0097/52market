@@ -54,7 +54,7 @@
 			</div>
 			
 			<div class="align-right">
-			<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
+			<input type="button" value="글쓰기" onclick="location.href='insertHouseForm.do'"
 					<c:if test="${empty user_num}">disabled="disabled"</c:if>
 				><!-- 로그인이 되어있지 않은면 비활성화 됨(disabled="disabled") -->
 			</div>
