@@ -30,10 +30,11 @@
 			<div class="align-center">
 				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900">
 			</div>
-			<form id="search_form" action="list.do" method="get">
-				<ul class="align-right">
+			<form class="align-right" id="search_form" action="list.do" method="get">
+				<ul>
 					<li>
 						<select name="category">
+							<option>---필터---</option>
 							<option>동네생활</option>
 							<option>동네백과</option>
 							<option>동네맛집</option>
@@ -43,8 +44,15 @@
 							<option>동네질문</option>
 							<option>생활정보</option>
 						</select>
+						<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option> 
+							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option> 
+						</select>	
 						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
 						<input type="submit" value="검색">
+					</li>
+					<li>
 					</li>
 				</ul>
 			</form>
@@ -53,42 +61,34 @@
 					표시할 게시물이 없습니다.
 				</div>
 			</c:if>
-			<%-- <c:if test="${count >0}"> --%>
+			<c:if test="${count > 0}">
 				<table>
 					<tr>
 						<th>글번호</th>
-						<td>${board.board_num}</td>
-					</tr>	
-					<tr>
 						<th>제목</th>
-						<td><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
-					</tr>	
-					<tr>
 						<th>내용</th>
-						<td>${board.board_content}</td>
-					</tr>	
-					<tr>
 						<th>위치</th>
-						<td>${board.board_address1}</td>
-					</tr>	
-					<tr>
-						<th>작성일</th>
-						<td>${board.board_regdate}</td>
-					</tr>	
-					<tr>
 						<th>조회수</th>
-						<td>${board.board_hit}</td>
-					</tr>	
+					</tr>
+					<c:forEach var="board" items="${list}">
+						<tr>
+							<td>${board.board_num}</td>
+							<td><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
+							<td>${board.board_content}</td>
+							<td></td>
+							<%-- <td>${board.mem_address1}</td> --%>
+							<td>${board.board_hit}</td>
+						</tr>
+					</c:forEach>
 				</table>
-
-				<div>
-				<div class="align-right">
-					<input type="button" value="글쓰기" onclick="location.href='writeForm.do'">
-				</div>
-				<div class="align-center">${page}</div>			
-			<%-- </c:if> --%>
+				<div class="align-center">${page}</div>
+			</c:if>
+			<div class="list-space align-right">
+				<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
+					<c:if test="${empty user_num}">disabled="disabled"</c:if>
+				>
+			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

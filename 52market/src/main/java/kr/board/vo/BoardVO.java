@@ -15,6 +15,7 @@ public class BoardVO {
 	
 	private String mem_id;			
 	private String mem_photo;
+	private String mem_address1;
 	
 	public int getBoard_num() {
 		return board_num;
@@ -81,6 +82,16 @@ public class BoardVO {
 	}
 	public void setMem_photo(String mem_photo) {
 		this.mem_photo = mem_photo;
+	}
+	public String getMem_address1() {
+		return mem_address1;
+	}
+	public void setMem_address1(String mem_address1) {
+		this.mem_address1 = mem_address1;
+	}
+	public void setMem_address11(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
