@@ -1,6 +1,6 @@
 package kr.car.vo;
 
-public class Car_Fav {
+public class Car_FavVO {
 	private int carlist_num;
 	private int mem_num;
 	public int getCarlist_num() {

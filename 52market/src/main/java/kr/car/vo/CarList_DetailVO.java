@@ -11,6 +11,22 @@ public class CarList_DetailVO {
 	private int car_price;			//가격
 	private int car_model_year;		//연식
 	private int car_distance;		//주행거리
+	private int car_transmission;	//변속기 종류
+	private String car_title; 	//글제목
+	
+	
+	public String getCar_title() {
+		return car_title;
+	}
+	public void setCar_title(String car_title) {
+		this.car_title = car_title;
+	}
+	public int getCar_transmission() {
+		return car_transmission;
+	}
+	public void setCar_transmission(int car_transmission) {
+		this.car_transmission = car_transmission;
+	}
 	private int car_origin;			//연식
 	private String car_image;		//중고차 이미지
 	private Date car_tradedate;		//판매 완료일
