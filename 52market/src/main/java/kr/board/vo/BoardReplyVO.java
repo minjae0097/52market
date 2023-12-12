@@ -8,7 +8,7 @@ public class BoardReplyVO {
 	private String re_ip;
 	private int board_num;
 	private int mem_num;
-	private String id;
+	private String mem_id;
 	
 	public int getRe_num() {
 		return re_num;
@@ -52,11 +52,11 @@ public class BoardReplyVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	public String getId() {
-		return id;
+	public String getMem_id() {
+		return mem_id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setMem_id(String id) {
+		this.mem_id = id;
 	}
 	
 	
