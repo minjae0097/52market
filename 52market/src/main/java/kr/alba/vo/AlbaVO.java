@@ -13,8 +13,8 @@ public class AlbaVO {
 	private String alba_ip;			//아이피
 	private String alba_location;	//알바 위치
 	private String alba_zipcode;	//우편번호
-	private String alba_address1;//알바 주소
-	private String alba_address2;//알바 상세주소
+	private String alba_address1;	//알바 주소
+	private String alba_address2;	//알바 상세주소
 	private int mem_num;			//회원번호
 	private String alba_filename;	//알바첨부파일
 	

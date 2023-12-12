@@ -2,6 +2,7 @@ package kr.alba.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import kr.alba.vo.AlbaVO;
 import kr.util.DBUtil;
@@ -49,10 +50,40 @@ public class AlbaDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	//알바 리스트
 	//전체 레코드수/검색 레코드수
 	//전체 글/검색 글 목록
 	//글 상세
-	
+	public AlbaVO getAlba(int abla_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AlbaVO alba = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "SELECT * FROM alba JOIN member USING(mem_num) LEFT OUTER JOIN member_detail USING(mem_num) WHERE alba_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, abla_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				alba = new AlbaVO();
+				alba.setAlba_filename(rs.getString("alba_filename"));
+				alba.setAlba_title(rs.getString("alba_title"));
+				alba.setAlba_content1(rs.getString("alba_content1"));
+				alba.setAlba_content2(rs.getString("alba_content2"));
+				alba.setal
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return alba;
+	}
 	//조회수 증가
 	//파일 삭제
 	//글 수정
