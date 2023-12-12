@@ -13,6 +13,8 @@ public class QnaVO {
 	private String ask_content;			//답변글 내용
 	private Date ask_regdate;			//답변글 등록 날짜
 	
+	private String mem_nickname;			//member(닉네임)
+	private String mem_photo;				//member(프로필사진)
 	
 	public int getQna_num() {
 		return qna_num;
@@ -61,5 +63,17 @@ public class QnaVO {
 	}
 	public void setAsk_regdate(Date ask_regdate) {
 		this.ask_regdate = ask_regdate;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
+	}
+	public String getMem_photo() {
+		return mem_photo;
+	}
+	public void setMem_photo(String mem_photo) {
+		this.mem_photo = mem_photo;
 	}
 }

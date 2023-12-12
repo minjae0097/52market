@@ -44,8 +44,8 @@ create table qna(
  question_content clob not null,
  question_filename varchar2(150),
  question_regdate date default sysdate not null,
- ask_content clob 
- ask_regdate date default sysdate,
+ ask_content clob,
+ ask_regdate date,
 
  constraint qna_pk primary key (qna_num),
  constraint qna_fk foreign key (mem_num) references member (mem_num)

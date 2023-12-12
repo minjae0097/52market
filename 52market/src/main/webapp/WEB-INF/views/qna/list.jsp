@@ -13,7 +13,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>문의글 목록</h2>
-		<form id="search_form" action="list.do" method="get">
+		<form id="qna_form" action="list.do" method="get">
 			<ul class="search">
 				<li>
 					<select name="keyfield">
@@ -22,8 +22,7 @@
 					</select>
 				</li>
 				<li>
-					<input type="search" size="16" name="keyword" id="keyword" 
-					                              value="${param.keyword}">
+					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
 				</li>
 				<li>
 					<input type="submit" value="검색">
@@ -31,14 +30,11 @@
 			</ul>
 		</form>
 		<div class="list-space align-right">
-			<input type="button" value="글쓰기"
-			     onclick="location.href='writeForm.do'"
+			<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
 			    <c:if test="${empty user_num}">disabled="disabled"</c:if> 
 			>
-			<input type="button" value="목록" 
-			                      onclick="location.href='list.do'">
-			<input type="button" value="홈으로"
-			    onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
+			<input type="button" value="목록" onclick="location.href='list.do'">
+			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
 		</div>
 		<c:if test="${count == 0}">
 		<div class="result-display">
@@ -52,15 +48,13 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-				<th>조회</th>
 			</tr>
-			<c:forEach var="board" items="${list}">
+			<c:forEach var="qna" items="${list}">
 			<tr>
-				<td>${board.board_num}</td>
-				<td><a href="detail.do?board_num=${board.board_num}">${board.title}</a></td>
-				<td>${board.id}</td>
-				<td>${board.reg_date}</td>
-				<td>${board.hit}</td>
+				<td>${qna.qna_num}</td>
+				<td><a href="detail.do?qna_num=${qna.qna_num}">${qna.qna_title}</a></td>
+				<td>${qna.mem_num}</td>
+				<td>${qna.question_regdate}</td>
 			</tr>
 			</c:forEach>
 		</table>

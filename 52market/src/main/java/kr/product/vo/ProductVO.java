@@ -10,6 +10,9 @@ public class ProductVO {
 	private Date product_modify_date;	//수정일
 	private int product_status;			//판매여부 미판매:0(기본),판매:1
 	
+	private String mem_nickname;			//member(닉네임)
+	private String mem_photo;				//member(프로필사진)
+	
 	public int getProduct_num() {
 		return product_num;
 	}
@@ -45,5 +48,17 @@ public class ProductVO {
 	}
 	public void setProduct_status(int product_status) {
 		this.product_status = product_status;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
+	}
+	public String getMem_photo() {
+		return mem_photo;
+	}
+	public void setMem_photo(String mem_photo) {
+		this.mem_photo = mem_photo;
 	}
 }
