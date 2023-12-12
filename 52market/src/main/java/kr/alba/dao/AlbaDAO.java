@@ -3,6 +3,8 @@ package kr.alba.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.alba.vo.AlbaVO;
 import kr.util.DBUtil;
@@ -17,7 +19,7 @@ public class AlbaDAO {
 	private AlbaDAO() {}
 	
 	//글등록
-	public void insertAlba(AlbaVO alba)throws Exception{
+	public void writeAlba(AlbaVO alba)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -25,22 +27,21 @@ public class AlbaDAO {
 		try {
 		conn = DBUtil.getConnection();
 		
-		sql = "INSERT INTO alba (alba_num,alba_title,alba_content1,alba_content2,alba_photo,alba_ip,"
-				+ "mem_num,alba_location,alba_zipcode,abla_address1,alba_address2,alba_filename) "
-				+ "VALUES (alba_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+		sql = "INSERT INTO alba (alba_num,alba_photo,alba_title,alba_content1,alba_content2,alba_ip,"
+				+ "mem_num,alba_zipcode,alba_address1,alba_address2,alba_location) "
+				+ "VALUES (alba_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
 		
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, alba.getAlba_title());
-		pstmt.setString(2, alba.getAlba_content1());
-		pstmt.setString(3, alba.getAlba_content2());
-		pstmt.setString(4, alba.getAlba_photo());
+		pstmt.setString(1, alba.getAlba_photo());
+		pstmt.setString(2, alba.getAlba_title());
+		pstmt.setString(3, alba.getAlba_content1());
+		pstmt.setString(4, alba.getAlba_content2());
 		pstmt.setString(5, alba.getAlba_ip());
 		pstmt.setInt(6, alba.getMem_num());
-		pstmt.setString(7, alba.getAlba_location());
-		pstmt.setString(8, alba.getAlba_zipcode());
-		pstmt.setString(9, alba.getAlba_address1());
-		pstmt.setString(10, alba.getAlba_address2());
-		pstmt.setString(11, alba.getAlba_filename());
+		pstmt.setString(7, alba.getAlba_zipcode());
+		pstmt.setString(8, alba.getAlba_address1());
+		pstmt.setString(9, alba.getAlba_address2());
+		pstmt.setString(10, alba.getAlba_location());
 		
 		pstmt.executeUpdate();
 		
@@ -51,6 +52,54 @@ public class AlbaDAO {
 		}
 	}
 	//알바 리스트
+	public List<AlbaVO> getList(int start,int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<AlbaVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND detail LIKE ?";
+			}
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM alba JOIN member USING(mem_num) "
+					+ sub_sql + "ORDER BY alba_num DESC)a) WHERE rnum >=? AND rnum <=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<AlbaVO>();
+			while(rs.next()) {
+				AlbaVO albaVO = new AlbaVO();
+				albaVO.setAlba_photo(rs.getString("alba_photo"));
+				albaVO.setAlba_title(rs.getString("alba_title"));
+				albaVO.setAlba_content1(rs.getString("alba_content1"));
+				albaVO.setAlba_address1(rs.getString("alba_address1"));
+				albaVO.setAlba_reg_date(rs.getDate("alba_reg_date"));
+				albaVO.setAlba_num(rs.getInt("alba_num"));
+				
+				list.add(albaVO);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
 	//전체 레코드수/검색 레코드수
 	//전체 글/검색 글 목록
 	//글 상세
@@ -70,11 +119,16 @@ public class AlbaDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				alba = new AlbaVO();
-				alba.setAlba_filename(rs.getString("alba_filename"));
+				alba.setAlba_photo(rs.getString("alba_photo"));
 				alba.setAlba_title(rs.getString("alba_title"));
 				alba.setAlba_content1(rs.getString("alba_content1"));
 				alba.setAlba_content2(rs.getString("alba_content2"));
-				alba.setal
+				alba.setAlba_zipcode(rs.getNString("alba_zipcode"));
+				alba.setAlba_address1(rs.getString("alba_address1"));
+				alba.setAlba_address2(rs.getString("alba_address2"));
+				alba.setAlba_location(rs.getString("alba_location"));
+				alba.setAlba_reg_date(rs.getDate("alba_reg_date"));
+				alba.setAlba_modify_date(rs.getDate("alba_modify_date"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);

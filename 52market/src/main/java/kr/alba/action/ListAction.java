@@ -16,7 +16,7 @@ public class ListAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
-		List<AlbaVO> albaList = dao.getList (1, 8, null, null, 0);
+		List<AlbaVO> albaList = dao.getList(1, 8, null, null);
 		
 		request.setAttribute("albaList", albaList);
 		

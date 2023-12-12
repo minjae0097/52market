@@ -11,12 +11,11 @@ public class AlbaVO {
 	private Date alba_modify_date;	//글 수정 날짜
 	private String alba_photo;		//알바 사진
 	private String alba_ip;			//아이피
-	private String alba_location;	//알바 위치
 	private String alba_zipcode;	//우편번호
 	private String alba_address1;	//알바 주소
 	private String alba_address2;	//알바 상세주소
 	private int mem_num;			//회원번호
-	private String alba_filename;	//알바첨부파일
+	private String alba_location;	//알바주소사진첨부파일
 	
 	private AlbaVO albaVO;
 
@@ -68,12 +67,6 @@ public class AlbaVO {
 	public void setAlba_ip(String alba_ip) {
 		this.alba_ip = alba_ip;
 	}
-	public String getAlba_location() {
-		return alba_location;
-	}
-	public void setAlba_location(String alba_location) {
-		this.alba_location = alba_location;
-	}
 	public String getAlba_zipcode() {
 		return alba_zipcode;
 	}
@@ -98,11 +91,11 @@ public class AlbaVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	public String getAlba_filename() {
-		return alba_filename;
+	public String getAlba_location() {
+		return alba_location;
 	}
-	public void setAlba_filename(String alba_filename) {
-		this.alba_filename = alba_filename;
+	public void setAlba_location(String alba_location) {
+		this.alba_location = alba_location;
 	}
 	public AlbaVO getAlbaVO() {
 		return albaVO;

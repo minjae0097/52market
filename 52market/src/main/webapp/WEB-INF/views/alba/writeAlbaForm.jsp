@@ -1,28 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>구인 글 등록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$('#alba_form').submit(function(){
-		let items = document.querySelectorAll('input[type="text"],input[type="file"],textarea');
+window.onload=function(){
+	let myForm = document.getElementById('writeAlbaForm');
+	myForm.onsubmit=function(){
+		let items = document.querySelectorAll('input[type="file"],input[type="text"],textarea');
 		for(let i=0; i<items.length; i++){
 			if(items[i].value.trim()==''){
 				let label = document.querySelector('label[for="'+items[i].id+'"]');
 				alert(label.textContent+' 항목은 필수 입력');
-				items[i].value = '';
+				items[i].value = "";
 				items[i].focus();
 				return false;
 			}
 		}
-	})
-});
+	};
+};
 </script>
 </head>
 <body>
@@ -42,28 +41,28 @@ $(function(){
 				</li>
 				<li>
 					<label for="alba_content1">정보</label>
-					<textarea rows="5" cols="50" placeholder="시급,위치,요일,시간을 입력해 주세요." id="alba_content1" name="alba_contnet1"></textarea>
+					<textarea rows="5" cols="50" placeholder="시급,위치,요일,시간을 입력해 주세요." id="alba_content1" name="alba_content1"></textarea>
 				</li>
 				<li>
 					<label for="alba_content2">상세 정보</label>
-					<textarea rows="5" cols="50" placeholder="아르바이트 상세 정보를 입력해 주세요" id="alba_content2" name="alba_contnet2"></textarea>
+					<textarea rows="5" cols="50" placeholder="아르바이트 상세 정보를 입력해 주세요" id="alba_content2" name="alba_content2"></textarea>
 				</li>
 				<li>
 					<label for="alba_location">위치(사진)</label>
 					<input type="file" name="alba_location" id="alba_location" accept="image/gif,image/png,/image/jpeg">
 				</li>
 				<li>
-					<label for="alba_zipcode">우편번호</label>
-					<input type="text" name="alba_zipcode" id="alba_zipcode" maxlength="5">
+					<label for="zipcode">우편번호</label>
+					<input type="text" name="alba_zipcode" id="zipcode" maxlength="5">
 					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</li>
 				<li>
-					<label for="alba_address1">주소</label>
-					<input type="text" name="alba_address1" id="alba_address1" maxlength="30">
+					<label for="address1">주소</label>
+					<input type="text" name="alba_address1" id="address1" maxlength="30">
 				</li>
 				<li>
-					<label for="abla_address2">나머지 주소</label>
-					<input type="text" name="alba_address2" id="alba_address2" maxlength="30">
+					<label for="address2">나머지 주소</label>
+					<input type="text" name="alba_address2" id="address2" maxlength="30">
 				</li>
 			</ul>
 			<div class="align-center">

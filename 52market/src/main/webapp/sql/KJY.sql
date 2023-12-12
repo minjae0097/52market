@@ -8,7 +8,7 @@ create table alba(
 	alba_photo varchar2(60),
 	alba_ip varchar2(40) not null,
 	alba_location varchar2(150),
-	abla_post varchar2(5) not null,
+	abla_zipcode varchar2(5) not null,
 	alba_address1 varchar2(90) not null,
 	alba_address2 varchar2(90) not null,
 	mem_num number not null,

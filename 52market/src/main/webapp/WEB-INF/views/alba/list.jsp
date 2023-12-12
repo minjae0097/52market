@@ -11,14 +11,18 @@
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<img src="${pageContext.request.contextPath}/images/알바배너.jpg" width="960">
 	<div class="content-main">
 		<h2>알바 최신글</h2>
-		<div class="photo-space">
-			<c:forEach var="alba" items="${alba}">
+		<div class="image-space">
+			<c:forEach var="alba" items="${albaList}">
 				<div class="horizontal-area">
 					<a href="${pageContext.request.contextPath}/alba/detailAlba.do?alba_num=${alba.alba_num}">
 					<img src="${pageContext.request.contextPath}/upload/${alba.alba_photo}">
 					<span>${alba.alba_title}</span>
+					<span>${alba.alba_content1}</span>
+					<span>${alba.alba_address1}</span>
+					<span>${alba.alba_reg_date}</span>
 					</a>
 				</div>
 			</c:forEach>
@@ -28,7 +32,9 @@
 		</div>
 	</div>
 	<div class="align-right">
-		<input type="button" value="글쓰기" onclick="location.href='writeAlbaForm.do'">
+		<input type="button" value="글쓰기" onclick="location.href='writeAlbaForm.do'"
+			<c:if test="${empty user_num}">disabled="disabled"</c:if>
+		>
 	</div>
 </div>
 </body>
