@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>중고차 직거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
 </head>
 <body>
 <div class="page-main">
@@ -16,7 +17,7 @@
 		<h2>등록 매물</h2>
 		<div class="image-space">
 			<c:forEach var="car" items="${carList}">
-				<div class="horizontal-area">
+				<div class="horizontal-area24">
 					<a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">
 						<img src="${pageContext.request.contextPath}/upload/${car.car_image}">
 						<span>${car.car_title}</span>
