@@ -45,7 +45,7 @@ public class HouseDAO {
 			sql="INSERT INTO house_detail (house_num,house_title,house_seller_type,house_type,"
 					+ "zipcode,house_address1,house_address2,house_deal_type,house_price,"
 					+ "house_space,house_floor,house_photo1,house_photo2,house_diposit,"
-					+ "house_cost,house_move_in) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "house_cost,house_move_in,mem_num) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, num);
 			pstmt2.setString(2, detail.getHouse_title());
@@ -63,6 +63,7 @@ public class HouseDAO {
 			pstmt2.setInt(14, detail.getHouse_diposit());
 			pstmt2.setInt(15, detail.getHouse_cost());
 			pstmt2.setInt(16, detail.getHouse_move_in());
+			pstmt2.setInt(17, detail.getMem_num());
 			pstmt2.executeUpdate();
 			
 			sql = "INSERT INTO houselist (house_num,house_content) VALUES(?,?)";
@@ -102,7 +103,8 @@ public class HouseDAO {
 			}
 			
 			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM houselist JOIN house_detail USING(house_num)WHERE house_status >= ? " + sub_sql;
+			sql = "SELECT COUNT(*) FROM houselist JOIN house_detail "
+					+ "USING(house_num)WHERE house_status >= ? " + sub_sql;
 			
 			//PreparedStatement 객체 생성 3단계
 			pstmt = conn.prepareStatement(sql);
@@ -129,7 +131,8 @@ public class HouseDAO {
 		return count;
 	}
 	//전체 글/검색 글 목록
-	public List<HouseDetailVO> getListHouse(int start,int end,String keyfield,String keyword,int house_status)throws Exception{
+	public List<HouseDetailVO> getListHouse(int start,int end,String keyfield,
+							String keyword,int house_status)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -150,7 +153,8 @@ public class HouseDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM "
-					+ "houselist JOIN house_detail USING(house_num) WHERE house_status >= ? " + sub_sql
+					+ "houselist JOIN house_detail USING(house_num) "
+					+ "WHERE house_status >= ? " + sub_sql
 					+ " ORDER BY house_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
@@ -192,7 +196,7 @@ public class HouseDAO {
 		return list;
 	}
 	//부동산 상세 detail
-	public HouseDetailVO getHouseList_Detail(int house_num)throws Exception{
+	public HouseDetailVO getHouseDetail(int house_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -204,7 +208,8 @@ public class HouseDAO {
 			conn = DBUtil.getConnection();
 			
 			//SQL문 작성
-			sql = "SELECT * FROM house_detail INNER JOIN member USING(mem_num) WHERE house_num=?";
+			sql = "SELECT * FROM houselist JOIN (SELECT * FROM house_detail JOIN "
+					+ "member USING(mem_num)) USING(house_num) WHERE house_num=?";
 			
 			//PreparedStatement 객체 생성 3단계
 			pstmt = conn.prepareStatement(sql);
@@ -217,11 +222,25 @@ public class HouseDAO {
 			if(rs.next()) {
 				detail = new HouseDetailVO();
 				detail.setHouse_num(rs.getInt("house_num"));
-				detail.setMem_num(rs.getInt("mem_num"));
 				detail.setHouse_title(rs.getString("house_title"));
-				detail.setHouse_photo1(rs.getString("house_photo1"));
-				detail.setHouse_trade_date(rs.getDate("house_trade_date"));
+				detail.setHouse_seller_type(rs.getInt("house_seller_type"));
+				detail.setHouse_type(rs.getInt("house_type"));
+				detail.setHouse_deal_type(rs.getInt("house_deal_type"));
+				detail.setHouse_diposit(rs.getInt("house_diposit"));
 				detail.setHouse_price(rs.getInt("house_price"));
+				detail.setHouse_cost(rs.getInt("house_cost"));
+				detail.setZipcode(rs.getString("zipcode"));
+				detail.setHouse_address1(rs.getString("house_address1"));
+				detail.setHouse_address2(rs.getString("house_address2"));
+				detail.setHouse_space(rs.getInt("house_space"));
+				detail.setHouse_floor(rs.getInt("house_floor"));
+				detail.setHouse_move_in(rs.getInt("house_move_in"));
+				detail.setHouse_photo1(rs.getString("house_photo1"));
+				detail.setHouse_photo2(rs.getString("house_photo2"));
+				detail.setHouse_trade_date(rs.getDate("house_trade_date"));
+				detail.setHouse_buyer(rs.getInt("house_buyer"));
+				detail.setMem_num(rs.getInt("mem_num"));
+				detail.setHit(rs.getInt("hit"));	
 			}
 
 		}catch(Exception e) {
@@ -231,6 +250,44 @@ public class HouseDAO {
 		}
 		
 		return detail;
+	}
+	//부동산 상세 list
+	public HouseListVO getHouseList(int house_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		HouseListVO list = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "SELECT * FROM houselist WHERE house_num=?";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, house_num);
+			
+			//SQL문 실행 4단계
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new HouseListVO();
+				list.setHouse_content(rs.getString("house_content"));
+				list.setHouse_modify_date(rs.getDate("house_modify_date"));
+				list.setHouse_reg_date(rs.getDate("house_reg_date"));
+				list.setHouse_status(rs.getInt("house_status"));
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
 	}
 	//조회수 증가 - 진입시 무조건 +1 증가
 	//글 수정

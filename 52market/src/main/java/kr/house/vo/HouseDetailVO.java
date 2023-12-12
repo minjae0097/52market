@@ -23,6 +23,7 @@ public class HouseDetailVO {
 	private int house_buyer;		//부동산 구매자
 	private int mem_num;			//판매자 회원번호
 	private int hit;				//조회수
+	private String mem_nickname;		//닉네임
 	
 	public int getHouse_num() {
 		return house_num;
@@ -143,6 +144,12 @@ public class HouseDetailVO {
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 	
 }
