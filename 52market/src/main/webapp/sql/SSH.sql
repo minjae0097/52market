@@ -1,3 +1,18 @@
+--제품상세
+create table product_detail(
+ product_num number not null,
+ product_seller number not null,
+ product_buyer number,
+ product_category number(1) not null,
+ product_price number(12) not null,
+ product_tradedate date,
+ product_image varchar2(150) not null,
+ 
+ constraint product_detail_pk primary key (product_num),
+ constraint product_detail_fk1 foreign key (product_seller) references member (mem_num),
+ constraint product_detail_fk2 foreign key (product_buyer) references member (mem_num)
+);
+
 --제품list
 create table product(
  product_num number not null,
@@ -11,22 +26,6 @@ create table product(
  constraint product_detail_fk foreign key (product_num) references product_detail (product_num)
 );
 
---제품상세
-create table product_detail(
- product_num number not null,
- product_seller number not null,
- product_buyer number,
- product_category varchar2(150) not null,
- product_price number(12) not null,
- product_tradedate date,
- product_image varchar2(150) not null
- 
- constraint product_detail_pk primary key (product_num),
- constraint product_detail_fk1  foreign key (product_seller) references member (mem_num),
- constraint product_detail_fk2  foreign key (product_buyer) references member (mem_num)
-);
-create sequence product_seq;
-
 
 --제품 관심 등록
 create table product_fav(
@@ -37,9 +36,6 @@ create table product_fav(
  constraint product_fav_fk2 foreign key (mem_num) references member (mem_num)
 );
 
-
-
-
 --문의 게시판
 create table qna(
  qna_num number not null,
@@ -48,8 +44,8 @@ create table qna(
  question_content clob not null,
  question_filename varchar2(150),
  question_regdate date default sysdate not null,
- ask_content clob not null,
- ask_regdate date default sysdate not null,
+ ask_content clob 
+ ask_regdate date default sysdate,
 
  constraint qna_pk primary key (qna_num),
  constraint qna_fk foreign key (mem_num) references member (mem_num)

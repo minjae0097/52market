@@ -6,10 +6,11 @@ public class ProductDetailVO {
 	private int product_num;		//글번호
 	private int product_seller;		//판매자
 	private int product_buyer;		//구매자
-	private String product_category;//상품카테고리
+	private int product_category;//상품카테고리
 	private int product_price;		//가격
 	private Date product_tradedate;	//판매완료일
 	private String product_image;	//상품이미지
+	private String product_name;	//상품명
 	
 	public int getProduct_num() {
 		return product_num;
@@ -29,10 +30,10 @@ public class ProductDetailVO {
 	public void setProduct_buyer(int product_buyer) {
 		this.product_buyer = product_buyer;
 	}
-	public String getProduct_category() {
+	public int getProduct_category() {
 		return product_category;
 	}
-	public void setProduct_category(String product_category) {
+	public void setProduct_category(int product_category) {
 		this.product_category = product_category;
 	}
 	public int getProduct_price() {
@@ -52,5 +53,11 @@ public class ProductDetailVO {
 	}
 	public void setProduct_image(String product_image) {
 		this.product_image = product_image;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 }
