@@ -9,7 +9,6 @@ public class HouseListVO {
 	private Date house_modify_date;	//부동산 판매글 수정일
 	private int house_status;		//부동산 판매여부
 	
-	private HouseDetailVO houseDetailVO;
 
 	public int getHouse_num() {
 		return house_num;
@@ -50,12 +49,5 @@ public class HouseListVO {
 		this.house_status = house_status;
 	}
 
-	public HouseDetailVO getHouseDetailVO() {
-		return houseDetailVO;
-	}
-
-	public void setHouseDetailVO(HouseDetailVO houseDetailVO) {
-		this.houseDetailVO = houseDetailVO;
-	}
 	
 }

@@ -35,15 +35,15 @@
 			</div>
 			
 			<div class="content-main">
-				<h4>최신 상품</h4>
+				<h4>등록 매물</h4>
 				<div class="image-space">
-					<c:forEach var="item" items="${itemList}">
+					<c:forEach var="house" items="${houseList}">
 						<div class="horizontal-area">
-							<a href="${pageContext.request.contextPath}/item/detail.do?item_num=${item.item_num}">
-								<img src="${pageContext.request.contextPath}/upload/${item.photo1}">
-								<span>${item.name}</span>
+							<a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">
+								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
+								<span>${house.house_title}</span>
 								<br>
-								<b><fmt:formatNumber value="${item.price}"/>원</b>
+								<b><fmt:formatNumber value="${house.house_price}"/>원</b>
 							</a>
 						</div>
 					</c:forEach>
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 			</div>
-			
+			<div class="align-center">${page}</div>
 			<div class="align-right">
 			<input type="button" value="글쓰기" onclick="location.href='insertHouseForm.do'"
 					<c:if test="${empty user_num}">disabled="disabled"</c:if>

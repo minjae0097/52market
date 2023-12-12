@@ -69,7 +69,7 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3><label for="zipcode">우편번호</label></h3>
-					<input type="text" name="house_post" id="zipcode" maxlength="5" class="input-check">
+					<input type="text" name="zipcode" id="zipcode" maxlength="5">
 					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</li>
 				<li>
@@ -81,15 +81,23 @@ window.onload=function(){
 					<input type="text" name="house_address2" id="address2" maxlength="30" class="input-check">
 				</li>
 				<li>
-					<h3 class="radio-check" id="house_deal_typecheck"><label>거래방식</label></h3>
-					<input type="radio" name="house_deal_typecheck" value="1">전세
-					<input type="radio" name="house_deal_typecheck" value="2">매매
-					<input type="radio" name="house_deal_typecheck" value="3">월세
-					<input type="radio" name="house_deal_typecheck" value="4">단기(1년미만)
+					<h3 class="radio-check" id="house_deal_type"><label>거래방식</label></h3>
+					<input type="radio" name="house_deal_type" value="1">전세
+					<input type="radio" name="house_deal_type" value="2">매매
+					<input type="radio" name="house_deal_type" value="3">월세
+					<input type="radio" name="house_deal_type" value="4">단기(1년미만)
 				</li>
 				<li>
 					<h3><label for="house_price">금액</label></h3>
 					<input type="number" name="house_price" id="house_price" min="1" max="99999999">만원
+				</li>
+				<li>
+					<h3><label for="house_diposit">보증금</label></h3>
+					<input type="number" name="house_diposit" id="house_diposit" min="1" max="99999999">만원
+				</li>
+				<li>
+					<h3><label for="house_cost">관리비</label></h3>
+					<input type="number" name="house_cost" id="house_cost" min="1" max="99999999">만원
 				</li>
 				<li>
 					<h3><label for="house_space">평수</label></h3>
@@ -100,17 +108,22 @@ window.onload=function(){
 					<input type="number" name="house_floor" id="house_floor" min="1" max="999">층
 				</li>
 				<li>
-					<h3><label for="house_content">내용</label></h3>
-					<textarea rows="5" cols="50" name="house_content" id="house_content" class="input-check"></textarea>
+					<h3 class="radio-check" id="house_move_in">입주시기</h3>
+					<input type="radio" name="house_move_in" value="1">즉시입주가능
+					<input type="radio" name="house_move_in" value="2">확인필요
 				</li>
 				<li>
-					<h3><label for="photo1">썸네일사진</label></h3>
-					<input type="file" name="photo1" id="photo1" 
+					<h3><label for="house_content">내용</label></h3>
+					<textarea rows="5" cols="50" placeholder="내용을 입력해주세요" name="house_content" id="house_content"></textarea>
+				</li>
+				<li>
+					<h3><label for="house_photo1">썸네일사진</label></h3>
+					<input type="file" name="house_photo1" id="house_photo1" 
 							class="input-check" accept="image/gif,image/png,image/jpeg">
 				</li>
 				<li>
-					<h3><label for="photo2">이미지</label></h3>
-					<input type="file" name="photo2" id="photo2" 
+					<h3><label for="house_photo2">이미지</label></h3>
+					<input type="file" name="house_photo2" id="house_photo2" 
 							class="input-check" accept="image/gif,image/png,image/jpeg">
 				</li>
 			</ul>

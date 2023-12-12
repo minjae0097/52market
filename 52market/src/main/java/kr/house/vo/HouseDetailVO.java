@@ -22,6 +22,7 @@ public class HouseDetailVO {
 	private Date house_trade_date;	//부동산 거래완료일
 	private int house_buyer;		//부동산 구매자
 	private int mem_num;			//판매자 회원번호
+	private int hit;				//조회수
 	
 	public int getHouse_num() {
 		return house_num;
@@ -136,6 +137,12 @@ public class HouseDetailVO {
 	}
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 	
 }
