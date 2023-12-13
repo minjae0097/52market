@@ -9,6 +9,7 @@ public class BoardReplyVO {
 	private int board_num;
 	private int mem_num;
 	private String mem_id;
+	private String mem_nickname;
 	
 	public int getRe_num() {
 		return re_num;
@@ -57,6 +58,12 @@ public class BoardReplyVO {
 	}
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 	
 	

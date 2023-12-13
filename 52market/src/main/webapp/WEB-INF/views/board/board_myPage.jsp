@@ -42,14 +42,18 @@
 					<li><h3>${member.mem_nickname}님</h3></li>
 					<li>주소 ${memeber.mem_address1}</li>
 					<li>가입일 ${member.mem_regdate}</li>
+					<li>
+						<div>
+							<a href="">작성할 글</a>
+						</div>
+					</li>
+					<li>
+						<div>
+							<a href="">댓글단 글</a>
+						</div>
+					</li>
 				</ul>
 				<hr size="1" width="100%" noshade="noshade">
-				<div>
-					<a href="">작성할 글</a>
-				</div>
-				<div>
-					<a href="">댓글단 글</a>
-				</div>
 				<h3>
 					비밀번호 수정
 					<input type="button" value="비밀번호 수정" onclick="${pageContext.request.contextPath}/member/myPage.do">

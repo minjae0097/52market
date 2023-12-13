@@ -74,6 +74,7 @@ public class BoardDAO {
 				board.setBoard_filename(rs.getString("board_filename"));
 				board.setMem_num(rs.getInt("mem_num"));
 				board.setMem_id(rs.getString("mem_id"));
+				board.setMem_nickname(rs.getString("mem_nickname"));
 				board.setMem_photo(rs.getString("mem_photo"));
 			}
 		} catch (Exception e) {
@@ -512,6 +513,7 @@ public class BoardDAO {
 				reply.setBoard_num(rs.getInt("board_num"));
 				reply.setMem_num(rs.getInt("mem_num"));
 				reply.setMem_id(rs.getString("mem_id"));
+				reply.setMem_nickname(rs.getString("mem_nickname"));
 
 				list.add(reply);
 			}
@@ -563,7 +565,7 @@ public class BoardDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE board_reply SET re_content=?,re_modifydate=SYSDATE,re_ip=? WHERE re_num";
+			sql = "UPDATE board_reply SET re_content=?,re_modifydate=SYSDATE,re_ip=? WHERE re_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, reply.getRe_content());
 			pstmt.setString(2, reply.getRe_ip());

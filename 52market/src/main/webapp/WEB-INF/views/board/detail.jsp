@@ -19,14 +19,18 @@
 			<ul class="detail-info">
 				<li>
 					<c:if test="${!empty user_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${board.board_photo}" width="40" height="40" class="my-photo">
+						<a href="${pageContext.request.contextPath}/board/board_myPage.jsp">
+							<img src="${pageContext.request.contextPath}/upload/${board.board_photo}" width="40" height="40" class="my-photo">
+						</a>
 					</c:if>
 					<c:if test="${empty user_photo}">
-						<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo">
+						<a href="${pageContext.request.contextPath}/board/board_myPage.jsp">
+							<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo">
+						</a>					
 					</c:if>
 				</li>
 				<li>
-					${board.mem_id}<br>
+					${board.mem_nickname}<br>
 					조회 ${board.board_hit}
 				</li>
 			</ul>

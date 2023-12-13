@@ -13,7 +13,8 @@ public class BoardVO {
 	private String board_ip;				//ip주소
 	private int mem_num;					//회원번호
 	
-	private String mem_id;			
+	private String mem_id;
+	private String mem_nickname;
 	private String mem_photo;
 	private String mem_address1;
 	
@@ -64,6 +65,13 @@ public class BoardVO {
 	}
 	public void setBoard_ip(String board_ip) {
 		this.board_ip = board_ip;
+	}
+	
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 	public int getMem_num() {
 		return mem_num;
