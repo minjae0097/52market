@@ -2,15 +2,17 @@ package kr.product.vo;
 
 import java.sql.Date;
 
-public class ProductDetailVO {
+public class Product_DetailVO {
 	private int product_num;		//글번호
 	private int product_seller;		//판매자
 	private int product_buyer;		//구매자
-	private int product_category;//상품카테고리
+	private int product_category;	//상품카테고리
 	private int product_price;		//가격
 	private Date product_tradedate;	//판매완료일
 	private String product_image;	//상품이미지
 	private String product_name;	//상품명
+	
+	private int product_status;		//product(판매여부)
 	
 	public int getProduct_num() {
 		return product_num;
@@ -60,4 +62,11 @@ public class ProductDetailVO {
 	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
 	}
+	public int getProduct_status() {
+		return product_status;
+	}
+	public void setProduct_status(int product_status) {
+		this.product_status = product_status;
+	}
+	
 }

@@ -5,10 +5,12 @@ import java.sql.Date;
 public class ProductVO {
 	private int product_num;			//글번호
 	private String product_title;		//거래글 제목
+	private String product_image;
 	private String product_content; 	//거래글 내용
 	private Date product_reg_date;  	//작성일
 	private Date product_modify_date;	//수정일
 	private int product_status;			//판매여부 미판매:0(기본),판매:1
+	private int product_mem;
 	
 	private String mem_nickname;			//member(닉네임)
 	private String mem_photo;				//member(프로필사진)
@@ -61,4 +63,17 @@ public class ProductVO {
 	public void setMem_photo(String mem_photo) {
 		this.mem_photo = mem_photo;
 	}
+	public int getProduct_mem() {
+		return product_mem;
+	}
+	public void setProduct_mem(int product_mem) {
+		this.product_mem = product_mem;
+	}
+	public String getProduct_image() {
+		return product_image;
+	}
+	public void setProduct_image(String product_image) {
+		this.product_image = product_image;
+	}
+	
 }

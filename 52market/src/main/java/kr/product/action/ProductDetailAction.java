@@ -1,26 +1,25 @@
 package kr.product.action;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.product.dao.ProductDAO;
-import kr.product.vo.Product_DetailVO;
+import kr.product.vo.ProductVO;
 
-public class ListAction implements Action{
+public class ProductDetailAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//상품번호 반환
+		int product_num = Integer.parseInt(request.getParameter("product_num"));
 		
 		ProductDAO dao = ProductDAO.getInstance();
-		List<Product_DetailVO> detail = dao.getListProduct(1, 9, null, null, 0);
+		ProductVO product = dao.getProduct(product_num);
 		
-		request.setAttribute("detail", detail);
+		request.setAttribute("product", product);
 		
-		//JSP 경로 반환
-		return "/WEB-INF/views/product/list.jsp";
+		return "/WEB-INF/views/product/product_detail.jsp";
 	}
+
 }

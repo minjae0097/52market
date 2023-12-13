@@ -18,12 +18,15 @@ create table product(
  product_num number not null,
  product_title varchar2(150) not null,
  product_content clob not null,
+ product_image varchar2(150) not null,
  product_reg_date date default sysdate not null,
  product_modify_date date,
  product_status number(1) default 0 not null,
+ product_mem number not null, --detail 때문에 추가 
  
  constraint product_pk primary key (product_num),
- constraint product_detail_fk foreign key (product_num) references product_detail (product_num)
+ constraint product_detail_fk1 foreign key (product_mem) references member (mem_num),
+ constraint product_detail_fk2 foreign key (product_num) references product_detail (product_num)
 );
 
 

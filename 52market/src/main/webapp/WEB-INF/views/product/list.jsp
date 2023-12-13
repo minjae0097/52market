@@ -15,13 +15,13 @@
 	<div class="content-main">
 		<h4>중고 물품</h4>
 		<div class="image-space">
-			<c:forEach var="product" items="${product}">
+			<c:forEach var="detail" items="${detail}">
 				<div class="horizontal-area">
-					<a href="${pageContext.request.contextPath}/product/detail.do?product_num=${product.product_num}">
-						<img src="${pageContext.request.contextPath}/upload/${product.product_image}">
-						<span>${product.product_title}</span>
+					<a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${detail.product_num}">
+						<img src="${pageContext.request.contextPath}/upload/${detail.product_image}">
+						<span>${detail.product_name}</span>
 						<br>
-						<b><fmt:formatNumber value="${product.product_price}"/>원</b>
+						<b><fmt:formatNumber value="${detail.product_price}"/>원</b>
 					</a>
 				</div>
 			</c:forEach>

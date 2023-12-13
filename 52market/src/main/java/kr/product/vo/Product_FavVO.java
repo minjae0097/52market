@@ -1,6 +1,6 @@
 package kr.product.vo;
 
-public class ProductFavVO {
+public class Product_FavVO {
 	private int product_num;
 	private int mem_num;
 	
