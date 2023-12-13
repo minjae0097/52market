@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import kr.house.vo.HouseDetailVO;
 import kr.house.vo.HouseListVO;
+import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
 
@@ -152,10 +154,10 @@ public class HouseDAO {
 			}
 			
 			//SQL문 작성
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM "
+			sql = "SELECT * FROM member JOIN (SELECT a.*, rownum rnum FROM (SELECT * FROM "
 					+ "houselist JOIN house_detail USING(house_num) "
 					+ "WHERE house_status >= ? " + sub_sql
-					+ " ORDER BY house_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+					+ " ORDER BY house_num DESC)a) USING(mem_num) WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
@@ -181,7 +183,7 @@ public class HouseDAO {
 				detail.setHouse_photo2(rs.getString("house_photo2"));
 				detail.setHouse_price(rs.getInt("house_price"));
 				detail.setMem_num(rs.getInt("mem_num"));
-				
+				detail.setMem_nickname(rs.getString("mem_nickname"));
 				
 				list.add(detail);
 			}
@@ -240,7 +242,8 @@ public class HouseDAO {
 				detail.setHouse_trade_date(rs.getDate("house_trade_date"));
 				detail.setHouse_buyer(rs.getInt("house_buyer"));
 				detail.setMem_num(rs.getInt("mem_num"));
-				detail.setHit(rs.getInt("hit"));	
+				detail.setHit(rs.getInt("hit"));
+				detail.setMem_nickname(rs.getString("mem_nickname"));
 			}
 
 		}catch(Exception e) {
@@ -289,8 +292,95 @@ public class HouseDAO {
 		}
 		return list;
 	}
+	//회원정보
+	public MemberVO getHouseMember(int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		MemberVO member = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "SELECT * FROM member_detail WHERE mem_num=?";
+			
+			//PreparedStatement 객체 생성 
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			
+			//SQL문 실행 
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setMem_nickname(rs.getString("mem_nickname"));
+				member.setMem_photo(rs.getString("mem_photo"));
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return member;
+	}
 	//조회수 증가 - 진입시 무조건 +1 증가
 	//글 수정
+	public void updateHouse(HouseListVO list,HouseDetailVO detail)throws Exception{
+		System.out.println(detail);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			//오토커밋 해제
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE house_detail SET house_title=?,house_seller_type=?,house_type=?,zipcode=?,"
+					+ "house_address1=?,house_address2=?,house_deal_type=?,house_price=?,house_space=?,"
+					+ "house_floor=?,house_photo1=?,house_photo2=?,house_move_in=? WHERE house_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, detail.getHouse_title());
+			pstmt.setInt(2, detail.getHouse_seller_type());
+			pstmt.setInt(3, detail.getHouse_type());
+			pstmt.setString(4, detail.getZipcode());
+			pstmt.setString(5, detail.getHouse_address1());
+			pstmt.setString(6, detail.getHouse_address2());
+			pstmt.setInt(7, detail.getHouse_deal_type());
+			pstmt.setInt(8, detail.getHouse_price());
+			pstmt.setInt(9, detail.getHouse_space());
+			pstmt.setInt(10, detail.getHouse_floor());
+			pstmt.setString(11, detail.getHouse_photo1());
+			pstmt.setString(12, detail.getHouse_photo2());
+			pstmt.setInt(13, detail.getHouse_move_in());
+			pstmt.setInt(14, detail.getHouse_num());
+			pstmt.executeUpdate();
+
+			sql = "UPDATE houselist SET house_content=? WHERE house_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setString(1, list.getHouse_content());
+			pstmt2.setInt(2, detail.getHouse_num());
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		
+	}
 	//글 삭제
 	
 	//--------------------

@@ -152,4 +152,5 @@ public class HouseDetailVO {
 		this.mem_nickname = mem_nickname;
 	}
 	
+	
 }

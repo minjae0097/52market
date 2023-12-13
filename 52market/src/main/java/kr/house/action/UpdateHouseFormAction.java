@@ -1,36 +1,40 @@
 package kr.house.action;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.house.dao.HouseDAO;
 import kr.house.vo.HouseDetailVO;
 import kr.house.vo.HouseListVO;
-import kr.member.vo.MemberVO;
-import kr.util.StringUtil;
 
-public class DetailHouseAction implements Action {
+public class UpdateHouseFormAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int house_num = Integer.parseInt(request.getParameter("house_num"));
 		
+		HttpSession session = request.getSession();
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		int house_num = Integer.parseInt(request.getParameter("house_num"));
+		if(user_num == null) {
+			return "redirect:/member/loginForm.do";
+		}
 		HouseDAO dao = HouseDAO.getInstance();
+		HouseDetailVO db_detail = dao.getHouseDetail(house_num);
+		
+		if(!user_num.equals(db_detail.getMem_num())) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		
 		HouseDetailVO detail = dao.getHouseDetail(house_num);
 		HouseListVO list = dao.getHouseList(house_num);
-		MemberVO seller = dao.getHouseMember(house_num);
-		
-		detail.setHouse_title(StringUtil.useNoHtml(detail.getHouse_title()));
-		list.setHouse_content(StringUtil.useBrHtml(list.getHouse_content()));
 		
 		request.setAttribute("detail", detail);
 		request.setAttribute("list", list);
-		request.setAttribute("seller", seller);
 		
 		//JSP 경로 반환
-		return "/WEB-INF/views/house/detailHouse.jsp";
+		return "/WEB-INF/views/house/updateHouseForm.jsp";
 	}
 
 }
