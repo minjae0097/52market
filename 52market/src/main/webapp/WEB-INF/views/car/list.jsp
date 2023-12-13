@@ -21,7 +21,6 @@
 					<a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">
 						<img src="${pageContext.request.contextPath}/upload/${car.car_image}">
 						<span>${car.car_title}</span>
-						<br>
 						<b><fmt:formatNumber value="${car.car_price}"/>원</b>
 					</a>
 				</div>
@@ -29,6 +28,7 @@
 			<div class="float-clear">
 				<hr width="100%" size="1" noshade="noshade">
 			</div>
+			<div class="align-center">${page}</div>
 		</div>
 	</div>
 	<div class="align-right">

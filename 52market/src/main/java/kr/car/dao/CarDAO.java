@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.car.vo.CarList_DetailVO;
+import kr.car.vo.Car_FavVO;
 import kr.car.vo.Car_MapVO;
 import kr.car.vo.CarlistVO;
 import kr.member.vo.MemberVO;
@@ -87,6 +88,45 @@ public class CarDAO {
 		}
 		
 	}
+	//전체 레코드수/검색 레코드수
+		public int getCarCount(String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			String sub_sql = "";
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += "WHERE title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
+					else if(keyfield.equals("3")) sub_sql += "WHERE content LIKE ?";
+				}
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
+						+ " ON m.mem_num = a.car_seller " + sub_sql;
+				//PreparedStatement 객체
+				pstmt = conn.prepareStatement(sql);
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(1, "%"+keyword+"%");
+				}
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
+		}
 	//중고차 리스트
 	public List<CarList_DetailVO> getList(int start, int end, String keyfield, String keyword, int carlist_status)throws Exception{
 		Connection conn = null;
@@ -335,8 +375,171 @@ public class CarDAO {
 		
 	}
 	//중고차 삭제
-	
-	
+	public void deleteCar(int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
+		PreparedStatement pstmt5 = null;
+		ResultSet rs = null;
+		String sql = null;
+		int status = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			//car_fav 삭제
+			sql = "DELETE FROM car_fav WHERE carlist_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carlist_num);
+			pstmt.executeUpdate();
+			//car_map 삭제
+			sql = "DELETE FROM car_map WHERE carlist_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, carlist_num);
+			pstmt2.executeUpdate();
+			//status 불러오기
+			sql = "SELECT * FROM carlist WHERE carlist_num=?";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setInt(1, carlist_num);
+			rs = pstmt3.executeQuery();
+			if(rs.next()) {
+				status = rs.getInt("carlist_status");
+			}
+			//carlist 삭제
+			sql = "DELETE FROM carlist WHERE carlist_num=?";
+			pstmt4 = conn.prepareStatement(sql);
+			pstmt4.setInt(1, carlist_num);
+			pstmt4.executeUpdate();
+			//status==0일때 carlist_detail 삭제
+			if(status==0) {
+				sql = "DELETE FROM carlist_detail WHERE carlist_num=?";
+				pstmt5 = conn.prepareStatement(sql);
+				pstmt5.setInt(1, carlist_num);
+				pstmt5.executeUpdate();
+			}
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt5, null);
+			DBUtil.executeClose(null, pstmt4, null);
+			DBUtil.executeClose(null, pstmt3, null);
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		
+	}
+	//중고차 관심 등록
+	public void insertCarFav(Car_FavVO carfav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "INSERT INTO car_fav(carlist_num,mem_num) VALUES(?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carfav.getCarlist_num());
+			pstmt.setInt(2, carfav.getMem_num());
+			pstmt.executeUpdate();
+			
+			
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//중고차 관심 삭제
+	public void deleteCarFav(Car_FavVO carfav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "DELETE FROM car_fav WHERE carlist_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carfav.getCarlist_num());
+			pstmt.setInt(2, carfav.getMem_num());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//좋아요 개수
+		public int selectFavCount(int carlist_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM car_fav WHERE carlist_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, carlist_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}			
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
+		}
+		//회원번호와 게시물 번호를 이용한 좋아요 정보(좋아요 선택 여부)
+		public Car_FavVO selectFav(Car_FavVO carfav)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Car_FavVO fav = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM car_fav WHERE carlist_num=? AND mem_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, carfav.getCarlist_num());
+				pstmt.setInt(2, carfav.getMem_num());
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					fav = new Car_FavVO();
+					fav.setCarlist_num(rs.getInt("carlist_num"));
+					fav.setMem_num(rs.getInt("mem_num"));
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return fav;
+		}
 }
 
 

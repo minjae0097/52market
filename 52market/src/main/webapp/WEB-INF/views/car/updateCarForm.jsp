@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 window.onload=function(){
-	let myForm = document.getElementById('updateCarForm');
 	//지도 검색
 	let openmap = document.getElementById('mapopen');
 	openmap.onclick = function(){
@@ -16,8 +16,11 @@ window.onload=function(){
 
 		  window.open("${pageContext.request.contextPath}/map/insertMap.do","_blank", options);
 	};
+	let myForm = document.getElementById('updateCarForm');
 	//입력폼 확인
 	myForm.onsubmit = function(){
+	let choice = confirm('수정하시겠습니까?');
+	if(choice){
 		let items = document.querySelectorAll('input[type="text"],input[type="number"],textarea');
 		for(let i=0;i<items.length;i++){
 			if(items[i].value.trim()==''){
@@ -44,7 +47,10 @@ window.onload=function(){
 				return false;
 			}
 		}
-		
+	}else{
+		return false;
+	}
+	
 	};
 	function base() {
 		let type = document.querySelectorAll('input[name="car_type"]');

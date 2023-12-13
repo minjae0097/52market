@@ -21,7 +21,7 @@ public class DetailCarAction implements Action{
 		CarList_DetailVO detail = car.getCarList_Detail(carlist_num);
 		CarlistVO list = car.getCarList(carlist_num);
 		Car_MapVO map = car.getCarMap(carlist_num);
-		MemberVO seller = car.getCarMember(carlist_num);
+		MemberVO seller = car.getCarMember(detail.getCar_seller());
 		
 		detail.setCar_title(StringUtil.useNoHtml(detail.getCar_title()));
 		list.setCarlist_content(StringUtil.useBrNoHtml(list.getCarlist_content()));
