@@ -38,7 +38,7 @@ public class WriteFavAction implements Action{
 				mapAjax.put("status", "noFav");
 			}else {
 				dao.insertFav(favVO);
-				mapAjax.put("status", "success");
+				mapAjax.put("status", "yesFav");
 			}
 			mapAjax.put("result", "success");
 			mapAjax.put("count", dao.selectFavCount(board_num));

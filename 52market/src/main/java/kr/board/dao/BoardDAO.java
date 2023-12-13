@@ -449,6 +449,7 @@ public class BoardDAO {
 			pstmt.setString(2, boardReply.getRe_ip());
 			pstmt.setInt(3, boardReply.getMem_num());
 			pstmt.setInt(4, boardReply.getBoard_num());
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new Exception(e);
 		} finally {
@@ -492,7 +493,7 @@ public class BoardDAO {
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
-					+ "(SELECT * FROM board_reply JOINT member USING(mem_num) "
+					+ "(SELECT * FROM board_reply JOIN member USING(mem_num) "
 					+ "WHERE board_num=? ORDER BY re_num DESC)a) " + "WHERE rnum>=? AND rnum<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_num);
@@ -555,5 +556,41 @@ public class BoardDAO {
 		return reply;
 	}
 	// 댓글 수정
+	public void updateReplyBoard(BoardReplyVO reply)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE board_reply SET re_content=?,re_modifydate=SYSDATE,re_ip=? WHERE re_num";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reply.getRe_content());
+			pstmt.setString(2, reply.getRe_ip());
+			pstmt.setInt(3, reply.getRe_num());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	// 댓글 삭제
+	public void deleteReplyBoard(int re_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "DELETE FROM board_reply WHERE re_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, re_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 }

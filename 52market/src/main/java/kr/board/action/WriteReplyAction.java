@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import kr.board.dao.BoardDAO;
 import kr.board.vo.BoardReplyVO;
 import kr.controller.Action;
@@ -34,8 +36,12 @@ public class WriteReplyAction implements Action{
 			mapAjax.put("result", "success");
 		}
 		
+		ObjectMapper mapper = new ObjectMapper();
+		String ajaxData = mapper.writeValueAsString(mapAjax);
 		
-		return null;
+		request.setAttribute("ajaxData", ajaxData);
+		
+		return "/WEB-INF/views/common/ajax_view.jsp";
 	}
 
 }

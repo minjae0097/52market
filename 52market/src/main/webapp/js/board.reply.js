@@ -13,8 +13,7 @@ $(function(){
 		$.ajax({
 			url:'listReply.do',
 			type:'post',
-			data:{pageNum:pageNum,rowCount:rowCount,
-			                    board_num:$('#board_num').val()},
+			data:{pageNum:pageNum,rowCount:rowCount,board_num:$('#board_num').val()},
 			dataType:'json',
 			success:function(param){
 				//로딩 이미지 감추기
@@ -28,14 +27,14 @@ $(function(){
 				
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
-					output += '<h4>' + item.id + '</h4>';
+					output += '<h4>' + item.mem_id + '</h4>';
 					output += '<div class="sub-item">';
 					output += '<p>' + item.re_content + '</p>';
 					
 					if (item.re_modifydate) {
 						output += '<span class="modify-date">최근 수정일 : ' + item.re_modifydate + '</span>';
 					} else {
-						output += '<span class="modify-date">등록일 : ' + item.re_date + '</span>';
+						output += '<span class="modify-date">등록일 : ' + item.re_regdate + '</span>';
 					}
 					
 					//수정 삭제 버튼 만들기 (조건 有)
@@ -145,12 +144,12 @@ $(function(){
 		//item/sub-item/p, 버튼 순으로 구성되어있음
 		//댓글 번호 읽어오기
 		let re_num = $(this).attr('data-renum');
-		let content = $(this).parent().find('p').html().replace(/<br>/gi, '\n'); //모든 br태그를 찾고 \n으로 바꿔서 줄바꿈 처리
+		let re_content = $(this).parent().find('p').html().replace(/<br>/gi, '\n'); //모든 br태그를 찾고 \n으로 바꿔서 줄바꿈 처리
 															//g == 지정문자열 모두, i == 대소문자 무시
 		//댓글 수정폼 UI
 		let modifyUI = '<form id="mre_form">';
 		modifyUI += '<input type="hidden" name="re_num" id="mre_num" value="' + re_num + '">';
-		modifyUI += '<textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+content+'</textarea>';
+		modifyUI += '<textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+re_content+'</textarea>';
 		
 		//글자수 보여지는 부분
 		modifyUI += '<div id="mre_first"><span class="letter-count">300/300</span></div>';

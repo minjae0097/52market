@@ -42,6 +42,7 @@
 			<hr size="1" noshade="noshade" width="100%">
 			<ul class="detail-sub">
 				<li>
+					<%-- 좋아요 --%>
 					<img id="output_fav" data-num="${board.board_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 					좋아요
 					<span id="output_fcount"></span>
@@ -60,6 +61,7 @@
 							delete_btn.onclick = function(){
 								let choice = confirm('삭제하시겠습니까?');
 								if(choice){
+									alert('게시글이 삭제되었습니다');
 									location.replace('delete.do?board_num=${board.board_num}');
 								}
 							};
