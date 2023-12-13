@@ -11,7 +11,7 @@ import kr.alba.vo.AlbaVO;
 import kr.controller.Action;
 import kr.util.FileUtil;
 
-public class WriteAlbaAction implements Action{
+public class InsertAlbaAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,8 +35,8 @@ public class WriteAlbaAction implements Action{
 		alba.setMem_num(user_num);
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
-		dao.writeAlba(alba);
-		return "/WEB-INF/views/alba/writeAlba.jsp";
+		dao.insertAlba(alba);
+		return "/WEB-INF/views/alba/insertAlba.jsp";
 	}
 
 }

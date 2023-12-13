@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 
-public class WriteAlbaFormAction implements Action{
+public class InsertAlbaFormAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -15,7 +15,7 @@ public class WriteAlbaFormAction implements Action{
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
-		return "/WEB-INF/views/alba/writeAlbaForm.jsp";
+		return "/WEB-INF/views/alba/insertAlbaForm.jsp";
 	}
 
 }

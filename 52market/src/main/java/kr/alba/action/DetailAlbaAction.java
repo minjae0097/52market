@@ -23,7 +23,7 @@ public class DetailAlbaAction implements Action{
 		
 		request.setAttribute("alba", alba);
 		
-		return "WEB-INF/views/alba/detailAlba.jsp";
+		return "/WEB-INF/views/alba/detailAlba.jsp";
 	}
 
 }

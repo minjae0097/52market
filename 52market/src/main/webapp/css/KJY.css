@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.content-alba-main{
+	padding:10px 250px;
+}
+#alba-photo1{
+	width: 60%;
+	margin: auto;
+	display: block;
+}
+
+.image-space .horizontal-area99{
+	margin:2px;
+	padding:3px;
+	width:45%;
+	height:240px;
+	float:left;
+	overflow:hidden;
+	text-align:center;
+}
+
+.image-space .horizontal-area99 img{
+	width:108px;
+	height:116.44px;
+
+}

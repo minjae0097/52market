@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript">
 window.onload=function(){
-	let myForm = document.getElementById('writeAlbaForm');
+	let myForm = document.getElementById('insertAlbaForm');
 	myForm.onsubmit=function(){
 		let items = document.querySelectorAll('input[type="text"],textarea');
 		for(let i=0; i<items.length; i++){
@@ -29,7 +29,7 @@ window.onload=function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>구인 글 등록</h2>
-		<form action="writeAlba.do" id="writeAlbaForm" method="post" enctype="multipart/form-data">
+		<form action="insertAlba.do" id="insertAlbaForm" method="post" enctype="multipart/form-data">
 			<ul>
 				<li>
 					<label for="alba_photo">사진등록</label>

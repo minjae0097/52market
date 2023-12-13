@@ -19,7 +19,7 @@ public class AlbaDAO {
 	private AlbaDAO() {}
 	
 	//글등록
-	public void writeAlba(AlbaVO alba)throws Exception{
+	public void insertAlba(AlbaVO alba)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -113,7 +113,7 @@ public class AlbaDAO {
 		try {
 			conn = DBUtil.getConnection();
 			
-			sql = "SELECT * FROM alba INNER JOIN member on alba.alba_num = member.mem_num WHERE alba_num=?";
+			sql = "SELECT * FROM alba a INNER JOIN member m on a.mem_num = m.mem_num WHERE alba_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, alba_num);
 			rs = pstmt.executeQuery();
@@ -142,6 +142,53 @@ public class AlbaDAO {
 	//조회수 증가
 	//파일 삭제
 	//글 수정
+	public void updateAlba(AlbaVO alba)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+			
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			if(alba.getAlba_photo()!= null) {
+				sub_sql += ",alba_photo=?";
+			}
+			if(alba.getAlba_location() != null) {
+				sub_sql += ",alba_location";
+			}
+			//SQL문 작성
+			sql = "UPDATE alba SET alba_title=?,alba_content1=?,alba_content2=?,"
+					+ "modify_date=SYSDATE,alba_ip=?,alba_zipcode=?,alba_address1=?,alba_address2=?,"
+					+ "alba_location=?" + sub_sql + "WHERE alba_num=?";
+			//PreparedStatement객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setString(++cnt, alba.getAlba_title());
+			pstmt.setString(++cnt, alba.getAlba_content1());
+			pstmt.setString(++cnt, alba.getAlba_content2());
+			pstmt.setString(++cnt, alba.getAlba_ip());
+			pstmt.setString(++cnt, alba.getAlba_zipcode());
+			pstmt.setString(++cnt, alba.getAlba_address1());
+			pstmt.setString(++cnt, alba.getAlba_address2());
+			pstmt.setString(++cnt, alba.getAlba_location());
+			if(alba.getAlba_photo() != null) {
+				pstmt.setString(++cnt, alba.getAlba_photo());
+			}
+			if(alba.getAlba_location() != null) {
+				pstmt.setString(++cnt, alba.getAlba_location());
+			}
+			pstmt.setInt(++cnt, alba.getAlba_num());
+			//SQL문 실행
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//글 삭제
 	//관심(좋아요) 등록
 	//관심(좋아요) 개수
