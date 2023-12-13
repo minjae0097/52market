@@ -16,9 +16,16 @@ public class AlbaVO {
 	private String alba_address2;	//알바 상세주소
 	private int mem_num;			//회원번호
 	private String alba_location;	//알바주소사진첨부파일
+	private String mem_nickname;	//회원닉네임
 	
 	private AlbaVO albaVO;
 
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
+	}
 	public int getAlba_num() {
 		return alba_num;
 	}

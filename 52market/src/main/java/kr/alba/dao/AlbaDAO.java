@@ -103,7 +103,7 @@ public class AlbaDAO {
 	//전체 레코드수/검색 레코드수
 	//전체 글/검색 글 목록
 	//글 상세
-	public AlbaVO getAlba(int abla_num)throws Exception{
+	public AlbaVO getAlba(int alba_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -113,9 +113,9 @@ public class AlbaDAO {
 		try {
 			conn = DBUtil.getConnection();
 			
-			sql = "SELECT * FROM alba JOIN member USING(mem_num) LEFT OUTER JOIN member_detail USING(mem_num) WHERE alba_num=?";
+			sql = "SELECT * FROM alba INNER JOIN member on alba.alba_num = member.mem_num WHERE alba_num=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, abla_num);
+			pstmt.setInt(1, alba_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				alba = new AlbaVO();
@@ -123,12 +123,13 @@ public class AlbaDAO {
 				alba.setAlba_title(rs.getString("alba_title"));
 				alba.setAlba_content1(rs.getString("alba_content1"));
 				alba.setAlba_content2(rs.getString("alba_content2"));
-				alba.setAlba_zipcode(rs.getNString("alba_zipcode"));
+				alba.setAlba_zipcode(rs.getString("alba_zipcode"));
 				alba.setAlba_address1(rs.getString("alba_address1"));
 				alba.setAlba_address2(rs.getString("alba_address2"));
 				alba.setAlba_location(rs.getString("alba_location"));
 				alba.setAlba_reg_date(rs.getDate("alba_reg_date"));
 				alba.setAlba_modify_date(rs.getDate("alba_modify_date"));
+				alba.setMem_nickname(rs.getString("mem_nickname"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);

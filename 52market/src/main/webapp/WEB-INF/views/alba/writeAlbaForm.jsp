@@ -10,7 +10,7 @@
 window.onload=function(){
 	let myForm = document.getElementById('writeAlbaForm');
 	myForm.onsubmit=function(){
-		let items = document.querySelectorAll('input[type="file"],input[type="text"],textarea');
+		let items = document.querySelectorAll('input[type="text"],textarea');
 		for(let i=0; i<items.length; i++){
 			if(items[i].value.trim()==''){
 				let label = document.querySelector('label[for="'+items[i].id+'"]');
