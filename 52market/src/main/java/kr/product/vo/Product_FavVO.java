@@ -4,6 +4,13 @@ public class Product_FavVO {
 	private int product_num;
 	private int mem_num;
 	
+	public Product_FavVO() {}
+	
+	public Product_FavVO(int product_num, int mem_num) {
+		this.product_num = product_num;
+		this.mem_num = mem_num;
+	}
+	
 	public int getProduct_num() {
 		return product_num;
 	}

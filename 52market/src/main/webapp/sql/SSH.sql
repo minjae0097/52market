@@ -23,6 +23,7 @@ create table product(
  product_modify_date date,
  product_status number(1) default 0 not null,
  product_mem number not null, --detail 때문에 추가 
+ product_hit number(9) default 0 not null, --조회수 추가
  
  constraint product_pk primary key (product_num),
  constraint product_detail_fk1 foreign key (product_mem) references member (mem_num),

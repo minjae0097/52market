@@ -13,8 +13,9 @@ public class ProductDetailAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//상품번호 반환
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
-		
 		ProductDAO dao = ProductDAO.getInstance();
+		
+		dao.updateReadcount(product_num);
 		ProductVO product = dao.getProduct(product_num);
 		
 		request.setAttribute("product", product);

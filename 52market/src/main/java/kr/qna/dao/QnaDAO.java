@@ -195,12 +195,12 @@ public class QnaDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
+			
 			sql = "UPDATE qna SET ask_content=?,ask_regdate=SYSDATE WHERE qna_num=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, qna.getAsk_content());
 			pstmt.setInt(2, qna.getQna_num());
-			
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);

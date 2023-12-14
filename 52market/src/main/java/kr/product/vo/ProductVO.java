@@ -11,6 +11,7 @@ public class ProductVO {
 	private Date product_modify_date;	//수정일
 	private int product_status;			//판매여부 미판매:0(기본),판매:1
 	private int product_mem;
+	private int product_hit;
 	
 	private String mem_nickname;			//member(닉네임)
 	private String mem_photo;				//member(프로필사진)
@@ -74,6 +75,12 @@ public class ProductVO {
 	}
 	public void setProduct_image(String product_image) {
 		this.product_image = product_image;
+	}
+	public int getProduct_hit() {
+		return product_hit;
+	}
+	public void setProduct_hit(int product_hit) {
+		this.product_hit = product_hit;
 	}
 	
 }

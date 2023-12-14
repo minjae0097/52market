@@ -13,7 +13,7 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-	<h2>${qna_title}</h2>
+	<h2>${qna.qna_title}</h2>
 	<ul class="detail-info">
 		<li>
 			<c:if test="${!empty qna.mem_photo}">
@@ -40,10 +40,11 @@
 	<ul class="detail-sub">
 		<li>
 			작성일 : ${qna.question_regdate}
-			<c:if test="${user_num == qna.mem_num}">
+			<%-- 관리자만 답글 가능 --%>
+			<c:if test="${user_auth == 9}">
+				<input type="button" value="답글달기" onclick="location.href='aUpdateForm.do?qna_num=${qna.qna_num}'">
+			</c:if>
 			<input type="button" value="삭제" id="delete_btn">
-			<input type="button" value="목록" onclick="location.href='list.do'">
-			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 			<script type="text/javascript">
 				let delete_btn = document.getElementById('delete_btn');
 				//이벤트 연결
@@ -54,7 +55,7 @@
 					}
 				};
 			</script>
-			</c:if>
+			<input type="button" value="목록" onclick="location.href='list.do'">
 		</li>
 	</ul>
 	</div>

@@ -9,6 +9,7 @@
 <title>상품 상세 정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/product.fav.js"></script>
 </head>
 <body>
 <div class="page-main">
@@ -26,8 +27,8 @@
 			</li>
 			<li>
 				${product.mem_nickname}<br>
-				조회 : <br>
-				관심 등록수 : <br>
+				조회 : ${product.product_hit}<br>
+				관심 등록수 : <span id="output_fcount"></span><br>
 			</li>
 		</ul>
 		<hr size="1" noshade="noshade" width="100%">
@@ -39,17 +40,12 @@
 		</p>
 		<hr size="1" noshade="noshade" width="100%">
 		<ul class="detail-sub">
-		
-			<!-- 
 			<li>
-				<%-- 좋아요 --%>
-				<img id="output_fav" data-num="${board.board_num}" 
-				  src="${pageContext.request.contextPath}/images/fav01.gif" 
-				                                               width="50">
-				좋아요
+				<%-- 관심물품 --%>
+				<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				관심글 등록
 				<span id="output_fcount"></span>                                               
 			</li>
-			 -->
 			 
 			<li>
 				<c:if test="${!empty product.product_modify_date}">
@@ -73,6 +69,7 @@
 				</c:if>     
 			</li>
 		</ul>
+	</div>
 </div>
 </body>
 </html>
