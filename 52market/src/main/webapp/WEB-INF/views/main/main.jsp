@@ -13,7 +13,31 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h4>최신 상품</h4>
+		<div class="align-center">
+			<a href="${pageContext.request.contextPath}/product/list.do">
+				<img src="${pageContext.request.contextPath}/images/중고거래배너.png" width="900">
+			</a>
+		</div>
+		<div class="align-center">
+			<a href="${pageContext.request.contextPath}/board/list.do">
+				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900" onclick="location.href='${pageContext.request.contextPath}/board/list.do'">
+			</a>
+		</div>
+		<div class="align-center">
+			<a href="${pageContext.request.contextPath}/alba/list.do">
+				<img src="${pageContext.request.contextPath}/images/알바배너.jpg" width="900">
+			</a>
+		</div>
+		<div class="align-center">
+			<a href="${pageContext.request.contextPath}/house/list.do">
+				<img src="${pageContext.request.contextPath}/images/house_title.png" width="900">
+			</a>
+		</div>
+		<div class="align-center">
+			<a href="${pageContext.request.contextPath}/car/list.do">
+				<img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900">
+			</a>
+		</div>
 	</div>
 </div>
 </body>

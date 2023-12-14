@@ -33,14 +33,15 @@ public class BoardDAO {
 
 		try {
 			conn = DBUtil.getConnection();
-			sql = "INSERT INTO board (board_num,board_title,board_content,board_filename,board_ip,mem_num) "
-					+ "VALUES (board_seq.nextval,?,?,?,?,?)";
+			sql = "INSERT INTO board (board_num,board_category,board_title,board_content,board_filename,board_ip,mem_num) "
+					+ "VALUES (board_seq.nextval,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getBoard_title());
-			pstmt.setString(2, board.getBoard_content());
-			pstmt.setString(3, board.getBoard_filename());
-			pstmt.setString(4, board.getBoard_ip());
-			pstmt.setInt(5, board.getMem_num());
+			pstmt.setInt(1, board.getBoard_category());
+			pstmt.setString(2, board.getBoard_title());
+			pstmt.setString(3, board.getBoard_content());
+			pstmt.setString(4, board.getBoard_filename());
+			pstmt.setString(5, board.getBoard_ip());
+			pstmt.setInt(6, board.getMem_num());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -66,6 +67,7 @@ public class BoardDAO {
 			if (rs.next()) {
 				board = new BoardVO();
 				board.setBoard_num(rs.getInt("board_num"));
+				board.setBoard_category(rs.getInt("board_category"));
 				board.setBoard_title(rs.getString("board_title"));
 				board.setBoard_content(rs.getString("board_content"));
 				board.setBoard_hit(rs.getInt("board_hit"));
@@ -212,14 +214,15 @@ public class BoardDAO {
 
 		try {
 			conn = DBUtil.getConnection();
-
 			if (keyword != null && !"".equals(keyword)) {
 				if (keyfield.equals("1"))
 					sub_sql += "WHERE board_title LIKE ?";
 				else if (keyfield.equals("2"))
-					sub_sql += "WHERE mem_id LIKE ?";
+					sub_sql += "WHERE board_title LIKE ?";
 				else if (keyfield.equals("3"))
-					sub_sql += "WHERE board_content LIKE ?";
+					sub_sql += "WHERE board_title LIKE ?";
+				else if (keyfield.equals("4"))
+					sub_sql += "WHERE board_title LIKE ?";
 			}
 
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM board JOIN member USING(mem_num) "
@@ -237,6 +240,7 @@ public class BoardDAO {
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
 				board.setBoard_num(rs.getInt("board_num"));
+				board.setBoard_category(rs.getInt("board_category"));
 				board.setBoard_title(StringUtil.useNoHtml(rs.getString("board_title")));
 				board.setBoard_content(rs.getString("board_content"));
 				board.setBoard_hit(rs.getInt("board_hit"));

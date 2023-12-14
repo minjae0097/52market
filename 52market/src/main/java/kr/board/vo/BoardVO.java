@@ -3,6 +3,7 @@ package kr.board.vo;
 import java.sql.Date;
 
 public class BoardVO {
+	private int board_category;
 	private int board_num;					//글번호
 	private String board_title;				//글제목
 	private String board_content;			//글내용
@@ -18,6 +19,14 @@ public class BoardVO {
 	private String mem_photo;
 	private String mem_address1;
 	
+	
+	
+	public int getBoard_category() {
+		return board_category;
+	}
+	public void setBoard_category(int board_category) {
+		this.board_category = board_category;
+	}
 	public int getBoard_num() {
 		return board_num;
 	}

@@ -34,7 +34,7 @@ public class WriteFavAction implements Action{
 			BoardDAO dao = BoardDAO.getInstance();
 			BoardFavVO db_fav = dao.selectFav(favVO);
 			if(db_fav != null) {
-				dao.deleteFav(favVO);
+				dao.deleteFav(db_fav);
 				mapAjax.put("status", "noFav");
 			}else {
 				dao.insertFav(favVO);

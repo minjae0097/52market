@@ -22,6 +22,7 @@ public class ListAction implements Action{
 		String keyword = request.getParameter("keyword");
 		
 		BoardDAO dao = BoardDAO.getInstance();
+
 		int count = dao.getBoardCount(keyfield,keyword);
 		
 		//페이지 처리

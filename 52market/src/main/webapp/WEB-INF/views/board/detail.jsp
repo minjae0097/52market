@@ -15,18 +15,13 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2>${board.board_title}</h2>
 			<ul class="detail-info">
 				<li>
 					<c:if test="${!empty user_photo}">
-						<a href="${pageContext.request.contextPath}/board/board_myPage.jsp">
-							<img src="${pageContext.request.contextPath}/upload/${board.board_photo}" width="40" height="40" class="my-photo">
-						</a>
+						<img src="${pageContext.request.contextPath}/upload/${board.board_photo}" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
 					<c:if test="${empty user_photo}">
-						<a href="${pageContext.request.contextPath}/board/board_myPage.jsp">
-							<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo">
-						</a>					
+						<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
 				</li>
 				<li>
@@ -34,6 +29,7 @@
 					조회 ${board.board_hit}
 				</li>
 			</ul>
+			<h2>${board.board_title}</h2>
 			<hr size="1" noshade="noshade" width="100%">
 			<c:if test="${!empty board.board_filename}">
 				<div class="align-center">

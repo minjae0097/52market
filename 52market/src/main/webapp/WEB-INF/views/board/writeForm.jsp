@@ -37,6 +37,15 @@
 			<form id="write_form" action="write.do" method="post" enctype="multipart/form-data">
 				<ul>
 					<li>
+						<label for="board_category">카테고리</label>
+						<select name="board_category" id="board_category">
+							<option value="1">동네생활</option>
+							<option value="2">동네백과</option> 
+							<option value="3">동네맛집</option> 
+							<option value="4">동네소식</option> 
+						</select>
+					</li>
+					<li>
 						<label for="board_title">제목</label>
 						<input type="text" name="board_title" id="board_title" maxlength="50">
 					</li>

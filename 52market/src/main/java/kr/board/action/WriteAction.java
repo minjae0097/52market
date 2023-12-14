@@ -26,6 +26,7 @@ public class WriteAction implements Action{
 		
 		//자바빈 생성
 		BoardVO board = new BoardVO();
+		board.setBoard_category(Integer.parseInt(multi.getParameter("board_category")));
 		board.setBoard_title(multi.getParameter("board_title"));
 		board.setBoard_content(multi.getParameter("board_content"));
 		board.setBoard_ip(request.getRemoteAddr());

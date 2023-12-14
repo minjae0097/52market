@@ -28,26 +28,18 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<div class="align-center">
-				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900">
+				<a href="${pageContext.request.contextPath}/board/list.do">
+					<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900" onclick="location.href='${pageContext.request.contextPath}/board/list.do'">
+				</a>
 			</div>
 			<form class="align-right" id="search_form" action="list.do" method="get">
 				<ul>
 					<li>
-						<select name="category">
-							<option>---필터---</option>
-							<option>동네생활</option>
-							<option>동네백과</option>
-							<option>동네맛집</option>
-							<option>동네소식</option>
-							<option>취미생활</option>
-							<option>해주세요</option>
-							<option>동네질문</option>
-							<option>생활정보</option>
-						</select>
-						<select name="keyfield">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option> 
-							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option> 
+						<select name="board_category">
+							<option value="1" <c:if test="${param.board_category==1}">selected</c:if>>동네생활</option>
+							<option value="2" <c:if test="${param.board_category==2}">selected</c:if>>동네백과</option> 
+							<option value="3" <c:if test="${param.board_category==3}">selected</c:if>>동네맛집</option> 
+							<option value="4" <c:if test="${param.board_category==4}">selected</c:if>>동네소식</option> 
 						</select>	
 						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
 						<input type="submit" value="검색">
@@ -57,7 +49,7 @@
 				</ul>
 			</form>
 			<div>
-				<input type="button" value="마이페이지" onclick="location.href='board_myPage.do'">
+				<input type="button" value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 			</div>
 			<c:if test="${count==0}">
 				<div class="result-display">
@@ -67,7 +59,7 @@
 			<c:if test="${count > 0}">
 				<table>
 					<tr>
-						<th>글번호</th>
+						<th>카테고리</th>
 						<th>제목</th>
 						<th>내용</th>
 						<th>위치</th>
@@ -75,12 +67,17 @@
 					</tr>
 					<c:forEach var="board" items="${list}">
 						<tr>
-							<td>${board.board_num}</td>
-							<td><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
-							<td>${board.board_content}</td>
+							<td class="align-center">
+								<c:if test="${board.board_category==1}">동네생활</c:if>
+							    <c:if test="${board.board_category==2}">동네백과</c:if>
+							    <c:if test="${board.board_category==3}">동네맛집</c:if>
+							    <c:if test="${board.board_category==4}">동네소식</c:if>
+							</td>
+							<td class="align-center"><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
+							<td class="align-center">${board.board_content}</td>
 							<td></td>
 							<%-- <td>${board.mem_address1}</td> --%>
-							<td>${board.board_hit}</td>
+							<td class="align-center">${board.board_hit}</td>
 						</tr>
 					</c:forEach>
 				</table>

@@ -14,22 +14,21 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2 class="align-center">동네생활 회원정보</h2>
-			<hr size="1" width="100%" noshade="noshade">
+			<h2>동네생활 회원정보</h2>
 			<div class="mypage-div">
 				<h3>프로필 사진</h3>
 				<ul>
 					<li>
 						<c:if test="${empty member.mem_photo}">
-							<img src="${pageContext.request.contextPath}/images/face.png" width="150" height="150" class="my-photo">
+							<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 						</c:if>
 						<c:if test="${!empty member.mem_photo}">
-							<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="150" height="150" class="my-photo">
+							<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
 						</c:if>
 					</li>
 					<li>
 						<div class="align-center">
-							<input type="button" value="수정" id="photo_btn" onclick="location.href='${pageContext.request.contextPath}/member/myPage.do'">
+							<input type="button" value="수정" id="photo_btn">
 						</div>
 						<div id="photo-choice" style="display:none;">
 							<input type="file" id="photo" accept="image/gif,image/png,image/jpeg"><br>
@@ -38,18 +37,17 @@
 						</div>
 					</li>
 				</ul>
-				<hr size="1" width="100%" noshade="noshade">
-				<h3 class="align-center">[동네생활 회원정보]</h3>
-				<ul class="align-center">
+				<h3>동네생활 회원정보</h3>
+				<ul>
 					<li><h3>${member.mem_nickname}님</h3></li>
 					<li>주소 ${memeber.mem_address1}</li>
 					<li>가입일 ${member.mem_regdate}</li>
-					<li class="align-center">
+					<li>
 						<div>
 							<a href="${pageContext.request.contextPath}/board/board_myPageList.do">작성할 글</a>
 						</div>
 					</li>
-					<li class="align-center">
+					<li>
 						<div>
 							<a href="${pageContext.request.contextPath}/board/board_myPageRelpyList.do">댓글단 글</a>
 						</div>
@@ -66,7 +64,7 @@
 				</h3>
 			</div>
 			<div class="mypage-div">
-				<h3>관심 게시물 목록</h3>
+				<h3>댓글단 글</h3>
 				<table>
 					<tr>
 						<th>제목</th>
@@ -81,10 +79,6 @@
 					</tr>
 					</c:forEach>
 				</table>
-				<h3>
-					작성한 글
-					<input type="button" value="작성한 글 보기" onclick="location.href='${pageContext.request.contextPath}/board/board_num=${board.board_num}'">
-				</h3>
 			</div>
 		</div>
 	</div>
