@@ -163,7 +163,7 @@ public class BoardDAO {
 	}
 
 	// 전체&검색 레코드 수
-	public int getBoardCount(String keyfield, String keyword) throws Exception {
+	public int getBoardCount(String board_category, String keyword) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -175,13 +175,13 @@ public class BoardDAO {
 			conn = DBUtil.getConnection();
 			if (keyword != null && !"".equals(keyword)) {
 				// 검색 처리
-				if (keyfield.equals("1")) {
+				if (board_category.equals("1")) {
 					sub_sql += "WHERE board_title LIKE ?";
-				} else if (keyfield.equals("2")) {
+				} else if (board_category.equals("2")) {
 					sub_sql += "WHERE board_title LIKE ?";
-				} else if (keyfield.equals("3")) {
+				} else if (board_category.equals("3")) {
 					sub_sql += "WHERE board_title LIKE ?";
-				} else if (keyfield.equals("4")) {
+				} else if (board_category.equals("4")) {
 					sub_sql += "WHERE board_title LIKE ?";
 				}
 			}
@@ -205,7 +205,7 @@ public class BoardDAO {
 	}
 
 	// 전체&검색 글 목록
-	public List<BoardVO> getListBoard(int start, int end, String keyfield, String keyword) throws Exception {
+	public List<BoardVO> getListBoard(int start, int end, String board_category, String keyword) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -217,13 +217,13 @@ public class BoardDAO {
 		try {
 			conn = DBUtil.getConnection();
 			if (keyword != null && !"".equals(keyword)) {
-				if (keyfield.equals("1"))
+				if (board_category.equals("1"))
 					sub_sql += "WHERE board_title LIKE ?";
-				else if (keyfield.equals("2"))
+				else if (board_category.equals("2"))
 					sub_sql += "WHERE board_title LIKE ?";
-				else if (keyfield.equals("3"))
+				else if (board_category.equals("3"))
 					sub_sql += "WHERE board_title LIKE ?";
-				else if (keyfield.equals("4"))
+				else if (board_category.equals("4"))
 					sub_sql += "WHERE board_title LIKE ?";
 			}
 
