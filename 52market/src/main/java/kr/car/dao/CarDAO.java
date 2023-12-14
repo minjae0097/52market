@@ -89,12 +89,17 @@ public class CarDAO {
 		
 	}
 	//전체 레코드수/검색 레코드수
-		public int getCarCount(String keyfield,String keyword)throws Exception{
+		public int getCarCount(String keyfield,String keyword,int status,String car_type,String car_fuel,String car_transmission,String car_origin)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String sql = null;
 			String sub_sql = "";
+			String type = "";
+			String fuel = "";
+			String transmission = "";
+			String origin = "";
+			int cnt = 0;
 			int count = 0;
 			
 			try {
@@ -103,17 +108,43 @@ public class CarDAO {
 				
 				if(keyword!=null && !"".equals(keyword)) {
 					//검색 처리
-					if(keyfield.equals("1")) sub_sql += "WHERE title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += "WHERE content LIKE ?";
+					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
+					else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
+				}
+				//필터
+				if(car_type!=null) {
+					type += " AND car_type LIKE ? ";
+				}
+				if(car_fuel!=null) {
+					fuel += " AND car_fuel LIKE ? ";
+				}
+				if(car_transmission!=null) {
+					transmission += " AND car_transmission LIKE ? ";
+				}
+				if(car_origin!=null) {
+					origin += " AND car_origin LIKE ? ";
 				}
 				//SQL문 작성
 				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
-						+ " ON m.mem_num = a.car_seller " + sub_sql;
+						+ " ON m.mem_num = a.car_seller WHERE carlist_status>=?" + sub_sql +type+fuel+transmission+origin;
 				//PreparedStatement 객체
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(++cnt, status);
 				if(keyword != null && !"".equals(keyword)) {
-					pstmt.setString(1, "%"+keyword+"%");
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				if(car_type!=null) {
+					pstmt.setString(++cnt, type);
+				}
+				if(car_fuel!=null) {
+					pstmt.setString(++cnt, fuel);
+				}
+				if(car_transmission!=null) {
+					pstmt.setString(++cnt, transmission);
+				}
+				if(car_origin!=null) {
+					pstmt.setString(++cnt, origin);
 				}
 				//SQL문 실행
 				rs = pstmt.executeQuery();
@@ -128,7 +159,7 @@ public class CarDAO {
 			return count;
 		}
 	//중고차 리스트
-	public List<CarList_DetailVO> getList(int start, int end, String keyfield, String keyword, int carlist_status)throws Exception{
+	public List<CarList_DetailVO> getList(int start, int end, String keyfield, String keyword, int carlist_status,String car_type,String car_fuel,String car_transmission,String car_origin)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -136,28 +167,57 @@ public class CarDAO {
 		String sql = null;
 		String sub_sql = "";
 		int cnt = 0;
-		
+		String type = "";
+		String fuel = "";
+		String transmission = "";
+		String origin = "";
 		try {
 			//커넥션풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			
 			if(keyword!=null&&!"".equals(keyword)) {
 				//검색 처리
-				if(keyfield.equals("1")) sub_sql += " AND name LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND detail LIKE ?";
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
+				else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//필터
+			if(car_type!=null) {
+				type += " AND car_type LIKE ? ";
+			}
+			if(car_fuel!=null) {
+				fuel += " AND car_fuel LIKE ? ";
+			}
+			if(car_transmission!=null) {
+				transmission += " AND car_transmission LIKE ? ";
+			}
+			if(car_origin!=null) {
+				origin += " AND car_origin LIKE ? ";
 			}
 			//SQL문 작성
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) WHERE carlist_status>=? " + sub_sql +
-					" ORDER BY carlist_num DESC)a) WHERE rnum >=? AND rnum <=?";
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+					+ "WHERE carlist_status>=? ORDER BY carlist_num DESC) b on m.mem_num=b.car_seller )a) WHERE rnum >=? AND rnum <=? " + sub_sql + type + fuel + transmission + origin;
 			//PreparedStatrment 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setInt(++cnt, carlist_status);
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
 			if(keyword != null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
-			pstmt.setInt(++cnt, start);
-			pstmt.setInt(++cnt, end);
+			if(car_type!=null) {
+				pstmt.setString(++cnt, type);
+			}
+			if(car_fuel!=null) {
+				pstmt.setString(++cnt, fuel);
+			}
+			if(car_transmission!=null) {
+				pstmt.setString(++cnt, transmission);
+			}
+			if(car_origin!=null) {
+				pstmt.setString(++cnt, origin);
+			}
 			rs = pstmt.executeQuery();
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {

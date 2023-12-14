@@ -19,16 +19,22 @@ public class ListAction implements Action{
 		
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		//필터
+		String car_type = request.getParameter("car_type");
+		String car_fuel = request.getParameter("car_fuel");
+		String car_transmission = request.getParameter("car_transmission");
+		String car_origin = request.getParameter("car_origin");
+		
 		
 		CarDAO dao = CarDAO.getInstance();
-		int count = dao.getCarCount(keyfield, keyword);
+		int count = dao.getCarCount(keyfield, keyword,0,car_type,car_fuel,car_transmission,car_origin);
 		
 		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum),count,8,5,"list.do");
 		
 		
 		List<CarList_DetailVO> carList = null;
 		if(count>0) {
-			carList = dao.getList(page.getStartRow(), page.getEndRow(), keyfield, keyword, 0);
+			carList = dao.getList(page.getStartRow(), page.getEndRow(), keyfield, keyword, 0 ,car_type,car_fuel,car_transmission,car_origin);
 		}
 		request.setAttribute("count", count);
 		request.setAttribute("carList", carList);
