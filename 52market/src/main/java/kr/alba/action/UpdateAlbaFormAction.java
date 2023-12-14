@@ -20,9 +20,8 @@ public class UpdateAlbaFormAction implements Action{
 		}
 		int alba_num = Integer.parseInt(request.getParameter("alba_num"));
 		AlbaDAO dao = AlbaDAO.getInstance();
-		AlbaVO alba = dao.getAlba(alba_num);
-			
-		if(!user_num.equals(alba.getAlba_num())){
+		AlbaVO alba = dao.getAlba(alba_num);	
+		if(user_num != alba.getAlba_num()){
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		

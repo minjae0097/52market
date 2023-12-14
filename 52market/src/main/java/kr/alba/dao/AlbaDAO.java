@@ -157,12 +157,12 @@ public class AlbaDAO {
 				sub_sql += ",alba_photo=?";
 			}
 			if(alba.getAlba_location() != null) {
-				sub_sql += ",alba_location";
+				sub_sql += ",alba_location=?";
 			}
 			//SQL문 작성
 			sql = "UPDATE alba SET alba_title=?,alba_content1=?,alba_content2=?,"
-					+ "modify_date=SYSDATE,alba_ip=?,alba_zipcode=?,alba_address1=?,alba_address2=?,"
-					+ "alba_location=?" + sub_sql + "WHERE alba_num=?";
+					+ "alba_modify_date=SYSDATE,alba_ip=?,alba_zipcode=?,alba_address1=?,alba_address2=?,"
+					+ "alba_location=?" + sub_sql + "WHERE alba_num=2";
 			//PreparedStatement객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
