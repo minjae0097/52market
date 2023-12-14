@@ -9,6 +9,8 @@
 <title>상세보기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/house_fav.js"></script>
 </head>
 <body>
 <div class="page-main">
@@ -23,25 +25,25 @@
 			<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
 			</c:if>
 			<span>${detail.mem_nickname}</span>
-		<button onclick="location.href='updateHouseForm.do?house_num=${detail.house_num}'">수정</button>
-		<button>삭제</button>
+			<button onclick="location.href='updateHouseForm.do?house_num=${detail.house_num}'">수정</button>
+			<button>삭제</button>
 		</div>
 		<hr width="100%" size="1">
 		<div>
-		<c:if test="${detail.house_seller_type == 1}">세입자</c:if>
-		<c:if test="${detail.house_seller_type == 2}">집주인</c:if>
-		<c:if test="${detail.house_type == 1}">원룸</c:if>
-		<c:if test="${detail.house_type == 2}">빌라</c:if>
-		<c:if test="${detail.house_type == 3}">아파트</c:if>
-		<c:if test="${detail.house_type == 4}">오피스텔</c:if>
-		<c:if test="${detail.house_type == 5}">상가</c:if>
-		<c:if test="${detail.house_type == 6}">기타(사무실,주택,토지 등)</c:if>
+			<c:if test="${detail.house_seller_type == 1}">세입자</c:if>
+			<c:if test="${detail.house_seller_type == 2}">집주인</c:if>
+			<c:if test="${detail.house_type == 1}">원룸</c:if>
+			<c:if test="${detail.house_type == 2}">빌라</c:if>
+			<c:if test="${detail.house_type == 3}">아파트</c:if>
+			<c:if test="${detail.house_type == 4}">오피스텔</c:if>
+			<c:if test="${detail.house_type == 5}">상가</c:if>
+			<c:if test="${detail.house_type == 6}">기타(사무실,주택,토지 등)</c:if>
 		</div>
 		<div>
 			<span>${detail.house_title} . 
 			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber value="${detail.house_price/10000}"/>만원</c:if>
 			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber value="${detail.house_price}"/>원</c:if><br>
-			조회수 : ${deatil.hit}
+			조회수 : ${detail.hit}
 			</span>
 		</div>
 		<div>
@@ -79,6 +81,14 @@
 					<span>${list.house_content}</span>
 					</li>
 				</ul>	
+		</div>
+		<hr width="100%" size="1">
+		<div>
+			<%-- 좋아요 시작 --%>
+				<img id="output_fav" data-num="${list.house_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				좋아요
+				<span id="output_fcount"></span>
+			<%-- 좋아요 끝 --%>
 		</div>
 	</div>
 </div>

@@ -18,6 +18,9 @@ public class DetailHouseAction implements Action {
 		int house_num = Integer.parseInt(request.getParameter("house_num"));
 		
 		HouseDAO dao = HouseDAO.getInstance();
+		//조회수 증가
+		dao.updateReadcount(house_num);
+		
 		HouseDetailVO detail = dao.getHouseDetail(house_num);
 		HouseListVO list = dao.getHouseList(house_num);
 		MemberVO seller = dao.getHouseMember(house_num);

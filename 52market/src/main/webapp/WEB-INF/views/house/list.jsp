@@ -43,7 +43,8 @@
 								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
 								<span>${house.house_title}</span>
 								<br>
-								${house.mem_nickname}<b><fmt:formatNumber value="${house.house_price}"/>원</b>
+								${house.mem_nickname}<b><fmt:formatNumber value="${house.house_price}"/>원</b><br>
+								
 							</a>
 						</div>
 					</c:forEach>

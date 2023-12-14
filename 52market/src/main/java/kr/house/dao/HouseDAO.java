@@ -8,6 +8,7 @@ import java.util.List;
 
 
 import kr.house.vo.HouseDetailVO;
+import kr.house.vo.HouseFavVO;
 import kr.house.vo.HouseListVO;
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
@@ -279,6 +280,7 @@ public class HouseDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				list = new HouseListVO();
+				list.setHouse_num(rs.getInt("house_num"));
 				list.setHouse_content(rs.getString("house_content"));
 				list.setHouse_modify_date(rs.getDate("house_modify_date"));
 				list.setHouse_reg_date(rs.getDate("house_reg_date"));
@@ -329,6 +331,34 @@ public class HouseDAO {
 		return member;
 	}
 	//조회수 증가 - 진입시 무조건 +1 증가
+	public void updateReadcount (int house_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "UPDATE house_detail SET hit=hit+1 WHERE house_num=?";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, house_num);
+			
+			//SQL문 실행 4단계
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		
+	}
 	//글 수정
 	public void updateHouse(HouseListVO list,HouseDetailVO detail)throws Exception{
 		System.out.println(detail);
@@ -382,13 +412,195 @@ public class HouseDAO {
 		
 	}
 	//글 삭제
+	public void deleteHouse(int house_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
+		ResultSet rs = null;
+		String sql = null;
+		int status = 0;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			//오토커밋 해제
+			conn.setAutoCommit(false);
+			
+			//status 불러오기
+			sql = "SELECT * FROM houselist WHERE house_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, house_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				status = rs.getInt("house_status");
+			}
+			//houselist 삭제
+			sql = "DELETE FROM houselist WHERE house_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, house_num);
+			pstmt2.executeUpdate();
+			//status=0일때 house_detail삭제->미판매된것만 삭제
+			if(status==0) {
+				sql = "DELETE FROM house_detail WHERE house_num=?";
+				pstmt3 = conn.prepareStatement(sql);
+				pstmt3.setInt(1, house_num);
+				pstmt3.executeUpdate();
+			}
+			//좋아요 삭제
+			sql = "DELETE FROM house_fav WHERE house_num=?";
+			pstmt4 = conn.prepareStatement(sql);
+			pstmt4.setInt(1, house_num);
+			pstmt4.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt4, null);
+			DBUtil.executeClose(null, pstmt3, null);
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	
+	}
 	
 	//--------------------
 	
 	//좋아요 등록
+	public void insertHouseFav(HouseFavVO housefav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "INSERT INTO house_fav(house_num,mem_num) VALUES(?,?)";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, housefav.getHouse_num());
+			pstmt.setInt(2, housefav.getMem_num());
+			
+			//SQL문 실행 4단계
+			pstmt.executeUpdate();
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//좋아요 개수
+	public int selectFavCount(int house_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM house_fav WHERE house_num=?";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, house_num);			
+			
+			//SQL문 실행 4단계
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		
+		return count;
+	}
 	//회원번호와 개시물 번호를 이용한 좋아요 정보(좋아요 선택 여부)
+	public HouseFavVO selectFav(HouseFavVO housefav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		HouseFavVO fav = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "SELECT * FROM house_fav WHERE house_num=? AND mem_num=?";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, housefav.getHouse_num());
+			pstmt.setInt(2, housefav.getMem_num());
+			
+			//SQL문 실행 4단계
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				fav = new HouseFavVO();
+				fav.setHouse_num(rs.getInt("house_num"));
+				fav.setMem_num(rs.getInt("mem_num"));
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return fav;
+	}
 	//좋아요 삭제
+	public void deleteHouseFav(HouseFavVO housefav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당 1,2단계
+			conn = DBUtil.getConnection();
+			
+			//SQL문 작성
+			sql = "DELETE FROM house_fav WHERE house_num=? AND mem_num=?";
+			
+			//PreparedStatement 객체 생성 3단계
+			pstmt = conn.prepareStatement(sql);
+			
+			//?에 데이터 바인딩
+			pstmt.setInt(1, housefav.getHouse_num());
+			pstmt.setInt(2, housefav.getMem_num());
+			
+			//SQL문 실행 4단계
+			pstmt.executeUpdate();
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//내가 선택한 좋아요 목록
 	
 }
