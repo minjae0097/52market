@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,27 +31,102 @@ window.onload=function(){
 	<div class="content-main">
 		<h2>구인 글 등록</h2>
 		<form action="updateAlba.do" id="updateAlbaForm" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="alba_num" value="${alba.alba_num}">
 			<ul>
 				<li>
 					<label for="alba_photo">사진등록</label>
 					<input type="file" name="alba_photo" id="alba_photo" accept="image/gif,image/png,/image/jpeg">
+					<%-- 
+					<c:if test="${!empty alba.photo}">
+					<div id="file_detail">
+						(${alba.photo})파일이 등록 되어 있습니다.
+						<input type="button" value="파일삭제" id="file_del">
+						<script type="text/javascript">
+							$(function(){
+								$('#file_del').click(function(){
+									let choice = confirm('삭제하시겠습니까?');
+									if(choice){
+										$.ajax({
+											url:'deleteFile.do',
+											type:'post',
+											data:{alba_num:${alba.alba_num}},
+											dataType:'json',
+											success:function(param){
+												if(param.result == 'logout'){
+													alert('로그인 후 사용하세요');
+												}else if(param.result == 'success'){
+													$('#file_detail').hide();
+												}else if(param.result == 'wrongAccess'){
+													alert('잘못 된 접속입니다.');
+												}else{
+													alert('파일 삭제 오류 발생');
+												}
+											},
+											error:function(){
+												alert('네트워크 오류 발생');
+											}
+										});
+									}
+								});
+							});
+						</script>
+					</div>
+					</c:if>
+					--%>				
 				</li>
 				<li>
 					<label for="alba_title">제목</label>
-					<input type="text" id="alba_title" name="alba_title" maxlength="50">
+					<input type="text" id="alba_title" name="alba_title" value="${alba.alba_title}" maxlength="50">
 				</li>
 				<li>
 					<label for="alba_content1">정보</label>
-					<textarea rows="5" cols="50" placeholder="시급,위치,요일,시간을 입력해 주세요." id="alba_content1" name="alba_content1"></textarea>
+					<textarea rows="5" cols="50" id="alba_content1" name="alba_content1">${alba.alba_content1}</textarea>
 				</li>
 				<li>
 					<label for="alba_content2">상세 정보</label>
-					<textarea rows="5" cols="50" placeholder="아르바이트 상세 정보를 입력해 주세요" id="alba_content2" name="alba_content2"></textarea>
+					<textarea rows="5" cols="50" id="alba_content2" name="alba_content2">${alba.alba_content2}</textarea>
 				</li>
 				<li>
 					<label for="alba_location">위치(사진)</label>
 					<input type="file" name="alba_location" id="alba_location" accept="image/gif,image/png,/image/jpeg">
 				</li>
+				<%--
+				<c:if test="${!empty alba.location}">
+					<div id="file_detail">
+						(${alba.location})파일이 등록 되어 있습니다.
+						<input type="button" value="파일삭제" id="file_del">
+						<script type="text/javascript">
+							$(function(){
+								$('#file_del').click(function(){
+									let choice = confirm('삭제하시겠습니까?');
+									if(choice){
+										$.ajax({
+											url:'deleteFile.do',
+											type:'post',
+											data:{alba_num:${alba.alba_num}},
+											dataType:'json',
+											success:function(param){
+												if(param.result == 'logout'){
+													alert('로그인 후 사용하세요');
+												}else if(param.result == 'success'){
+													$('#file_detail').hide();
+												}else if(param.result == 'wrongAccess'){
+													alert('잘못 된 접속입니다.');
+												}else{
+													alert('파일 삭제 오류 발생');
+												}
+											},
+											error:function(){
+												alert('네트워크 오류 발생');
+											}
+										});
+									}
+								});
+							});
+						</script>
+					</div>
+					</c:if>
+				 --%>
 				<li>
 					<label for="zipcode">우편번호</label>
 					<input type="text" name="alba_zipcode" id="zipcode" maxlength="5">
@@ -62,11 +138,11 @@ window.onload=function(){
 				</li>
 				<li>
 					<label for="address2">나머지 주소</label>
-					<input type="text" name="alba_address2" id="address2" maxlength="30">
+					<input type="text" name="alba_address2" id="address2" value="${alba.alba_address2}" maxlength="30">
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="submit" value="등록">
+				<input type="submit" value="수정">
 				<input type="button" value="목록" onclick="location.href='list.do'">
 			</div>
 		</form>

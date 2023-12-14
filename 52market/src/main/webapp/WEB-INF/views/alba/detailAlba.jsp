@@ -56,7 +56,7 @@
 			delete_btn.onclick=function(){
 				let choice = confirm('삭제하시겠습니까?');
 				if(choice){
-					location.replace('delete.do?alba_num=${alba.alba_num}');
+					location.replace('deleteAlba.do?alba_num=${alba.alba_num}');
 				}
 			};
 			</script>

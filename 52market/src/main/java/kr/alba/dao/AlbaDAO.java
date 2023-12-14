@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.alba.vo.Alba_FavVO;
 import kr.alba.vo.AlbaVO;
 import kr.util.DBUtil;
 
@@ -119,6 +120,7 @@ public class AlbaDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				alba = new AlbaVO();
+				alba.setAlba_num(rs.getInt("alba_num"));
 				alba.setAlba_photo(rs.getString("alba_photo"));
 				alba.setAlba_title(rs.getString("alba_title"));
 				alba.setAlba_content1(rs.getString("alba_content1"));
@@ -161,8 +163,8 @@ public class AlbaDAO {
 			}
 			//SQL문 작성
 			sql = "UPDATE alba SET alba_title=?,alba_content1=?,alba_content2=?,"
-					+ "alba_modify_date=SYSDATE,alba_ip=?,alba_zipcode=?,alba_address1=?,alba_address2=?,"
-					+ "alba_location=?" + sub_sql + "WHERE alba_num=2";
+					+ "alba_modify_date=SYSDATE,alba_ip=?,alba_zipcode=?,alba_address1=?,alba_address2=?"
+					+ sub_sql + "WHERE alba_num=?";
 			//PreparedStatement객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -173,13 +175,13 @@ public class AlbaDAO {
 			pstmt.setString(++cnt, alba.getAlba_zipcode());
 			pstmt.setString(++cnt, alba.getAlba_address1());
 			pstmt.setString(++cnt, alba.getAlba_address2());
-			pstmt.setString(++cnt, alba.getAlba_location());
 			if(alba.getAlba_photo() != null) {
 				pstmt.setString(++cnt, alba.getAlba_photo());
 			}
 			if(alba.getAlba_location() != null) {
 				pstmt.setString(++cnt, alba.getAlba_location());
 			}
+			
 			pstmt.setInt(++cnt, alba.getAlba_num());
 			//SQL문 실행
 			pstmt.executeUpdate();
@@ -190,10 +192,122 @@ public class AlbaDAO {
 		}
 	}
 	//글 삭제
-	
+	public void deleteAlba(int alba_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "DELETE FROM alba WHERE alba_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, alba_num);
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		
+	}
 	//관심(좋아요) 등록
+	public void insertAlbaFav(Alba_FavVO albafav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "INSERT INTO alba_fav(alba_num,mem_num) VALUES(?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, albafav.getAlba_num());
+			pstmt.setInt(2, albafav.getMem_num());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//관심(좋아요) 개수
+	public int selectFavCount(int alba_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM alba_fav WHERE alba_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, alba_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
 	//회원번호와 게시물 번호를 이용한 관심(좋아요) 정보(좋아요 선택 여부)
+	public Alba_FavVO selectFav(Alba_FavVO albafav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Alba_FavVO fav = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM alba_fav WHERE alba_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, albafav.getAlba_num());
+			pstmt.setInt(2, albafav.getMem_num());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				fav = new Alba_FavVO();
+				fav.setAlba_num(rs.getInt("alba_num"));
+				fav.setMem_num(rs.getInt("mem_num"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return fav;
+	}
 	//관심(좋아요) 삭제
+	public void deleteAlbaFav(Alba_FavVO albafav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "DELETE FROM alba_fav WHERE alba_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, albafav.getAlba_num());
+			pstmt.setInt(2, albafav.getMem_num());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//내가 선택한 관심(좋아요) 목록
 }
