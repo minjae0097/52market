@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.product.vo.Product_DetailVO;
 import kr.product.vo.Product_FavVO;
+import kr.product.vo.Product_MapVO;
 import kr.member.vo.MemberVO;
 import kr.product.vo.ProductVO;
 import kr.util.DBUtil;
@@ -20,11 +21,12 @@ public class ProductDAO {
 	private ProductDAO() {}
 
 	//상품 등록
-	public void insertProduct(ProductVO product, Product_DetailVO detail)throws Exception{
+	public void insertProduct(ProductVO product, Product_DetailVO detail, Product_MapVO map)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
 		String sql = null;
 		ResultSet rs = null;
 		int num = 0;
@@ -41,7 +43,7 @@ public class ProductDAO {
 				num = rs.getInt(1);
 			}
 			
-			//2. product_detail저장
+			//2. product_detail
 			sql = "INSERT INTO product_detail (product_num,product_seller,product_category,product_price,product_image,product_name) "
 					+ "VALUES (?,?,?,?,?,?)";
 			pstmt2 = conn.prepareStatement(sql);
@@ -53,7 +55,7 @@ public class ProductDAO {
 			pstmt2.setString(6, detail.getProduct_name());
 			pstmt2.executeUpdate();
 			
-			//3. product 저장
+			//3. product 
 			sql = "INSERT INTO product (product_num,product_mem,product_title,product_image,product_content) "
 					+ "VALUES (?,?,?,?,?)";
 			pstmt3 = conn.prepareStatement(sql);
@@ -64,12 +66,24 @@ public class ProductDAO {
 			pstmt3.setString(5, product.getProduct_content());
 			pstmt3.executeUpdate();
 			
-			conn.commit();
+			//4. Map
+			sql = "INSERT INTO product_map (product_num,location_x,location_y,location,"
+					+ "road_address_name,address_name) VALUES(?,?,?,?,?,?)";
+			pstmt4 = conn.prepareStatement(sql);
+			pstmt4.setInt(1, num);
+			pstmt4.setString(2, map.getLocation_x());
+			pstmt4.setString(3, map.getLocation_y());
+			pstmt4.setString(4, map.getLocation());
+			pstmt4.setString(5, map.getRoad_address_name());
+			pstmt4.setString(6, map.getAddress_name());
+			pstmt4.executeUpdate();
 			
+			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt4, null);
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt, conn);
@@ -169,7 +183,7 @@ public class ProductDAO {
 	
 
 	
-	//상품 상세
+	//상품 상세 (product)
 	public ProductVO getProduct(int product_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -209,11 +223,83 @@ public class ProductDAO {
 	}
 	
 	
+	//상품 상세 (product_detail)
+	public Product_DetailVO getProductDetail(int product_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Product_DetailVO detail = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "SELECT * FROM product_detail p JOIN member m ON p.product_seller = m.mem_num "
+					+ "LEFT OUTER JOIN member_detail USING(mem_num) WHERE product_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				detail = new Product_DetailVO();
+				detail.setProduct_num(rs.getInt("product_num"));
+				detail.setProduct_seller(rs.getInt("product_seller"));
+				detail.setProduct_buyer(rs.getInt("product_buyer"));
+				detail.setMem_nickname(rs.getString("mem_nickname"));
+				detail.setMem_photo(rs.getString("mem_photo"));
+				detail.setProduct_category(rs.getInt("product_category"));
+				detail.setProduct_price(rs.getInt("product_price"));
+				detail.setProduct_tradedate(rs.getDate("product_tradedate"));
+				detail.setProduct_image(rs.getString("product_image"));
+				detail.setProduct_name(rs.getString("product_name"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return detail;
+	}
+	
+	//상품-지도 상세 (product_map)
+	public Product_MapVO getProductMap(int product_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Product_MapVO map = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM product_map WHERE product_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				map = new Product_MapVO();
+				map.setLocation_x(rs.getString("location_x"));
+				map.setLocation_y(rs.getString("location_y"));
+				map.setLocation(rs.getString("location"));
+				map.setRoad_address_name(rs.getString("road_address_name"));
+				map.setAddress_name(rs.getString("address_name"));
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return map;
+	}
+	
+	
 	//상품 수정
-	public void updateProduct(ProductVO product, Product_DetailVO detail, int product_num)throws Exception{
+	public void updateProduct(ProductVO product, Product_DetailVO detail, Product_MapVO map, int product_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		String sql = null;
 		ResultSet rs = null;
 		
@@ -242,13 +328,25 @@ public class ProductDAO {
 			pstmt2.setInt(4, product_num);
 			pstmt2.executeUpdate();
 			
+			//3. map 수정
+			sql = "UPDATE product_map SET location_x=?,location_y=?,location=?,road_address_name=?,address_name=? WHERE product_num=?";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setString(1, map.getLocation_x());
+			pstmt3.setString(2, map.getLocation_y());
+			pstmt3.setString(3, map.getLocation());
+			pstmt3.setString(4, map.getRoad_address_name());
+			pstmt3.setString(5, map.getAddress_name());
+			pstmt3.setInt(6, product_num);
+			pstmt3.executeUpdate();
+			
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(null, pstmt, null);
-			DBUtil.executeClose(rs, pstmt2, conn);
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(rs, pstmt3, conn);
 		}
 	}
 	
@@ -353,34 +451,65 @@ public class ProductDAO {
 	}
 	
 	
-	
-	
 	//상품 삭제
 	public void deleteProduct(int product_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
+		PreparedStatement pstmt5 = null;
+		ResultSet rs = null;
 		String sql = null;
+		int status = 0;
 		
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			
+			//product_fav 삭제
 			sql = "DELETE FROM product_fav WHERE product_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product_num);
 			pstmt.executeUpdate();
 			
-			sql = "DELETE FROM product WHERE product_num=?";
+			//product_map
+			sql = "DELETE FROM product_map WHERE product_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, product_num);
 			pstmt2.executeUpdate();
+			
+			//product
+			sql = "DELETE FROM product WHERE product_num=?";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setInt(1, product_num);
+			pstmt3.executeUpdate();
+			
+			//status 불러오기 (0일때 detail삭제)
+			sql = "SELECT * FROM product WHERE product_num=?";
+			pstmt4 = conn.prepareStatement(sql);
+			pstmt4.setInt(1, product_num);
+			rs = pstmt4.executeQuery();
+			if(rs.next()) {
+				status = rs.getInt("product_status");
+			}
+			
+			//product_detail
+			if(status==0) {
+				sql = "DELETE FROM product_detail WHERE product_num=?";
+				pstmt5 = conn.prepareStatement(sql);
+				pstmt5.setInt(1, product_num);
+				pstmt5.executeUpdate();
+			}
 			
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt5, null);
+			DBUtil.executeClose(null, pstmt4, null);
+			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}

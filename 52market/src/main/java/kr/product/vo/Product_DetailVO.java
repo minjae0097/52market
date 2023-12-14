@@ -13,6 +13,8 @@ public class Product_DetailVO {
 	private String product_name;	//상품명
 	
 	private int product_status;		//product(판매여부)
+	private String mem_nickname;	//member(닉네임)
+	private String mem_photo;		//member(프로필사진)
 	
 	public int getProduct_num() {
 		return product_num;
@@ -68,5 +70,16 @@ public class Product_DetailVO {
 	public void setProduct_status(int product_status) {
 		this.product_status = product_status;
 	}
-	
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
+	}
+	public String getMem_photo() {
+		return mem_photo;
+	}
+	public void setMem_photo(String mem_photo) {
+		this.mem_photo = mem_photo;
+	}
 }

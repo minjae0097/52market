@@ -6,10 +6,17 @@
 <meta charset="UTF-8">
 <title>상품 등록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+window.onload=function(){
+	let myForm = document.getElementById('write_form');
+	//지도 검색
+	let openmap = document.getElementById('mapopen');
+	openmap.onclick = function(){
+		 let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=800, top=0,left=0";
 
-
+		  window.open("${pageContext.request.contextPath}/map/insertMap.do","_blank", options);
+	};
+};
 </script>
 </head>
 <body>
@@ -17,7 +24,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>내 물건 팔기</h2>
-		<form action="productWrite.do" method="post" enctype="multipart/form-data" id="write_form">
+		<form action="productWrite.do" id="write_form" method="post" enctype="multipart/form-data">
 		<ul>
 			<li>
 				<label for="product_image">파일 첨부</label>
@@ -49,6 +56,12 @@
 			</li>
 			<li>
 				<label for="location">거래희망장소</label>
+				<input type="text" id="location" name="location">
+				<input type="button" name="mapopen" id="mapopen"  value="장소 선택">
+				<input type="hidden" name="location_x" id="location_x">
+				<input type="hidden" name="location_y" id="location_y">
+				<input type="hidden" name="road_address_name" id="road_address_name">
+				<input type="hidden" name="address_name" id="address_name">
 			</li>
 		</ul>
 		<div class="align-center">

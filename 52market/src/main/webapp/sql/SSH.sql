@@ -55,3 +55,14 @@ create table qna(
  constraint qna_fk foreign key (mem_num) references member (mem_num)
 );
 create sequence qna_seq;
+
+--위치
+create table product_map(
+ product_num number primary key,
+ location_x varchar2(30) not null,
+ location_y varchar2(30) not null,
+ location varchar2(50) not null,
+ road_address_name varchar2(100) not null,
+ address_name varchar2(100) not null,
+ constraint product_map_fk foreign key (product_num) references product (product_num)
+);

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 상세 정보</title>
+<title>거래글 상세 정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/product.fav.js"></script>
@@ -21,32 +21,48 @@
 				<c:if test="${!empty product.mem_photo}">
 				<img src="${pageContext.request.contextPath}/upload/${product.mem_photo}" width="30" height="30" class="my-photo">	
 				</c:if>
-				<c:if test="${empty product.mem_photo}}">
+				<c:if test="${empty product.mem_photo}">
 				<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">	
 				</c:if>
 			</li>
 			<li>
-				${product.mem_nickname}<br>
-				조회 : ${product.product_hit}<br>
-				관심 등록수 : <span id="output_fcount"></span><br>
+				${product.mem_nickname}
 			</li>
-		</ul>
-		<hr size="1" noshade="noshade" width="100%">
-		<div class="align-center">
-			<img src="${pageContext.request.contextPath}/upload/${product.product_image}" class="detail-img">
-		</div>
-		<p>
-			${product.product_content}
-		</p>
-		<hr size="1" noshade="noshade" width="100%">
-		<ul class="detail-sub">
+			
 			<li>
 				<%-- 관심물품 --%>
 				<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 				관심글 등록
 				<span id="output_fcount"></span>                                               
 			</li>
-			 
+			
+			
+		</ul>
+		<hr size="1" noshade="noshade" width="100%">
+		<div class="align-center">
+			<img src="${pageContext.request.contextPath}/upload/${product.product_image}" class="detail-img">
+		</div>
+		
+		<div>
+			<h3>상품정보</h3>
+			<ul>
+				<li>상품명 : ${detail.product_name}</li>
+				<li>가격 : ${detail.product_price}</li>
+			</ul>
+			<h3>상품글</h3>
+			<ul>
+				<li>
+					<span>${product.product_content}</span>
+				</li>
+			</ul>
+			<h3>거래희망장소</h3>
+			<jsp:include page="/map/showMap.jsp"/>
+		</div>
+		<ul class="detail-sub">
+			<li>
+				조회 : ${product.product_hit}<br>
+				관심 등록수 : <span id="output_fcount"></span><br>
+			</li>
 			<li>
 				<c:if test="${!empty product.product_modify_date}">
 					최근 수정일 : ${product.product_modify_date}
