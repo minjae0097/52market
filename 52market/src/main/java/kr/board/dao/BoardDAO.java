@@ -178,9 +178,11 @@ public class BoardDAO {
 				if (keyfield.equals("1")) {
 					sub_sql += "WHERE board_title LIKE ?";
 				} else if (keyfield.equals("2")) {
-					sub_sql += "WHERE mem_id LIKE ?";
+					sub_sql += "WHERE board_title LIKE ?";
 				} else if (keyfield.equals("3")) {
-					sub_sql += "WHERE board_content LIKE ?";
+					sub_sql += "WHERE board_title LIKE ?";
+				} else if (keyfield.equals("4")) {
+					sub_sql += "WHERE board_title LIKE ?";
 				}
 			}
 

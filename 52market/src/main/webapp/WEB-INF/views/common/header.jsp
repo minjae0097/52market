@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header 시작 -->
 <div id="main_logo">
-	<h1 class="align-center"><a href="${pageContext.request.contextPath}/main/main.do">회원제 게시판</a></h1>
+	<h1 class="align-center"><a href="${pageContext.request.contextPath}/main/main.do">오이마켓</a></h1>
 </div>
 <div id="main_nav">
 	<ul>
