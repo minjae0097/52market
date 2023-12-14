@@ -6,14 +6,16 @@ public class CarList_DetailVO {
 	private int carlist_num;		//글번호
 	private int car_seller;			//판매자
 	private int car_buyer;			//구매자
-	private int car_type;			//차종
-	private int car_fuel;			//연료 종류
+	private String car_type;			//차종
+	private String car_fuel;			//연료 종류
 	private int car_price;			//가격
 	private int car_model_year;		//연식
 	private int car_distance;		//주행거리
-	private int car_transmission;	//변속기 종류
-	private String car_title; 	//글제목
-	
+	private String car_transmission;	//변속기 종류
+	private String car_origin;		//제조국
+	private String car_title; 		//글제목
+	private String car_image;		//중고차 이미지
+	private Date car_tradedate;		//판매 완료일
 	private String mem_nickname;		//닉네임
 
 	public String getMem_nickname() {
@@ -31,16 +33,6 @@ public class CarList_DetailVO {
 	public void setCar_title(String car_title) {
 		this.car_title = car_title;
 	}
-	public int getCar_transmission() {
-		return car_transmission;
-	}
-	public void setCar_transmission(int car_transmission) {
-		this.car_transmission = car_transmission;
-	}
-	private int car_origin;			//연식
-	private String car_image;		//중고차 이미지
-	private Date car_tradedate;		//판매 완료일
-	
 	public int getCarlist_num() {
 		return carlist_num;
 	}
@@ -59,18 +51,7 @@ public class CarList_DetailVO {
 	public void setCar_buyer(int car_buyer) {
 		this.car_buyer = car_buyer;
 	}
-	public int getCar_type() {
-		return car_type;
-	}
-	public void setCar_type(int car_type) {
-		this.car_type = car_type;
-	}
-	public int getCar_fuel() {
-		return car_fuel;
-	}
-	public void setCar_fuel(int car_fuel) {
-		this.car_fuel = car_fuel;
-	}
+	
 	public int getCar_price() {
 		return car_price;
 	}
@@ -89,12 +70,39 @@ public class CarList_DetailVO {
 	public void setCar_distance(int car_distance) {
 		this.car_distance = car_distance;
 	}
-	public int getCar_origin() {
+	
+	public String getCar_type() {
+		return car_type;
+	}
+
+	public void setCar_type(String car_type) {
+		this.car_type = car_type;
+	}
+
+	public String getCar_fuel() {
+		return car_fuel;
+	}
+
+	public void setCar_fuel(String car_fuel) {
+		this.car_fuel = car_fuel;
+	}
+
+	public String getCar_transmission() {
+		return car_transmission;
+	}
+
+	public void setCar_transmission(String car_transmission) {
+		this.car_transmission = car_transmission;
+	}
+
+	public String getCar_origin() {
 		return car_origin;
 	}
-	public void setCar_origin(int car_origin) {
+
+	public void setCar_origin(String car_origin) {
 		this.car_origin = car_origin;
 	}
+
 	public String getCar_image() {
 		return car_image;
 	}

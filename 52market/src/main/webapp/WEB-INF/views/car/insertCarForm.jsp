@@ -62,23 +62,23 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3 class="radio-check" id="car_type">차종</h3>
-					<input type="radio" name="car_type" value="1" >경차/소형차
-					<input type="radio" name="car_type" value="2" >준/중형차
-					<input type="radio" name="car_type" value="3" >준/대형차
-					<input type="radio" name="car_type" value="4" >SUV/RV
-					<input type="radio" name="car_type" value="5" >승합/화물차
-					<input type="radio" name="car_type" value="6" >그외
+					<input type="radio" name="car_type" value="경차/소형차" >경차/소형차
+					<input type="radio" name="car_type" value="준/중형차" >준/중형차
+					<input type="radio" name="car_type" value="준/대형차" >준/대형차
+					<input type="radio" name="car_type" value="SUV/RV" >SUV/RV
+					<input type="radio" name="car_type" value="승합/화물차" >승합/화물차
+					<input type="radio" name="car_type" value="그외" >그외
 				</li>
 				<li>
 					<h3 class="radio-check" id="car_fuel">연료</h3>
-					<input type="radio" name="car_fuel" value="1" >가솔린(휘발유)
-					<input type="radio" name="car_fuel" value="2" >디젤(경유)
-					<input type="radio" name="car_fuel" value="3" >LPG
-					<input type="radio" name="car_fuel" value="4" >CNG(천연가스)
-					<input type="radio" name="car_fuel" value="5" >전기
-					<input type="radio" name="car_fuel" value="6" >수소전기
-					<input type="radio" name="car_fuel" value="7" >태양광
-					<input type="radio" name="car_fuel" value="8" >하이브리드
+					<input type="radio" name="car_fuel" value="가솔린(휘발유)" >가솔린(휘발유)
+					<input type="radio" name="car_fuel" value="디젤(경유)" >디젤(경유)
+					<input type="radio" name="car_fuel" value="LPG" >LPG
+					<input type="radio" name="car_fuel" value="CNG(천연가스)" >CNG(천연가스)
+					<input type="radio" name="car_fuel" value="전기" >전기
+					<input type="radio" name="car_fuel" value="수소전기" >수소전기
+					<input type="radio" name="car_fuel" value="태양광" >태양광
+					<input type="radio" name="car_fuel" value="하이브리드" >하이브리드
 				</li>
 				<li>
 					<h3><label for="car_price">가격</label></h3>
@@ -94,13 +94,13 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3 class="radio-check" id="car_transmission"><label>변속기</label></h3>
-					<input type="radio" name="car_transmission" value="1" >자동(A/T)
-					<input type="radio" name="car_transmission" value="2" >수동
+					<input type="radio" name="car_transmission" value="자동(A/T)" >자동(A/T)
+					<input type="radio" name="car_transmission" value="수동" >수동
 				</li>
 				<li>
 					<h3 class="radio-check" id="car_origin"><label>국산차/수입차</label></h3>
-					<input type="radio" name="car_origin" value="1" >국산
-					<input type="radio" name="car_origin" value="2" >수입
+					<input type="radio" name="car_origin" value="국산" >국산
+					<input type="radio" name="car_origin" value="수입" >수입
 				</li>
 				<li>
 					<h3>소개</h3>

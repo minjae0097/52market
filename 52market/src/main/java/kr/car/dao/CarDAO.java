@@ -47,13 +47,13 @@ public class CarDAO {
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, num);
 			pstmt2.setInt(2, detail.getCar_seller());
-			pstmt2.setInt(3, detail.getCar_type());
-			pstmt2.setInt(4, detail.getCar_fuel());
+			pstmt2.setString(3, detail.getCar_type());
+			pstmt2.setString(4, detail.getCar_fuel());
 			pstmt2.setInt(5, detail.getCar_price());
 			pstmt2.setInt(6, detail.getCar_model_year());
 			pstmt2.setInt(7, detail.getCar_distance());
-			pstmt2.setInt(8, detail.getCar_transmission());
-			pstmt2.setInt(9, detail.getCar_origin());
+			pstmt2.setString(8, detail.getCar_transmission());
+			pstmt2.setString(9, detail.getCar_origin());
 			pstmt2.setString(10, detail.getCar_image());
 			pstmt2.setString(11, detail.getCar_title());
 			pstmt2.executeUpdate();
@@ -165,13 +165,13 @@ public class CarDAO {
 				detail.setCarlist_num(rs.getInt("carlist_num"));
 				detail.setCar_title(rs.getString("car_title"));
 				detail.setCar_buyer(rs.getInt("car_buyer"));
-				detail.setCar_type(rs.getInt("car_type"));
-				detail.setCar_fuel(rs.getInt("car_fuel"));
+				detail.setCar_type(rs.getString("car_type"));
+				detail.setCar_fuel(rs.getString("car_fuel"));
 				detail.setCar_price(rs.getInt("car_price"));
 				detail.setCar_model_year(rs.getInt("car_model_year"));
 				detail.setCar_distance(rs.getInt("car_distance"));
-				detail.setCar_transmission(rs.getInt("car_transmission"));
-				detail.setCar_origin(rs.getInt("car_origin"));
+				detail.setCar_transmission(rs.getString("car_transmission"));
+				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
 				
 				list.add(detail);
@@ -204,13 +204,13 @@ public class CarDAO {
 				detail = new CarList_DetailVO();
 				detail.setCarlist_num(rs.getInt("carlist_num"));
 				detail.setCar_seller(rs.getInt("car_seller"));
-				detail.setCar_type(rs.getInt("car_type"));
-				detail.setCar_fuel(rs.getInt("car_fuel"));
+				detail.setCar_type(rs.getString("car_type"));
+				detail.setCar_fuel(rs.getString("car_fuel"));
 				detail.setCar_price(rs.getInt("car_price"));
 				detail.setCar_model_year(rs.getInt("car_model_year"));
 				detail.setCar_distance(rs.getInt("car_distance"));
-				detail.setCar_transmission(rs.getInt("car_transmission"));
-				detail.setCar_origin(rs.getInt("car_origin"));
+				detail.setCar_transmission(rs.getString("car_transmission"));
+				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
 				detail.setCar_tradedate(rs.getDate("car_tradedate"));
 				detail.setCar_title(rs.getString("car_title"));
@@ -334,13 +334,13 @@ public class CarDAO {
 			sql = "UPDATE carlist_detail SET car_type=?,car_fuel=?,car_price=?,"
 					+ "car_model_year=?,car_distance=?,car_transmission=?,car_origin=?,car_image=?,car_title=? WHERE carlist_num=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, detail.getCar_type());
-			pstmt.setInt(2, detail.getCar_fuel());
+			pstmt.setString(1, detail.getCar_type());
+			pstmt.setString(2, detail.getCar_fuel());
 			pstmt.setInt(3, detail.getCar_price());
 			pstmt.setInt(4, detail.getCar_model_year());
 			pstmt.setInt(5, detail.getCar_distance());
-			pstmt.setInt(6, detail.getCar_transmission());
-			pstmt.setInt(7, detail.getCar_origin());
+			pstmt.setString(6, detail.getCar_transmission());
+			pstmt.setString(7, detail.getCar_origin());
 			pstmt.setString(8, detail.getCar_image());
 			pstmt.setString(9, detail.getCar_title());
 			pstmt.setInt(10, carlist_num);
@@ -540,6 +540,7 @@ public class CarDAO {
 			}		
 			return fav;
 		}
+	
 }
 
 

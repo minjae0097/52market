@@ -31,13 +31,13 @@ public class InsertCarAction implements Action{
 		list.setCarlist_content(multi.getParameter("carlist_content"));
 		
 		detail.setCar_seller(user_num);
-		detail.setCar_type(Integer.parseInt(multi.getParameter("car_type")));
-		detail.setCar_fuel(Integer.parseInt(multi.getParameter("car_fuel")));
+		detail.setCar_type((multi.getParameter("car_type")));
+		detail.setCar_fuel((multi.getParameter("car_fuel")));
 		detail.setCar_price(Integer.parseInt(multi.getParameter("car_price")));
 		detail.setCar_model_year(Integer.parseInt(multi.getParameter("car_model_year")));
 		detail.setCar_distance(Integer.parseInt(multi.getParameter("car_distance")));
-		detail.setCar_transmission(Integer.parseInt(multi.getParameter("car_transmission")));
-		detail.setCar_origin(Integer.parseInt(multi.getParameter("car_origin")));
+		detail.setCar_transmission((multi.getParameter("car_transmission")));
+		detail.setCar_origin((multi.getParameter("car_origin")));
 		detail.setCar_image(multi.getFilesystemName("car_image"));
 		detail.setCar_title(multi.getParameter("car_title"));
 
