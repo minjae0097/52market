@@ -1,4 +1,4 @@
-(function(){
+$(function(){
 	//좋아요 선택 여부와 선택한 총 개수 읽기
 	function selectFav(){
 		$.ajax({

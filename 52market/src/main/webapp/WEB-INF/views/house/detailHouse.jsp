@@ -25,8 +25,17 @@
 			<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
 			</c:if>
 			<span>${detail.mem_nickname}</span>
-			<button onclick="location.href='updateHouseForm.do?house_num=${detail.house_num}'">수정</button>
-			<button>삭제</button>
+			<button onclick="location.href='updateHouseForm.do?house_num=${list.house_num}'">수정</button>
+			<button id="delete_btn">삭제</button>
+			<script type="text/javascript">
+				let delete_btn = document.getElementById('delete_btn');
+				delete_btn.onclick=function(){
+					let choice = confirm('삭제하시겠습니까?');
+					if(choice){
+						location.herf='deleteHouse.do?house_num=${list.house_num}';
+					}
+				}
+			</script>
 		</div>
 		<hr width="100%" size="1">
 		<div>
