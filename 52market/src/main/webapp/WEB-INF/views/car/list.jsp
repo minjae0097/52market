@@ -36,7 +36,7 @@ window.onload=function(){
 				<ul>
 					<li>
 						<label>차종</label>
-						<input type="radio" name="car_type" value="경차/소형차" >경차/소형차
+						<input type="radio" name="car_type" value="경차/소형차">경차/소형차
 						<input type="radio" name="car_type" value="준/중형차" >준/중형차
 						<input type="radio" name="car_type" value="준/대형차" >준/대형차
 						<input type="radio" name="car_type" value="SUV/RV" >SUV/RV

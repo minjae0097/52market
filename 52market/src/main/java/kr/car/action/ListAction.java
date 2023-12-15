@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.car.dao.CarDAO;
 import kr.car.vo.CarList_DetailVO;
 import kr.controller.Action;
-import kr.util.PageUtil;
 
 public class ListAction implements Action{
 
@@ -29,16 +28,19 @@ public class ListAction implements Action{
 		CarDAO dao = CarDAO.getInstance();
 		int count = dao.getCarCount(keyfield, keyword,0,car_type,car_fuel,car_transmission,car_origin);
 		
-		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum),count,8,5,"list.do");
-		
+		/*
+		 * PageUtil page = new PageUtil(keyfield, keyword,
+		 * Integer.parseInt(pageNum),count,8,5,"list.do");
+		 */
+		PageUtilCar carpage = new PageUtilCar(keyfield, keyword, Integer.parseInt(pageNum),count,8,5,"list.do",0, car_type, car_fuel, car_transmission, car_origin);
 		
 		List<CarList_DetailVO> carList = null;
 		if(count>0) {
-			carList = dao.getList(page.getStartRow(), page.getEndRow(), keyfield, keyword, 0 ,car_type,car_fuel,car_transmission,car_origin);
+			carList = dao.getList(carpage.getStartRow(), carpage.getEndRow(), keyfield, keyword, 0 ,car_type,car_fuel,car_transmission,car_origin);
 		}
 		request.setAttribute("count", count);
 		request.setAttribute("carList", carList);
-		request.setAttribute("page", page.getPage());
+		request.setAttribute("page", carpage.getPage());
 		
 		return "/WEB-INF/views/car/list.jsp";
 	}
