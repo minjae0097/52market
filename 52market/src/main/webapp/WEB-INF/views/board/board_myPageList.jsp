@@ -19,11 +19,11 @@
 				<h3>프로필 사진</h3>
 				<ul>
 					<li>
-						<c:if test="${empty member.mem_photo}">
+						<c:if test="${empty board.mem_photo}">
 							<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 						</c:if>
-						<c:if test="${!empty member.mem_photo}">
-							<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
+						<c:if test="${!empty board.mem_photo}">
+							<img src="${pageContext.request.contextPath}/upload/${board.mem_photo}" width="200" height="200" class="my-photo">
 						</c:if>
 					</li>
 					<li>
@@ -39,9 +39,9 @@
 				</ul>
 				<h3>동네생활 회원정보</h3>
 				<ul>
-					<li><h3>${member.mem_nickname}님</h3></li>
-					<li>주소 ${memeber.mem_address1}</li>
-					<li>가입일 ${member.mem_regdate}</li>
+					<li><h3>${board.mem_nickname}님</h3></li>
+					<li>주소 ${board.mem_address1}</li>
+					<li>가입일 ${board.mem_regdate}</li>
 					<li>
 						<div>
 							<a href="${pageContext.request.contextPath}/board/board_myPageList.do">작성할 글</a>

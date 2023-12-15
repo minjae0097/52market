@@ -8,8 +8,11 @@ public class BoardReplyVO {
 	private String re_ip;
 	private int board_num;
 	private int mem_num;
+	
 	private String mem_id;
 	private String mem_nickname;
+	private String mem_photo;
+	private String mem_address1;
 	
 	public int getRe_num() {
 		return re_num;
@@ -64,6 +67,18 @@ public class BoardReplyVO {
 	}
 	public void setMem_nickname(String mem_nickname) {
 		this.mem_nickname = mem_nickname;
+	}
+	public String getMem_photo() {
+		return mem_photo;
+	}
+	public void setMem_photo(String mem_photo) {
+		this.mem_photo = mem_photo;
+	}
+	public String getMem_address1() {
+		return mem_address1;
+	}
+	public void setMem_address1(String mem_address1) {
+		this.mem_address1 = mem_address1;
 	}
 	
 	

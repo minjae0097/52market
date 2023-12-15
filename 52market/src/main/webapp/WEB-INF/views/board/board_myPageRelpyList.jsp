@@ -15,7 +15,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<h2>동네생활 회원정보</h2>
-			<div class="mypage-div">
+			<div class="mypage-div align-center">
 				<h3>프로필 사진</h3>
 				<ul>
 					<li>
@@ -62,23 +62,6 @@
 					회원탈퇴
 					<input type="button" value="회원탈퇴" onclick="${pageContext.request.contextPath}/member/deleteUserForm.do'">
 				</h3>
-			</div>
-			<div class="mypage-div">
-				<h3>댓글단 글</h3>
-				<table>
-					<tr>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>등록일</th>
-					</tr>
-					<c:forEach var="board" items="${boardList}">
-					<tr>
-						<td><a href="${pageContext.request.contextPath}/board/detail.do?board_num=${board.board_num}" target="_blank">${fn:substring(board.board_title,0,12)}</a></td>					
-						<td>${board.mem_id}</td>
-						<td>${board.board_regdate}</td>
-					</tr>
-					</c:forEach>
-				</table>
 			</div>
 		</div>
 	</div>
