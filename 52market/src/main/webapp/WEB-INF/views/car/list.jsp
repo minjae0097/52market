@@ -37,9 +37,15 @@ window.onload=function(){
 	save_btn.onclick=function(){
 		 filter.style.display = 'none';
 	};
+	//판매중만 보이게
+	let carlist_status = document.getElementById('carlist_status');
+	carlist_status.onclick = function(){
+		let myform = document.getElementById('search_form');
+		myform.submit();
+	}
 	function base() {
-		/* let keyword = document.getElementById('keyword');
-		if(${param.keyword}!=null) keyword.value=${param.keyword} */
+		let carlist_status = document.getElementById('carlist_status');
+		if(${carlist_status}==0) carlist_status.checked=true;
 		let type = document.querySelector('input[value="${car_type}"]');
 		if(type!=null) type.checked = true;
 		let fuel = document.querySelector('input[value="${car_fuel}"]');

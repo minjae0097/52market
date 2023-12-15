@@ -19,8 +19,10 @@ public class ListAction implements Action{
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
 		//판매중인것만 보기
-		String carlist_status = request.getParameter("carlist_status");
-		
+		int carlist_status = 1;
+		if(request.getParameter("carlist_status")!=null) {
+			carlist_status=0;
+		}
 		//필터
 		String car_type = request.getParameter("car_type");
 		String car_fuel = request.getParameter("car_fuel");
@@ -29,17 +31,17 @@ public class ListAction implements Action{
 		
 		
 		CarDAO dao = CarDAO.getInstance();
-		int count = dao.getCarCount(keyfield, keyword,1,car_type,car_fuel,car_transmission,car_origin);
+		int count = dao.getCarCount(keyfield, keyword,carlist_status,car_type,car_fuel,car_transmission,car_origin);
 		
 		/*
 		 * PageUtil page = new PageUtil(keyfield, keyword,
 		 * Integer.parseInt(pageNum),count,8,5,"list.do");
 		 */
-		PageUtilCar carpage = new PageUtilCar(keyfield, keyword, Integer.parseInt(pageNum),count,2,5,"list.do",1, car_type, car_fuel, car_transmission, car_origin);
+		PageUtilCar carpage = new PageUtilCar(keyfield, keyword, Integer.parseInt(pageNum),count,8,5,"list.do",carlist_status, car_type, car_fuel, car_transmission, car_origin);
 		
 		List<CarList_DetailVO> carList = null;
 		if(count>0) {
-			carList = dao.getList(carpage.getStartRow(), carpage.getEndRow(), keyfield, keyword, 1 ,car_type,car_fuel,car_transmission,car_origin);
+			carList = dao.getList(carpage.getStartRow(), carpage.getEndRow(), keyfield, keyword, carlist_status ,car_type,car_fuel,car_transmission,car_origin);
 		}
 		request.setAttribute("count", count);
 		request.setAttribute("carList", carList);
@@ -49,7 +51,7 @@ public class ListAction implements Action{
 		if(car_fuel!=null) request.setAttribute("car_fuel", car_fuel);
 		if(car_transmission!=null) request.setAttribute("car_transmission", car_transmission);
 		if(car_origin!=null) request.setAttribute("car_origin", car_origin);
-		
+		request.setAttribute("carlist_status", carlist_status);
 		return "/WEB-INF/views/car/list.jsp";
 	}
 
