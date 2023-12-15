@@ -36,7 +36,7 @@
 							<input type="button" value="취소" id="photo_reset"> 
 						</div>
 					</li>
-				</ul>
+				</ul> 
 				<h3>동네생활 회원정보</h3>
 				<ul>
 					<li><h3>${board.mem_nickname}님</h3></li>
