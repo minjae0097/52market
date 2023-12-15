@@ -127,7 +127,7 @@ public class CarDAO {
 				}
 				//SQL문 작성
 				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
-						+ " ON m.mem_num = a.car_seller WHERE carlist_status>=?" + sub_sql +type+fuel+transmission+origin;
+						+ " ON m.mem_num = a.car_seller WHERE carlist_status<=?" + sub_sql +type+fuel+transmission+origin;
 				//PreparedStatement 객체
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(++cnt, status);
@@ -196,13 +196,11 @@ public class CarDAO {
 			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
-					+ "WHERE carlist_status>=? ORDER BY carlist_num DESC) b on m.mem_num=b.car_seller )a) WHERE rnum >=? AND rnum <=? " + sub_sql + type + fuel + transmission + origin;
+					+ "WHERE carlist_status<=? "+ sub_sql + type + fuel + transmission + origin+" ORDER BY carlist_num DESC) b on m.mem_num=b.car_seller )a) WHERE rnum >=? AND rnum <=?";
 			//PreparedStatrment 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setInt(++cnt, carlist_status);
-			pstmt.setInt(++cnt, start);
-			pstmt.setInt(++cnt, end);
 			if(keyword != null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
@@ -218,6 +216,8 @@ public class CarDAO {
 			if(car_origin!=null) {
 				pstmt.setString(++cnt, car_origin);
 			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {

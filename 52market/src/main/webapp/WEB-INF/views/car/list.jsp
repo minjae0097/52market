@@ -26,7 +26,11 @@ window.onload=function(){
 	let filter = document.getElementById('filter');
 	//필터 보이게
 	show_filter.onclick=function(){
-		 filter.style.display = 'block';
+		if(filter.style.display == 'block'){
+			filter.style.display = 'none';
+		}else{
+			filter.style.display = 'block'
+		}
 	};
 	//필터 안보이게
 	let save_btn = document.getElementById('save_btn');
@@ -34,6 +38,8 @@ window.onload=function(){
 		 filter.style.display = 'none';
 	};
 	function base() {
+		/* let keyword = document.getElementById('keyword');
+		if(${param.keyword}!=null) keyword.value=${param.keyword} */
 		let type = document.querySelector('input[value="${car_type}"]');
 		if(type!=null) type.checked = true;
 		let fuel = document.querySelector('input[value="${car_fuel}"]');
@@ -67,9 +73,34 @@ window.onload=function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>등록 매물</h2>
-		<button id="show_filter">필터</button>
+		
 			<form id="search_form" action="list.do" method="get">
-				<div class="filter" id="filter" style="display:none;position:fixed;">
+			<ul>
+			<li>
+			<ul class="search">
+				<li>
+				<input type="button" value="필터"  id = "show_filter">
+					<select name="keyfield">
+						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
+						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
+					</select>
+				</li>
+				<li>
+					<input type="search" size="16" name="keyword" id="keyword" 
+					                              value="${param.keyword}">
+				</li>
+				<li>
+					<input type="submit" value="검색">
+				</li>
+				
+			</ul>
+			</li>
+			<li style="position:relative;left:250px;">
+				<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
+			</li>
+			</ul>	
+			<div class="filter" id="filter" style="display:none;">
 				<ul>
 					<li>
 						<label>차종</label>
@@ -103,27 +134,10 @@ window.onload=function(){
 					</li>
 				</ul>
 				<div class="align-center">
-					<input type="button" value="확인" id="save_btn">
+					<input type="submit" value="확인" id="save_btn">
 					<input type="button" value="초기화" id="reset_btn">
 				</div>
 				</div>
-		
-			<ul class="search">
-				<li>
-					<select name="keyfield">
-						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
-						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
-					</select>
-				</li>
-				<li>
-					<input type="search" size="16" name="keyword" id="keyword" 
-					                              value="${param.keyword}">
-				</li>
-				<li>
-					<input type="submit" value="검색">
-				</li>
-			</ul>
 		</form>	
 		<c:if test="${count == 0}">
 		<div class="result-display">

@@ -18,24 +18,13 @@ public class PageUtilCar {
 		//할 때 목록 데이터를 호출하기 위해 사용(startRow,endRow 를 구하기 위한 용도로만 사용)
 		this(null,null,currentPage,count,rowCount,0,null,status,null,null,null,null);
 	}
-	public PageUtilCar(int currentPage, int count, int rowCount,
-			int pageCount, String pageUrl,int status) {
-		this(null,null,currentPage,count,rowCount,pageCount,pageUrl,status,null,null,null,null);
-	}
-	public PageUtilCar(int currentPage, int count, int rowCount,
-			int pageCount, String pageUrl, int status,String car_type,String car_fuel,String car_transmission,String car_origin) {
-		this(null,null,currentPage,count,rowCount,pageCount,pageUrl,status,car_type,car_fuel,car_transmission,car_origin);
-	}
-	public PageUtilCar(String keyfield, String keyword, int currentPage, int count, int rowCount,
-			int pageCount,String pageUrl,int status) {
-		this(keyfield,keyword,currentPage,count,rowCount,pageCount,pageUrl,status,null,null,null,null);
-	}
+	
 	public PageUtilCar(String keyfield, String keyword, int currentPage, int count, int rowCount,
 			int pageCount,String pageUrl,int status,String car_type,String car_fuel,String car_transmission,String car_origin) {
 
 		if(count >= 0) {
 			String sub_url = "";
-			if(keyword != null || !"".equals(keyword)) sub_url = "&keyfield="+keyfield+"&keyword="+keyword;
+			if(keyword != null) sub_url = "&keyfield="+keyfield+"&keyword="+keyword;
 			if(car_type != null) sub_url += "&car_type="+car_type;
 			if(car_fuel != null) sub_url += "&car_fuel="+car_fuel;
 			if(car_transmission != null) sub_url += "&car_transmission="+car_transmission;
