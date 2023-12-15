@@ -42,6 +42,11 @@ public class ListAction implements Action{
 		request.setAttribute("carList", carList);
 		request.setAttribute("page", carpage.getPage());
 		
+		if(car_type!=null) request.setAttribute("car_type", car_type);
+		if(car_fuel!=null) request.setAttribute("car_fuel", car_fuel);
+		if(car_transmission!=null) request.setAttribute("car_transmission", car_transmission);
+		if(car_origin!=null) request.setAttribute("car_origin", car_origin);
+		
 		return "/WEB-INF/views/car/list.jsp";
 	}
 

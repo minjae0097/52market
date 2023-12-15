@@ -114,16 +114,16 @@ public class CarDAO {
 				}
 				//필터
 				if(car_type!=null) {
-					type += " AND car_type LIKE ? ";
+					type += " AND car_type in ? ";
 				}
 				if(car_fuel!=null) {
-					fuel += " AND car_fuel LIKE ? ";
+					fuel += " AND car_fuel in ? ";
 				}
 				if(car_transmission!=null) {
-					transmission += " AND car_transmission LIKE ? ";
+					transmission += " AND car_transmission in ? ";
 				}
 				if(car_origin!=null) {
-					origin += " AND car_origin LIKE ? ";
+					origin += " AND car_origin in ? ";
 				}
 				//SQL문 작성
 				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
@@ -135,16 +135,16 @@ public class CarDAO {
 					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
 				if(car_type!=null) {
-					pstmt.setString(++cnt, type);
+					pstmt.setString(++cnt, car_type);
 				}
 				if(car_fuel!=null) {
-					pstmt.setString(++cnt, fuel);
+					pstmt.setString(++cnt, car_fuel);
 				}
 				if(car_transmission!=null) {
-					pstmt.setString(++cnt, transmission);
+					pstmt.setString(++cnt, car_transmission);
 				}
 				if(car_origin!=null) {
-					pstmt.setString(++cnt, origin);
+					pstmt.setString(++cnt, car_origin);
 				}
 				//SQL문 실행
 				rs = pstmt.executeQuery();
@@ -183,16 +183,16 @@ public class CarDAO {
 			}
 			//필터
 			if(car_type!=null) {
-				type += " AND car_type LIKE ? ";
+				type += " AND car_type in ? ";
 			}
 			if(car_fuel!=null) {
-				fuel += " AND car_fuel LIKE ? ";
+				fuel += " AND car_fuel in ? ";
 			}
 			if(car_transmission!=null) {
-				transmission += " AND car_transmission LIKE ? ";
+				transmission += " AND car_transmission in ? ";
 			}
 			if(car_origin!=null) {
-				origin += " AND car_origin LIKE ? ";
+				origin += " AND car_origin in ? ";
 			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
@@ -207,16 +207,16 @@ public class CarDAO {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
 			if(car_type!=null) {
-				pstmt.setString(++cnt, type);
+				pstmt.setString(++cnt, car_type);
 			}
 			if(car_fuel!=null) {
-				pstmt.setString(++cnt, fuel);
+				pstmt.setString(++cnt, car_fuel);
 			}
 			if(car_transmission!=null) {
-				pstmt.setString(++cnt, transmission);
+				pstmt.setString(++cnt, car_transmission);
 			}
 			if(car_origin!=null) {
-				pstmt.setString(++cnt, origin);
+				pstmt.setString(++cnt, car_origin);
 			}
 			rs = pstmt.executeQuery();
 			list = new ArrayList<CarList_DetailVO>();

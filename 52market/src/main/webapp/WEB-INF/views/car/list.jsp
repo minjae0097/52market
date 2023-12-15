@@ -9,9 +9,9 @@
 <title>중고차 직거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 window.onload=function(){
-	let myForm = document.getElementById('search_form');
+	/* let myForm = document.getElementById('search_form');
 	//이벤트 연결
 	myForm.onsubmit=function(){
 		let keyword = document.getElementById('keyword');
@@ -21,18 +21,55 @@ window.onload=function(){
 			keyword.focus();
 			return false;
 		}
+	}; */
+	let show_filter = document.getElementById('show_filter');
+	let filter = document.getElementById('filter');
+	//필터 보이게
+	show_filter.onclick=function(){
+		 filter.style.display = 'block';
 	};
+	//필터 안보이게
+	let save_btn = document.getElementById('save_btn');
+	save_btn.onclick=function(){
+		 filter.style.display = 'none';
+	};
+	function base() {
+		let type = document.querySelector('input[value="${car_type}"]');
+		if(type!=null) type.checked = true;
+		let fuel = document.querySelector('input[value="${car_fuel}"]');
+		if(fuel!=null) fuel.checked = true;
+		let transmission = document.querySelector('input[value="${car_transmission}"]');
+		if(transmission!=null) transmission.checked = true;
+		let origin = document.querySelector('input[value="${car_origin}"]');
+		if(origin!=null) origin.checked = true;
+	}
+	base();
+	
+	//필터 리셋
+	let reset_btn = document.getElementById('reset_btn');
+	reset_btn.onclick=function(){
+		let type = document.querySelector('input[name="car_type"]:checked');
+		if(type!=null) type.checked = false;
+		let fuel = document.querySelector('input[name="car_fuel"]:checked');
+		if(fuel!=null) fuel.checked = false;
+		let transmission = document.querySelector('input[name="car_transmission"]:checked');
+		if(transmission!=null) transmission.checked = false;
+		let origin = document.querySelector('input[name="car_origin"]:checked');
+		if(origin!=null) origin.checked = false;
+	};
+	
+	
 };
-</script> -->
+</script>
 </head>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>등록 매물</h2>
-		<button>필터</button>
+		<button id="show_filter">필터</button>
 			<form id="search_form" action="list.do" method="get">
-				<div class="filter">
+				<div class="filter" id="filter" style="display:none;position:fixed;">
 				<ul>
 					<li>
 						<label>차종</label>
@@ -65,6 +102,10 @@ window.onload=function(){
 						<input type="radio" name="car_origin" value="수입" >수입
 					</li>
 				</ul>
+				<div class="align-center">
+					<input type="button" value="확인" id="save_btn">
+					<input type="button" value="초기화" id="reset_btn">
+				</div>
 				</div>
 		
 			<ul class="search">
