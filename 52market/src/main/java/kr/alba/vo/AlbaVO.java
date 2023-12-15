@@ -17,6 +17,7 @@ public class AlbaVO {
 	private int mem_num;			//회원번호
 	private String alba_location;	//알바주소사진첨부파일
 	private String mem_nickname;	//회원닉네임
+	private int alba_hit;
 	
 	private AlbaVO albaVO;
 
@@ -103,6 +104,12 @@ public class AlbaVO {
 	}
 	public void setAlba_location(String alba_location) {
 		this.alba_location = alba_location;
+	}
+	public int getAlba_hit() {
+		return alba_hit;
+	}
+	public void setAlba_hit(int alba_hit) {
+		this.alba_hit = alba_hit;
 	}
 	public AlbaVO getAlbaVO() {
 		return albaVO;

@@ -15,6 +15,9 @@ public class DetailAlbaAction implements Action{
 		int alba_num = Integer.parseInt(request.getParameter("alba_num"));
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
+		
+		dao.updateReadcount(alba_num);
+		
 		AlbaVO alba = dao.getAlba(alba_num);
 		
 		alba.setAlba_title(StringUtil.useNoHtml(alba.getAlba_title()));
@@ -22,7 +25,6 @@ public class DetailAlbaAction implements Action{
 		alba.setAlba_content2(StringUtil.useBrNoHtml(alba.getAlba_content2()));
 		
 		request.setAttribute("alba", alba);
-		
 		return "/WEB-INF/views/alba/detailAlba.jsp";
 	}
 

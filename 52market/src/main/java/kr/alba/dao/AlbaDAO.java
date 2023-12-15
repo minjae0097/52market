@@ -9,6 +9,7 @@ import java.util.List;
 import kr.alba.vo.Alba_FavVO;
 import kr.alba.vo.AlbaVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class AlbaDAO {
 	private static AlbaDAO instance = new AlbaDAO();
@@ -52,8 +53,44 @@ public class AlbaDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//알바 리스트
-	public List<AlbaVO> getList(int start,int end, String keyfield, String keyword)throws Exception{
+	
+	//전체 레코드수/검색 레코드수
+	public int getAlbaCount(String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				//검색처리
+				if(keyfield.equals("1")) sub_sql += " WHERE alba_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql +=" WHERE (alba_content1 LIKE ? or alba_content2 LIKE ?)";
+			}
+			
+			sql = "SELECT COUNT (*) FROM alba JOIN member USING(mem_num)" + sub_sql;
+			//PreparedStatement 객체
+			pstmt = conn.prepareStatement(sql);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(1, "%"+keyword+"%");
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, null, null);
+		}
+		return count;
+	}
+	//전체 글/검색 글 목록
+	public List<AlbaVO> getListAlba(int start, int end, String keyfield, String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,31 +104,36 @@ public class AlbaDAO {
 			conn = DBUtil.getConnection();
 			
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += " AND title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND detail LIKE ?";
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += "WHERE alba_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += "WHERE (alba_content1 LIKE ? or alba_content2 LIKE ?)";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM alba JOIN member USING(mem_num) "
-					+ sub_sql + "ORDER BY alba_num DESC)a) WHERE rnum >=? AND rnum <=?";
-			
+			//SQL문 작성
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM alba JOIN member USING(mem_num) " +sub_sql
+					+ "ORDER BY alba_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			if(keyword != null && !"".equals(keyword)) {
+			//?에 데이터 바인딩
+			if(keyword !=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
 			
+			//SQL문 실행
 			rs = pstmt.executeQuery();
 			list = new ArrayList<AlbaVO>();
 			while(rs.next()) {
-				AlbaVO albaVO = new AlbaVO();
-				albaVO.setAlba_photo(rs.getString("alba_photo"));
-				albaVO.setAlba_title(rs.getString("alba_title"));
-				albaVO.setAlba_content1(rs.getString("alba_content1"));
-				albaVO.setAlba_address1(rs.getString("alba_address1"));
-				albaVO.setAlba_reg_date(rs.getDate("alba_reg_date"));
-				albaVO.setAlba_num(rs.getInt("alba_num"));
+				AlbaVO alba = new AlbaVO();
+				alba.setAlba_num(rs.getInt("alba_num"));
+				//HTML을 허용하지 않음
+				alba.setAlba_title(StringUtil.useBrNoHtml(rs.getString("alba_title")));
+				alba.setAlba_hit(rs.getInt("alba_hit"));
+				alba.setAlba_content1("alba_content1");
+				alba.setAlba_photo(rs.getString("alba_photo"));
+				alba.setAlba_address1(rs.getString("alba_address1"));
 				
-				list.add(albaVO);
+				list.add(alba);
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -101,8 +143,6 @@ public class AlbaDAO {
 		
 		return list;
 	}
-	//전체 레코드수/검색 레코드수
-	//전체 글/검색 글 목록
 	//글 상세
 	public AlbaVO getAlba(int alba_num)throws Exception{
 		Connection conn = null;
@@ -122,6 +162,7 @@ public class AlbaDAO {
 				alba = new AlbaVO();
 				alba.setAlba_num(rs.getInt("alba_num"));
 				alba.setAlba_photo(rs.getString("alba_photo"));
+				alba.setAlba_hit(rs.getInt("alba_hit"));
 				alba.setAlba_title(rs.getString("alba_title"));
 				alba.setAlba_content1(rs.getString("alba_content1"));
 				alba.setAlba_content2(rs.getString("alba_content2"));
@@ -142,7 +183,23 @@ public class AlbaDAO {
 		return alba;
 	}
 	//조회수 증가
-	//파일 삭제
+	public void updateReadcount(int alba_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE alba SET alba_hit=alba_hit+1 WHERE alba_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, alba_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//글 수정
 	public void updateAlba(AlbaVO alba)throws Exception{
 		Connection conn = null;
@@ -309,5 +366,4 @@ public class AlbaDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//내가 선택한 관심(좋아요) 목록
 }

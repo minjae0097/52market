@@ -18,6 +18,12 @@ public class UpdateAlbaFormAction implements Action{
 		if(user_num ==null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		if(user_auth != 3) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		
 		int alba_num = Integer.parseInt(request.getParameter("alba_num"));
 		
 		AlbaDAO dao = AlbaDAO.getInstance();

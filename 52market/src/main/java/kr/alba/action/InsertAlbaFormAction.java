@@ -15,6 +15,11 @@ public class InsertAlbaFormAction implements Action{
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		if(user_auth != 3) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
 		return "/WEB-INF/views/alba/insertAlbaForm.jsp";
 	}
 

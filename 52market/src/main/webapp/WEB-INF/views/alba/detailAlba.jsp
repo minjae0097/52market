@@ -21,6 +21,7 @@
 		<c:if test="${empty mem.mem_photo}">
 			<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
 		<span>${alba.mem_nickname}</span>
+		<span>${alba.alba_hit}</span>
 		</c:if>
 	</div>
 	<div class="float-clear">

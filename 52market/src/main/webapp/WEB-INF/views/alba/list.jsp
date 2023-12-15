@@ -22,6 +22,8 @@
 					<img src="${pageContext.request.contextPath}/upload/${alba.alba_photo}">
 					<span>${alba.alba_title}</span>
 					<span>${alba.alba_address1}</span>
+					<br>
+					<span>조회 ${alba.alba_hit}</span>
 					</a>
 				</div>
 			</c:forEach>

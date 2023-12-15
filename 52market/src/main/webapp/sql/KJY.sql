@@ -13,6 +13,7 @@ create table alba(
 	alba_address2 varchar2(90) not null,
 	mem_num number not null,
 	alba_filename varchar2(150) not null,
+	alba_hit number(9) default 0 not null,
 	constraint alba_pk primary key (alba_num),
 	constraint alba_fk foreign key (mem_num) references member (mem_num)
 );
