@@ -1,11 +1,11 @@
 --부동산 판매글 리스트 테이블
 create table houselist(
 house_num number not null,
-house_title varchar2(150) not null,
 house_content clob not null,
 house_reg_date date default sysdate not null,
 house_modify_date date,
 house_status number(1) default 0 not null,
+hit number(9) default 0 not null,
 constraint houselist_pk primary key (house_num),
 constraint houselist_detail_fk foreign key (house_num) references house_detail (house_num) 
 );
@@ -26,7 +26,10 @@ house_address2 varchar2(90) not null,
 house_space number(5) not null,
 house_floor number(5) not null,
 house_move_in number(1) not null,
-house_filename varchar2(60) not null,
+house_photo1 varchar2(60) not null,
+house_photo2 varchar2(60) not null,
+house_title varchar2(150) not null,
+zipcode varchar2(5) not null,
 house_trade_date date,
 house_buyer number,
 mem_num number,

@@ -8,7 +8,15 @@ public class HouseListVO {
 	private Date house_reg_date;	//부동산 판매글 작성일
 	private Date house_modify_date;	//부동산 판매글 수정일
 	private int house_status;		//부동산 판매여부
-	
+	private int hit;				//조회수
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 
 	public int getHouse_num() {
 		return house_num;

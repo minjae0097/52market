@@ -32,7 +32,7 @@
 				delete_btn.onclick=function(){
 					let choice = confirm('삭제하시겠습니까?');
 					if(choice){
-						location.herf='deleteHouse.do?house_num=${list.house_num}';
+						location.href='deleteHouse.do?house_num=${list.house_num}';
 					}
 				}
 			</script>
@@ -40,7 +40,7 @@
 		<hr width="100%" size="1">
 		<div>
 			<c:if test="${detail.house_seller_type == 1}">세입자</c:if>
-			<c:if test="${detail.house_seller_type == 2}">집주인</c:if>
+			<c:if test="${detail.house_seller_type == 2}">집주인</c:if>/
 			<c:if test="${detail.house_type == 1}">원룸</c:if>
 			<c:if test="${detail.house_type == 2}">빌라</c:if>
 			<c:if test="${detail.house_type == 3}">아파트</c:if>
@@ -49,10 +49,16 @@
 			<c:if test="${detail.house_type == 6}">기타(사무실,주택,토지 등)</c:if>
 		</div>
 		<div>
-			<span>${detail.house_title} . 
+			<span>
+			<c:if test="${list.house_status == 0}">판매중</c:if>
+			<c:if test="${list.house_status == 1}">판매완료</c:if>  
+			<c:if test="${detail.house_deal_type == 1}">전세</c:if>
+			<c:if test="${detail.house_deal_type == 2}">매매</c:if>
+			<c:if test="${detail.house_deal_type == 3}">월세</c:if>
+			<c:if test="${detail.house_deal_type == 4}">단기</c:if>
 			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber value="${detail.house_price/10000}"/>만원</c:if>
 			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber value="${detail.house_price}"/>원</c:if><br>
-			조회수 : ${detail.hit}
+			조회수 : ${list.hit}
 			</span>
 		</div>
 		<div>
