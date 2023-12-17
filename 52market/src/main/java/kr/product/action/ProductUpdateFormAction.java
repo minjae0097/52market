@@ -1,7 +1,5 @@
 package kr.product.action;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +8,7 @@ import kr.controller.Action;
 import kr.product.dao.ProductDAO;
 import kr.product.vo.ProductVO;
 import kr.product.vo.Product_DetailVO;
+import kr.product.vo.Product_MapVO;
 import kr.util.StringUtil;
 
 public class ProductUpdateFormAction implements Action{
@@ -33,8 +32,15 @@ public class ProductUpdateFormAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
+		Product_DetailVO detail = dao.getProductDetail(product_num);
+		ProductVO product = dao.getProduct(product_num);
+		Product_MapVO map = dao.getProductMap(product_num);
+		
 		db_product.setProduct_title(StringUtil.parseQuot(db_product.getProduct_title()));
-		request.setAttribute("product", db_product);
+		request.setAttribute("product", product);
+		request.setAttribute("detail", detail);
+		request.setAttribute("map", map);
+
 		
 		return "/WEB-INF/views/product/product_updateForm.jsp";
 	}

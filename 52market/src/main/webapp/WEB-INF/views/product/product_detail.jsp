@@ -15,7 +15,9 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>${product.product_title}</h2>
+	<div class="align-center">
+			<img src="${pageContext.request.contextPath}/upload/${product.product_image}" class="detail-img">
+	</div>
 		<ul class="detail-info">
 			<li>
 				<c:if test="${!empty product.mem_photo}">
@@ -25,50 +27,8 @@
 				<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">	
 				</c:if>
 			</li>
-			<li>
-				${product.mem_nickname}
-			</li>
-			
-			<li>
-				<%-- 관심물품 --%>
-				<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-				관심글 등록
-				<span id="output_fcount"></span>                                               
-			</li>
-			
-			
-		</ul>
-		<hr size="1" noshade="noshade" width="100%">
-		<div class="align-center">
-			<img src="${pageContext.request.contextPath}/upload/${product.product_image}" class="detail-img">
-		</div>
-		
-		<div>
-			<h3>상품정보</h3>
-			<ul>
-				<li>상품명 : ${detail.product_name}</li>
-				<li>가격 : ${detail.product_price}</li>
-			</ul>
-			<h3>상품글</h3>
-			<ul>
-				<li>
-					<span>${product.product_content}</span>
-				</li>
-			</ul>
-			<h3>거래희망장소</h3>
-			<jsp:include page="/map/showMap.jsp"/>
-		</div>
-		<ul class="detail-sub">
-			<li>
-				조회 : ${product.product_hit}<br>
-				관심 등록수 : <span id="output_fcount"></span><br>
-			</li>
-			<li>
-				<c:if test="${!empty product.product_modify_date}">
-					최근 수정일 : ${product.product_modify_date}
-				</c:if>
-				작성일 : ${product.product_reg_date}
-				<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정,삭제 가능 --%>
+			<li>${product.mem_nickname}</li>
+			<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정,삭제 가능 --%>
 				<c:if test="${user_num == product.product_mem}">
 				<input type="button" value="수정" onclick="location.href='productUpdateForm.do?product_num=${product.product_num}'">
 				<input type="button" value="삭제" id="delete_btn">
@@ -83,8 +43,59 @@
 					};
 				</script>
 				</c:if>     
+			<hr size="1" noshade="noshade" width="100%">
+		</ul>
+		<div>
+			<ul>
+				<li>
+				<c:if test="${product.product_status == 0}">판매중</c:if>
+				<c:if test="${product.product_status == 1}">판매완료</c:if>
+				${product.product_title}</li>
+				<li>
+				<c:if test="${detail.product_category == 1}">디지털기기</c:if>
+				<c:if test="${detail.product_category == 2}">생활/주방</c:if>
+				<c:if test="${detail.product_category == 3}">유아동</c:if>
+				<c:if test="${detail.product_category == 4}">의류/잡화</c:if>
+				<c:if test="${detail.product_category == 5}">티켓/교환권</c:if>
+				</li>
+				<!-- 끌올 시간 추가하기 -->
+			</ul>
+			<ul>
+				<li>
+					<span>가격 : ${detail.product_price}</span><br>
+					<span>${product.product_content}</span>
+				</li>
+			</ul>
+			<ul>
+				<h3>위치</h3>
+					<jsp:include page="/map/showMap.jsp"/>
+			</ul>	
+		</div>
+		<div class="etc">
+		<ul class="detail-sub">
+			<li>
+				조회 ${product.product_hit}
+				관심 <span id="output_fcount"></span>
+				채팅 <!-- 채팅 개수 추가 --><br>
+				<c:if test="${!empty product.product_modify_date}">
+					최근 수정일 : ${product.product_modify_date}
+				</c:if>
+				작성일 : ${product.product_reg_date}
+			</li>
+			
+			<hr size="1" noshade="noshade" width="100%">
+			<li>
+				<%-- 관심물품 --%>
+				<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				관심글 등록
+				<span id="output_fcount"></span>                                               
+			</li>
+			<li>
+				<input type="button" value="채팅하기">
+				<input type="button" value="목록" onclick="location.href='list.do'"> 
 			</li>
 		</ul>
+		</div>
 	</div>
 </div>
 </body>

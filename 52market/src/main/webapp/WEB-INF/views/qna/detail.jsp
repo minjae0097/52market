@@ -37,11 +37,37 @@
 		${qna.question_content}
 	</p>
 	<hr size="1" noshade="noshade" width="100%">
+	
+	<%-- if --%>
+	<c:if test="${qna.ask_content!=null}">
+	<h2>${qna.mem_nickname}님, 답변 드립니다.</h2>
+	<ul class="detail-info">
+		<li>
+			<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo">
+		</li>
+		<li>
+			관리자<br>
+		</li>
+	</ul>
+	<hr size="1" noshade="noshade" width="100%">
+		<br>
+			<p>
+				${qna.ask_content}
+			</p>
+		<br>
+	<hr size="1" noshade="noshade" width="100%">
+	</c:if>
+	<%-- if 끝 --%>
+	
 	<ul class="detail-sub">
 		<li>
 			작성일 : ${qna.question_regdate}
+			답변일 : ${qna.ask_regdate}
 			<%-- 관리자만 답글 가능 --%>
-			<c:if test="${user_auth == 9}">
+			<c:if test="${user_auth == 9 && !empty qna.ask_content}">
+				<input type="button" value="수정" onclick="location.href='aUpdateForm.do?qna_num=${qna.qna_num}'">
+			</c:if>
+			<c:if test="${user_auth == 9 && empty qna.ask_content}">
 				<input type="button" value="답글달기" onclick="location.href='aUpdateForm.do?qna_num=${qna.qna_num}'">
 			</c:if>
 			<input type="button" value="삭제" id="delete_btn">

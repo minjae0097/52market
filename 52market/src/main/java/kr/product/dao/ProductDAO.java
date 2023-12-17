@@ -9,7 +9,6 @@ import java.util.List;
 import kr.product.vo.Product_DetailVO;
 import kr.product.vo.Product_FavVO;
 import kr.product.vo.Product_MapVO;
-import kr.member.vo.MemberVO;
 import kr.product.vo.ProductVO;
 import kr.util.DBUtil;
 
@@ -91,95 +90,95 @@ public class ProductDAO {
 	}
 
 	//관리자/사용자 - 전체 상품 개수/검색 상품 개수
-	public int getProductCount(String keyfield,String keyword,int status)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		String sub_sql = "";
-		int count = 0;
-		
-		try {
-			conn = DBUtil.getConnection();
+		public int getProductCount(String keyfield,String keyword,int status)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			String sub_sql = "";
+			int count = 0;
 			
-			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
-			}
-			
-			sql = "SELECT COUNT(*) FROM product WHERE status > ?" + sub_sql;
-			pstmt = conn.prepareStatement(sql);
-			
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++count, "%"+keyword+"%");
-			}
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
-		}		
-		return count;
-	}
-	
-	
-	//관리자/사용자 - 전체 상품 개수/검색 상품 목록
-	public List<Product_DetailVO> getListProduct(int start,int end,String keyfield,String keyword,int product_status)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Product_DetailVO> list = null;
-		String sql = null;
-		String sub_sql = "";
-		int cnt = 0;
-		
-		try {
-			conn = DBUtil.getConnection();
-			
-			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
-			}
-			
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM " +
-				"(SELECT * FROM product INNER JOIN product_detail USING(product_num) WHERE product_status>=? "
-				+ sub_sql + " ORDER BY product_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
-						
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(++cnt, product_status);
-			
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, "%"+keyword+"%");
-			}
-			
-			pstmt.setInt(++cnt, start);
-			pstmt.setInt(++cnt, end);
-			
-			rs = pstmt.executeQuery();
-			
-			list = new ArrayList<Product_DetailVO>();
-			while(rs.next()) {
-				Product_DetailVO detail = new Product_DetailVO();
-				detail.setProduct_num(rs.getInt("product_num"));
-				detail.setProduct_seller(rs.getInt("product_seller"));
-				detail.setProduct_category(rs.getInt("product_category"));
-				detail.setProduct_price(rs.getInt("product_price"));
-				detail.setProduct_image(rs.getString("product_image"));
-				detail.setProduct_name(rs.getString("product_name"));
+			try {
+				conn = DBUtil.getConnection();
 				
-				list.add(detail);
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
+				if(keyword!=null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
+				}
+				
+				sql = "SELECT COUNT(*) FROM product WHERE status > ?" + sub_sql;
+				pstmt = conn.prepareStatement(sql);
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(++count, "%"+keyword+"%");
+				}
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
 		}
-		return list;
-	}
+		
+		
+		//관리자/사용자 - 전체 상품 개수/검색 상품 목록
+		public List<Product_DetailVO> getListProduct(int start,int end,String keyfield,String keyword,int product_status)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<Product_DetailVO> list = null;
+			String sql = null;
+			String sub_sql = "";
+			int cnt = 0;
+			
+			try {
+				conn = DBUtil.getConnection();
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
+				}
+				
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM " +
+					"(SELECT * FROM product INNER JOIN product_detail USING(product_num) WHERE product_status>=? "
+					+ sub_sql + " ORDER BY product_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+							
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(++cnt, product_status);
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
+				
+				rs = pstmt.executeQuery();
+				
+				list = new ArrayList<Product_DetailVO>();
+				while(rs.next()) {
+					Product_DetailVO detail = new Product_DetailVO();
+					detail.setProduct_num(rs.getInt("product_num"));
+					detail.setProduct_seller(rs.getInt("product_seller"));
+					detail.setProduct_category(rs.getInt("product_category"));
+					detail.setProduct_price(rs.getInt("product_price"));
+					detail.setProduct_image(rs.getString("product_image"));
+					detail.setProduct_name(rs.getString("product_name"));
+					
+					list.add(detail);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			return list;
+		}
 	
 
 	
