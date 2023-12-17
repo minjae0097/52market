@@ -79,7 +79,7 @@ window.onload=function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>등록 매물</h2>
-		
+			<button onclick="location.href='${pageContext.request.contextPath}/member/myPage.do'">마이페이지</button>
 			<form id="search_form" action="list.do" method="get">
 			<ul>
 			<li>

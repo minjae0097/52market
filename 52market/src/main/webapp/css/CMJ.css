@@ -19,3 +19,12 @@
 .filter{
 	background-color: gray;
 }
+.mypage-horizontal{
+	margin:2px;
+	padding:3px;
+	width:45%;
+	height:240px;
+	float:left;
+	overflow:hidden;
+	text-align:center;
+}
