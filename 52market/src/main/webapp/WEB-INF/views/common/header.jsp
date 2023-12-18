@@ -33,6 +33,7 @@
 		<li class="menu-profile"><img src="${pageContext.request.contextPath}/images/face.png" width="25" height="25" class="my-photo"></li>
 		</c:if>
 		<c:if test="${!empty user_num}">
+		<li><a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a></li>
 		<li class="menu-logout">
 			[<span>${user_id}</span>]
 			<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
