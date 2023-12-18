@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.content-detail{
+	padding:10px 250px;
+}
+.filter{
+	background-color: gray;
+}
+.image-space .horizontal-area {
+	margin:2px;
+	padding:3px;
+	width:45%;
+	height:240px;
+	float:left;
+	overflow:hidden;
+	text-align:center;
+}
+.image-space .horizontal-area img{
+	width:215px;
+	height:195px;
+}

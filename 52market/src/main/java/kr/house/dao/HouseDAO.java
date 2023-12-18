@@ -88,6 +88,7 @@ public class HouseDAO {
 	}
 	//전체 레코드수/검색 레코드수
 	public int getHouseCount(String keyfield,String keyword,int house_status,int house_seller_type,int house_type,int house_deal_type,int house_move_in)throws Exception{
+		System.out.println("!!!!!!!!!!");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -109,21 +110,23 @@ public class HouseDAO {
 			
 			//필터
 			if(house_seller_type >= 1 && house_seller_type <= 9) {
-				sub_sql += "AND house_seller_type in ?";
+				sub_sql += " AND house_seller_type = ?";
 			}
 			if(house_type >= 1 && house_type <= 9) {
-				sub_sql += "AND house_type in ?";
+				sub_sql += " AND house_type = ?";
 			}
 			if(house_deal_type >= 1 && house_deal_type <= 9) {
-				sub_sql += "AND house_deal_type in ?";
+				sub_sql += " AND house_deal_type = ?";
 			}
 			if(house_move_in >=1 && house_move_in <= 9) {
-				sub_sql += "AND house_move_in in ?";
+				sub_sql += " AND house_move_in = ?";
 			}
 			//SQL문 작성
 			sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM houselist INNER "
 					+ "JOIN house_detail USING(house_num)) a ON m.mem_num = a.mem_num "
 					+ "WHERE house_status<=?" + sub_sql;
+			
+			System.out.println("getHouseCount sql : " + sql);
 			
 			//PreparedStatement 객체 생성 3단계
 			pstmt = conn.prepareStatement(sql);
@@ -183,16 +186,17 @@ public class HouseDAO {
 			}
 			//필터
 			if(house_seller_type >= 1 && house_seller_type <= 9) {
-				sub_sql += "AND house_seller_type = ?";
+				System.out.println("house_seller_type : " + house_seller_type);
+				sub_sql += " AND house_seller_type = ?";
 			}
 			if(house_type >= 1 && house_type <= 9) {
-				sub_sql += "AND house_type = ?";
+				sub_sql += " AND house_type = ?";
 			}
 			if(house_deal_type >= 1 && house_deal_type <= 9) {
-				sub_sql += "AND house_deal_type = ?";
+				sub_sql += " AND house_deal_type = ?";
 			}
 			if(house_move_in >=1 && house_move_in <= 9) {
-				sub_sql += "AND house_move_in = ?";
+				sub_sql += " AND house_move_in = ?";
 			}
 			
 			//SQL문 작성
@@ -209,8 +213,6 @@ public class HouseDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
-			pstmt.setInt(++cnt, start);
-			pstmt.setInt(++cnt, end);
 			if(house_seller_type >= 1 && house_seller_type <= 9) {
 				pstmt.setInt(++cnt, house_seller_type);
 			}
@@ -223,6 +225,8 @@ public class HouseDAO {
 			if(house_move_in >=1 && house_move_in <= 9) {
 				pstmt.setInt(++cnt, house_move_in);
 			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
 			//SQL문 실행
 			rs = pstmt.executeQuery();
 			list = new ArrayList<HouseDetailVO>();

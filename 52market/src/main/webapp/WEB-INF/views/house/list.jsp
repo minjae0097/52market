@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>부동산 직거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript">
 window.onload=function(){
 	/* let myForm = document.getElementById('search_form');
@@ -37,34 +37,99 @@ window.onload=function(){
 	save_btn.onclick=function(){
 		 filter.style.display = 'none';
 	};
+	
+	//판매중만 보이게
+	let house_status = document.getElementById('save_btn');
+	house_status.onclick=function(){
+		let myform = documenet.getElementById('search_form');
+		myform.submit();
+	}
+	/*
 	function base() {
-		/* let keyword = document.getElementById('keyword');
-		if(${param.keyword}!=null) keyword.value=${param.keyword} */
-		let type = document.querySelector('input[value="${car_type}"]');
-		if(type!=null) type.checked = true;
-		let fuel = document.querySelector('input[value="${car_fuel}"]');
-		if(fuel!=null) fuel.checked = true;
-		let transmission = document.querySelector('input[value="${car_transmission}"]');
-		if(transmission!=null) transmission.checked = true;
-		let origin = document.querySelector('input[value="${car_origin}"]');
-		if(origin!=null) origin.checked = true;
+		let house_status = document.getElementById('house_status');
+		if(${house_status} == 0) house_status.checked=true;
+		let house_seller_type = document.querySelector('input[value="${house_seller_type}"]');
+		if(house_seller_type!=null) house_seller_type.checked = true;
+		let house_type = document.querySelector('input[value="${house_type}"]');
+		if(house_type!=null) house_type.checked = true;
+		let house_deal_type = document.querySelector('input[value="${house_deal_type}"]');
+		if(house_deal_type!=null) house_deal_type.checked = true;
+		let house_move_in = document.querySelector('input[value="${house_move_in}"]');
+		if(house_move_in!=null) house_move_in.checked = true;
 	}
 	base();
-	
+	*/
 	//필터 리셋
 	let reset_btn = document.getElementById('reset_btn');
 	reset_btn.onclick=function(){
-		let type = document.querySelector('input[name="car_type"]:checked');
-		if(type!=null) type.checked = false;
-		let fuel = document.querySelector('input[name="car_fuel"]:checked');
-		if(fuel!=null) fuel.checked = false;
-		let transmission = document.querySelector('input[name="car_transmission"]:checked');
-		if(transmission!=null) transmission.checked = false;
-		let origin = document.querySelector('input[name="car_origin"]:checked');
-		if(origin!=null) origin.checked = false;
+		let house_seller_type = document.querySelector('input[name="house_seller_type"]:checked');
+		if(house_seller_type!=null) house_seller_type.checked = false;
+		let house_type = document.querySelector('input[name="house_type"]:checked');
+		if(house_type!=null) house_type.checked = false;
+		let house_deal_type = document.querySelector('input[name="house_deal_type"]:checked');
+		if(house_deal_type!=null) house_deal_type.checked = false;
+		let house_move_in = document.querySelector('input[name="house_move_in"]:checked');
+		if(house_move_in!=null) house_move_in.checked = false;
 	};
 	
+	//필터
+	<c:if test="${!empty param.house_seller_type}">
+		let house_seller_type = document.getElementsByName('house_seller_type');
+		<c:if test="${param.house_seller_type == 1}">
+			house_seller_type[0].checked = true;
+		</c:if>
+		<c:if test="${param.house_seller_type == 2}">
+			house_seller_type[1].checked = true;
+		</c:if>
+	</c:if>
 	
+	<c:if test="${!empty param.house_type}">
+		let house_type = document.getElementsByName('house_type');
+		<c:if test="${param.house_type == 1}">
+			house_type[0].checked = true;
+		</c:if>
+		<c:if test="${param.house_type == 2}">
+			house_type[1].checked = true;
+		</c:if>
+		<c:if test="${param.house_type == 3}">
+			house_type[2].checked = true;
+		</c:if>
+		<c:if test="${param.house_type == 4}">
+			house_type[3].checked = true;
+		</c:if>
+		<c:if test="${param.house_type == 5}">
+			house_type[4].checked = true;
+		</c:if>
+		<c:if test="${param.house_type == 6}">
+			house_type[5].checked = true;
+		</c:if>
+	</c:if>
+	
+	<c:if test="${!empty param.house_deal_type}">
+		let house_deal_type = document.getElementsByName('house_deal_type');
+		<c:if test="${param.house_deal_type == 1}">
+			house_deal_type[0].checked = true;
+		</c:if>
+		<c:if test="${param.house_deal_type == 2}">
+			house_deal_type[1].checked = true;
+		</c:if>
+		<c:if test="${param.house_deal_type == 3}">
+			house_deal_type[2].checked = true;
+		</c:if>
+		<c:if test="${param.house_deal_type == 4}">
+			house_deal_type[3].checked = true;
+		</c:if>
+	</c:if>
+	
+	<c:if test="${!empty param.house_move_in}">
+		let house_move_in = document.getElementsByName('house_move_in');
+		<c:if test="${param.house_move_in == 1}">
+			house_move_in[0].checked = true;
+		</c:if>
+		<c:if test="${param.house_move_in == 2}">
+			house_move_in[1].checked = true;
+		</c:if>
+	</c:if>
 };
 </script>
 </head>
@@ -79,7 +144,7 @@ window.onload=function(){
 				<li>
 					<ul class="search">		
 						<li>
-							<input type="button" value="필터" id = "show_filter">
+							<input type="button" value="필터" id="show_filter">
 							<select name="keyfield">
 								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
@@ -95,9 +160,10 @@ window.onload=function(){
 					</ul>
 				</li>
 				<li style="position:relative;left:250px;">
-					<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
+					<input type="checkbox" name="house_status" id="house_status" value="0"><span>판매중인 것만 보기</span>
 				</li>
-			</ul>	
+			</ul>
+				
 			<div class="filter" id="filter" style="display:none;">
 				<ul>
 					<li>
@@ -147,8 +213,7 @@ window.onload=function(){
 								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
 								<span>${house.house_title}</span>
 								<br>
-								${house.mem_nickname}<b><fmt:formatNumber value="${house.house_price}"/>원</b><br>
-								
+								<b>${house.mem_nickname}<fmt:formatNumber value="${house.house_price}"/>원</b><br>
 							</a>
 						</div>
 					</c:forEach>

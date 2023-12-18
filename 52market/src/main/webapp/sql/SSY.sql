@@ -42,6 +42,7 @@ constraint house_detail_fk2 foreign key (house_buyer) references member (mem_num
 create table house_fav(
 house_num number not null,
 mem_num number not null,
+house_reg_date date default sysdate not null,
 constraint house_fav_fk1 foreign key (house_num) references houselist (house_num),
 constraint house_fav_fk2 foreign key (mem_num) references member(mem_num)
 );
