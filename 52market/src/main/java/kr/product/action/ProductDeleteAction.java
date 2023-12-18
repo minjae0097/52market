@@ -29,7 +29,7 @@ public class ProductDeleteAction implements Action{
 		}
 		
 		dao.deleteProduct(product_num);
-		FileUtil.removeFile(request, db_product.getProduct_image());
+		FileUtil.removeFile(request, db_product.getProduct_image1());
 		
 		return "redirect:/product/list.do";
 	}

@@ -27,8 +27,8 @@
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="submit" value="답변등록">
-				<input type="button" value="목록" onclick="location.herf='list.do'">
+				<input type="submit" value="작성">
+				<input type="button" value="취소" onclick="location.herf='list.do'">
 			</div>
 		</form>
 	</div>

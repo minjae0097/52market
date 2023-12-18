@@ -37,7 +37,7 @@ window.onload=function(){
 		</c:if>
 		
 		<c:if test="${count > 0}">
-			<form id="search_form" action="list.do" method="get">
+			<form id="search_form" action="adminList.do" method="get">
 				<ul class="search">
 					<li>
 						<select name="keyfield">
@@ -56,28 +56,26 @@ window.onload=function(){
 				<table>
 					<tr>
 						<th>글번호</th>
+						<th>회원번호</th>
 						<th>상태</th>
 						<th>제목</th>
 						<th>등록일</th>
 					</tr>
 					<c:forEach var="qna" items="${list}">
 					<tr>
-						<td><a href="detail.do?qna_num=${qna.qna_num}">${qna.qna_num}</a></td>
-						<td>
-							<c:if test="${qna.ask_content==null}">답변대기</c:if>
+						<td><a href="adminDetail.do?qna_num=${qna.qna_num}">${qna.qna_num}</a></td>
+						<td><a href="adminDetail.do?qna_num=${qna.qna_num}">${qna.mem_num}</a></td>
+						<td><c:if test="${qna.ask_content==null}">답변대기</c:if>
 							<c:if test="${qna.ask_content!=null}">답변완료</c:if>
-						</td>
-						<td><a href="detail.do?qna_num=${qna.qna_num}">${qna.qna_title}</a></td>
+							</td>
+						<td><a href="adminDetail.do?qna_num=${qna.qna_num}">${qna.qna_title}</a></td>
 						<td>${qna.question_regdate}</td>
 					</tr>
 					</c:forEach>
 				</table>
-			<div class="list-space align-right">
-				<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
-			    	<c:if test="${empty user_num}">disabled="disabled"</c:if> 
-					>
-				<input type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
-			</div>
+				<div class="list-space align-right">
+					<input type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
+				</div>
 				
 				<div class="align-center">${page}</div>
 		</c:if>

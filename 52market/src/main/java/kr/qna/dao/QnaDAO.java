@@ -44,7 +44,103 @@ public class QnaDAO {
 	
 	
 	//전체 레코드수/검색 레코드 수
-	public int getQnaCount(String keyfield,String keyword)throws Exception{
+	public int getQnaCount(String keyfield,String keyword, int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND qna_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += "AND question_content LIKE ?";
+			}
+			
+			sql = "SELECT COUNT(*) FROM qna JOIN member USING(mem_num) WHERE mem_num=? " + sub_sql;
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
+	
+	
+	//전체,검색 글 목록
+	public List<QnaVO> getListQna(int start,int end,String keyfield, String keyword ,int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<QnaVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "and qna_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += "and question_content LIKE ?";
+			}
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
+					+ "(SELECT * FROM qna JOIN member USING(mem_num) WHERE mem_num=? " + sub_sql
+					+ " ORDER BY qna_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<QnaVO>();
+			while(rs.next()) {
+				QnaVO qna = new QnaVO();
+				qna.setQna_num(rs.getInt("qna_num"));
+				qna.setQna_title(rs.getString("qna_title"));
+				qna.setAsk_content(rs.getString("ask_content"));
+				qna.setMem_num(rs.getInt("mem_num"));
+				qna.setMem_nickname(rs.getString("mem_nickname"));
+				qna.setQuestion_regdate(rs.getDate("question_regdate"));
+				qna.setAsk_regdate(rs.getDate("ask_regdate"));
+				
+				list.add(qna);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	//관리자 adminlist
+	//전체 레코드수/검색 레코드 수
+	public int getAdminQnaCount(String keyfield,String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -80,7 +176,7 @@ public class QnaDAO {
 	
 	
 	//전체,검색 글 목록
-	public List<QnaVO> getListQna(int start,int end,String keyfield, String keyword)throws Exception{
+	public List<QnaVO> getAdminListQna(int start,int end,String keyfield, String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -115,7 +211,11 @@ public class QnaDAO {
 				QnaVO qna = new QnaVO();
 				qna.setQna_num(rs.getInt("qna_num"));
 				qna.setQna_title(rs.getString("qna_title"));
+				qna.setAsk_content(rs.getString("ask_content"));
+				qna.setMem_num(rs.getInt("mem_num"));
+				qna.setMem_nickname(rs.getString("mem_nickname"));
 				qna.setQuestion_regdate(rs.getDate("question_regdate"));
+				qna.setAsk_regdate(rs.getDate("ask_regdate"));
 				
 				list.add(qna);
 			}
@@ -209,5 +309,39 @@ public class QnaDAO {
 		}
 	}
 	
+	//개별 문의글 목록
+	public List<QnaVO> getListQnaDetail(int qna_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<QnaVO> list = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM qna WHERE qna_num=? ORDER BY question_regdate DESC";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qna_num);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<QnaVO>();
+			while(rs.next()) {
+				QnaVO qna = new QnaVO();
+				qna.setQna_num(rs.getInt("qna_num"));
+				qna.setQna_title(rs.getString("qna_title"));
+				qna.setQuestion_content(rs.getString("question_content"));
+				qna.setQuestion_filename(rs.getString("question_filename"));
+				qna.setQuestion_regdate(rs.getDate("question_regdate"));
+				qna.setAsk_content(rs.getString("ask_content"));
+				qna.setAsk_regdate(rs.getDate("ask_regdate"));
+				
+				list.add(qna);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
 	
 }

@@ -35,6 +35,7 @@ create table product(
 create table product_fav(
  product_num number not null,
  mem_num number not null,
+ regdate date default sysdate not null, 
 
  constraint product_fav_fk1 foreign key (product_num) references product (product_num),
  constraint product_fav_fk2 foreign key (mem_num) references member (mem_num)

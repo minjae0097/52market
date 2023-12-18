@@ -19,17 +19,17 @@
 					<input type="text" name="qna_title" id="qna_title" maxlength="50">
 				</li>
 				<li>
-					<label for="question_content">내용</label>
+					<label for="question_content">글 내용</label>
 					<textarea rows="5" cols="30" name="question_content" id="question_content"></textarea>
 				</li>
 				<li>
-					<label for="question_filename">파일</label>
+					<label for="question_filename">파일 첨부</label>
 					<input type="file" name="question_filename" id="question_filename" accept="image/gif,image/png,image/jpeg">
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="submit" value="등록">
-				<input type="button" value="목록" onclick="location.herf='list.do'">
+				<input type="submit" value="작성">
+				<input type="button" value="취소" onclick="location.href='list.do'">
 			</div>
 		</form>
 	</div>

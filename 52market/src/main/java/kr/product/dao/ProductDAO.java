@@ -55,13 +55,13 @@ public class ProductDAO {
 			pstmt2.executeUpdate();
 			
 			//3. product 
-			sql = "INSERT INTO product (product_num,product_mem,product_title,product_image,product_content) "
+			sql = "INSERT INTO product (product_num,product_mem,product_title,product_image1,product_content) "
 					+ "VALUES (?,?,?,?,?)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setInt(2, product.getProduct_mem());
 			pstmt3.setString(3, product.getProduct_title());
-			pstmt3.setString(4, product.getProduct_image());
+			pstmt3.setString(4, product.getProduct_image1());
 			pstmt3.setString(5, product.getProduct_content());
 			pstmt3.executeUpdate();
 			
@@ -96,21 +96,29 @@ public class ProductDAO {
 			ResultSet rs = null;
 			String sql = null;
 			String sub_sql = "";
+			int cnt = 0;
 			int count = 0;
 			
 			try {
 				conn = DBUtil.getConnection();
 				
 				if(keyword!=null && !"".equals(keyword)) {
-					if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
+					if(keyfield.equals("1")) sub_sql += "AND product_name LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
 				}
 				
-				sql = "SELECT COUNT(*) FROM product WHERE status > ?" + sub_sql;
+				//sql = "SELECT COUNT(*) FROM product WHERE product_status <= ?" + sub_sql;
+				
+				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM product "
+						+ "INNER JOIN product_detail USING(product_num))a "
+						+ "ON m.mem_num = a.product_seller WHERE "
+						+ "product_status<=?" + sub_sql;
+				
 				pstmt = conn.prepareStatement(sql);
 				
+				pstmt.setInt(++cnt, status);
 				if(keyword!=null && !"".equals(keyword)) {
-					pstmt.setString(++count, "%"+keyword+"%");
+					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
@@ -139,14 +147,20 @@ public class ProductDAO {
 				conn = DBUtil.getConnection();
 				
 				if(keyword!=null && !"".equals(keyword)) {
-					if(keyfield.equals("1")) sub_sql += "AND name LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND title LIKE ?";
+					if(keyfield.equals("1")) sub_sql += "AND product_name LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
 				}
 				
+				/*
 				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM " +
-					"(SELECT * FROM product INNER JOIN product_detail USING(product_num) WHERE product_status>=? "
+					"(SELECT * FROM product p INNER JOIN product_detail d USING(product_num) WHERE product_status<=? "
 					+ sub_sql + " ORDER BY product_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
-							
+				*/
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM "
+						+ "member m INNER JOIN (SELECT * FROM product INNER JOIN "
+						+ "product_detail USING(product_num) WHERE product_status<=? "
+						+ sub_sql + 
+						"ORDER BY product_num DESC) b on m.mem_num=b.product_seller)a) WHERE rnum >= ? AND rnum <= ?";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(++cnt, product_status);
@@ -206,7 +220,7 @@ public class ProductDAO {
 				product.setMem_nickname(rs.getString("mem_nickname"));
 				product.setMem_photo(rs.getString("mem_photo"));
 				product.setProduct_content(rs.getString("product_content"));
-				product.setProduct_image(rs.getString("product_image"));
+				product.setProduct_image1(rs.getString("product_image1"));
 				product.setProduct_hit(rs.getInt("product_hit"));
 				product.setProduct_modify_date(rs.getDate("product_modify_date"));
 				product.setProduct_reg_date(rs.getDate("product_reg_date"));
@@ -319,11 +333,11 @@ public class ProductDAO {
 			
 			//2. product 수정
 			sql = "UPDATE product SET product_title=?,product_content=?,product_modify_date=SYSDATE,"
-					+ "product_image=? WHERE product_num=?";
+					+ "product_image1=? WHERE product_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setString(1, product.getProduct_title());
 			pstmt2.setString(2, product.getProduct_content());
-			pstmt2.setString(3, product.getProduct_image());
+			pstmt2.setString(3, product.getProduct_image1());
 			pstmt2.setInt(4, product_num);
 			pstmt2.executeUpdate();
 			

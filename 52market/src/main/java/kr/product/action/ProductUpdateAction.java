@@ -44,16 +44,16 @@ public class ProductUpdateAction implements Action{
 		product.setProduct_title(multi.getParameter("product_title"));
 		product.setProduct_content(multi.getParameter("product_content"));
 		if(product_image==null) {
-			product.setProduct_image(db_product.getProduct_image());
+			product.setProduct_image1(db_product.getProduct_image1());
 		}else {
-			product.setProduct_image(product_image);
+			product.setProduct_image1(product_image);
 		}
 		//Detail
 		detail.setProduct_category(Integer.parseInt(multi.getParameter("product_category")));
 		detail.setProduct_price(Integer.parseInt(multi.getParameter("product_price")));
 		detail.setProduct_name(multi.getParameter("product_name"));
 		if(product_image==null) {
-			detail.setProduct_image(db_product.getProduct_image());
+			detail.setProduct_image(db_product.getProduct_image1());
 		}else {
 			detail.setProduct_image(product_image);
 		}
@@ -66,7 +66,7 @@ public class ProductUpdateAction implements Action{
 		
 		dao.updateProduct(product, detail, map, product_num);
 		if(product_image!=null) {
-			FileUtil.removeFile(request, db_product.getProduct_image());
+			FileUtil.removeFile(request, db_product.getProduct_image1());
 		}
 		
 		return "redirect:/product/productDetail.do?product_num="+product_num;

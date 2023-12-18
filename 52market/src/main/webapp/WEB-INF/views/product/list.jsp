@@ -12,7 +12,7 @@
 window.onload=function(){
 	let myForm = document.getElementById('search_form');
 	//이벤트 연결
-	myForm.onsubmit=function(){
+	/*myForm.onsubmit=function(){
 		let keyword = document.getElementById('keyword');
 		if(keyword.value.trim()==''){
 			alert('검색어를 입력하세요!');
@@ -20,9 +20,19 @@ window.onload=function(){
 			keyword.focus();
 			return false;
 		}
-	};
+	};*/
 	
 	//판매중만 보이는 필터
+	let product_status = document.getElementById('product_status');
+	product_status.onclick = function(){
+		let myform = document.getElementById('search_form');
+		myform.submit();
+	}
+	function base() {
+		let product_status = document.getElementById('product_status');
+		if(${product_status}==0) product_status.checked=true;
+	}
+	base();
 };
 </script>
 </head>
@@ -49,21 +59,31 @@ window.onload=function(){
 					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
 				</li>
 				<li>
-					<input type="submit" value="검색">
+					<input type="submit" value="검색"><br>
+				</li>
+				<li>
+					<input type="checkbox" id="product_status" name="product_status" value="0"><span>판매중인 상품만 보기</span>
 				</li>
 			</ul>
 		</form>
-		<input type='checkbox' name='product_status' value='0' />판매중인 상품만 보기
 		</div>
 		<br>
+		
+		<c:if test="${count == 0}">
+			<div class="result-display">
+				표시할 게시물이 없습니다.
+			</div>
+		</c:if>
+		
+		<c:if test="${count>0}">
 		<div class="image-space">
-			<c:forEach var="detail" items="${detail}">
+			<c:forEach var="product" items="${productList}">
 				<div class="horizontal-area">
-					<a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${detail.product_num}">
-						<img src="${pageContext.request.contextPath}/upload/${detail.product_image}">
-						<span>${detail.product_name}</span>
+					<a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${product.product_num}">
+						<img src="${pageContext.request.contextPath}/upload/${product.product_image}">
+						<span>${product.product_name}</span>
 						<br>
-						<span><fmt:formatNumber value="${detail.product_price}"/>원</span>
+						<span><fmt:formatNumber value="${product.product_price}"/>원</span>
 						<br>
 					</a>
 				</div>
@@ -72,7 +92,9 @@ window.onload=function(){
 				<br>
 				<hr width="100%" size="1" noshade="noshade">
 			</div>
-		</div>
+			<div class="align-center">${page}</div>
+		</div>	
+		</c:if>
 	</div>
 	<div class="align-right">
 		<input type="button" value="글쓰기" onclick="location.href='productWriteForm.do'">

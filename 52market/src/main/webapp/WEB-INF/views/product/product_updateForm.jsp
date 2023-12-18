@@ -51,6 +51,11 @@ window.onload=function(){
 			return false;
 		}
 	};	
+	function base() {
+		let type = document.querySelector('input[value="${detail.product_category}"]');
+		type.checked = true;
+	}
+	base();
 };
 </script>
 </head>
@@ -68,11 +73,11 @@ window.onload=function(){
 				</li>
 				<li>
 					<h4 class="radio-check" id="product_category">카테고리</h4>
-					<input type="radio" name="product_category" value="1">디지털기기
-					<input type="radio" name="product_category" value="2">생활/주방
-					<input type="radio" name="product_category" value="3">유아동
-					<input type="radio" name="product_category" value="4">의류/잡화
-					<input type="radio" name="product_category" value="5">티켓/교환권
+					<input type="radio" name="product_category" id="category1" value="1">디지털기기
+					<input type="radio" name="product_category" id="category2" value="2">생활/주방
+					<input type="radio" name="product_category" id="category3" value="3">유아동
+					<input type="radio" name="product_category" id="category4" value="4">의류/잡화
+					<input type="radio" name="product_category" id="category5" value="5">티켓/교환권
 				</li>
 				<li>
 					<label for="product_name">상품명</label>

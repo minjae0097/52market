@@ -10,13 +10,22 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/product.fav.js"></script>
+<script type="text/javascript">
+<%--$('#product_status').change(function(){
+	if($(this).val()=="0"){//판매중
+		$('#text_test').text("판매중");
+	}else if($(this).val()=="1"){//판매완료
+		$('#text_test').text("판매완료");
+	}
+});--%>
+</script>
 </head>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 	<div class="align-center">
-			<img src="${pageContext.request.contextPath}/upload/${product.product_image}" class="detail-img">
+			<img src="${pageContext.request.contextPath}/upload/${product.product_image1}" class="detail-img">
 	</div>
 		<ul class="detail-info">
 			<li>
@@ -48,7 +57,7 @@
 		<div>
 			<ul>
 				<li>
-				<c:if test="${product.product_status == 0}">판매중</c:if>
+				<c:if test="${product.product_status == 0}">판매중</c:if> <%-- span, text로 값 바꾸기 --%>
 				<c:if test="${product.product_status == 1}">판매완료</c:if>
 				${product.product_title}</li>
 				<li>
@@ -84,12 +93,25 @@
 			</li>
 			
 			<hr size="1" noshade="noshade" width="100%">
-			<li>
-				<%-- 관심물품 --%>
-				<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-				관심글 등록
-				<span id="output_fcount"></span>                                               
-			</li>
+			
+			
+			<%-- 타인 로그인 시 관심물품 / 본인글이면 판매상태 변경 버튼 --%>
+			<c:if test="${user_num != product.product_mem}">
+				<li>
+					<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+					관심글 등록
+					<span id="output_fcount"></span>                                               
+				</li>
+			</c:if>
+			
+			<c:if test="${user_num == product.product_mem}">
+				<li>
+					<select name="product_status" id="product_status"> <%--change 이벤트 *id설정해서 선택한 밸류 0-판매중 / onchange--%>
+						<option value="0">판매중</option>
+						<option value="1">판매완료</option> 
+					</select>	
+				</li>
+			</c:if>
 			<li>
 				<input type="button" value="채팅하기">
 				<input type="button" value="목록" onclick="location.href='list.do'"> 

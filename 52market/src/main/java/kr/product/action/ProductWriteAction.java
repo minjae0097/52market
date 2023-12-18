@@ -31,7 +31,7 @@ public class ProductWriteAction implements Action{
 		
 		//product
 		product.setProduct_title(multi.getParameter("product_title"));
-		product.setProduct_image(multi.getFilesystemName("product_image"));
+		product.setProduct_image1(multi.getFilesystemName("product_image"));
 		product.setProduct_content(multi.getParameter("product_content"));
 		product.setProduct_mem(user_num);
 		//detail

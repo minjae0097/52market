@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ProductVO {
 	private int product_num;			//글번호
 	private String product_title;		//거래글 제목
-	private String product_image;
+	private String product_image1;
 	private String product_content; 	//거래글 내용
 	private Date product_reg_date;  	//작성일
 	private Date product_modify_date;	//수정일
@@ -70,11 +70,11 @@ public class ProductVO {
 	public void setProduct_mem(int product_mem) {
 		this.product_mem = product_mem;
 	}
-	public String getProduct_image() {
-		return product_image;
+	public String getProduct_image1() {
+		return product_image1;
 	}
-	public void setProduct_image(String product_image) {
-		this.product_image = product_image;
+	public void setProduct_image1(String product_image1) {
+		this.product_image1 = product_image1;
 	}
 	public int getProduct_hit() {
 		return product_hit;

@@ -65,18 +65,14 @@
 			<c:if test="${!empty qna.ask_content}">
 				답변일 : ${qna.ask_regdate}
 			</c:if>
-			<input type="button" value="삭제" id="delete_btn">
-			<script type="text/javascript">
-				let delete_btn = document.getElementById('delete_btn');
-				//이벤트 연결
-				delete_btn.onclick=function(){
-					let choice = confirm('삭제하시겠습니까?');
-					if(choice){
-						location.replace('delete.do?qna_num=${qna.qna_num}');
-					}
-				};
-			</script>
-			<input type="button" value="목록" onclick="location.href='list.do'">
+			<c:if test="${user_auth == 9 && !empty qna.ask_content}">
+				<input type="button" value="수정" onclick="location.href='aUpdateForm.do?qna_num=${qna.qna_num}'">
+			</c:if>
+			<c:if test="${user_auth == 9 && empty qna.ask_content}">
+				<input type="button" value="답글달기" onclick="location.href='aUpdateForm.do?qna_num=${qna.qna_num}'">
+			</c:if>
+			
+			<input type="button" value="목록" onclick="location.href='adminList.do'">
 		</li>
 	</ul>
 	</div>
