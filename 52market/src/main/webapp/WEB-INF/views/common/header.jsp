@@ -22,10 +22,20 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/car/list.do">중고차 직거래</a>
 		</li>
-		<li>
-			<a href="${pageContext.request.contextPath}/qna/list.do">문의 게시판</a>
-		</li>
-		
+		<%-- 회원 문의관리 시작 --%>
+		<c:if test="${!empty user_num && user_auth != 9}">
+			<li>
+				<a href="${pageContext.request.contextPath}/qna/list.do">문의 게시판</a>
+			</li>
+		</c:if>
+		<%-- 회원 문의관리 끝 --%>
+		<%-- 관리자 문의관리 시작 --%>
+		<c:if test="${!empty user_num && user_auth == 9}">
+			<li>
+				<a href="${pageContext.request.contextPath}/qna/adminList.do">문의관리</a>
+			</li>
+		</c:if>
+		<%-- 관리자 문의관리 끝 --%>
 		<c:if test="${!empty user_num && !empty user_photo}">
 		<li class="menu-profile"><img src="${pageContext.request.contextPath}/upload/${user_photo}" width="25" height="25" class="my-photo"></li>
 		</c:if>
