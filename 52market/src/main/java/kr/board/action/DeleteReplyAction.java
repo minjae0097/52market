@@ -29,7 +29,7 @@ public class DeleteReplyAction implements Action{
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
 			mapAjax.put("result", "logout");
-		}else if(user_num != null && user_num == db_reply.getMem_num()) {
+		}else if(user_num==3 || (user_num != null && user_num == db_reply.getMem_num())) {
 			dao.deleteReplyBoard(re_num);
 			mapAjax.put("result", "success");
 		}else {

@@ -42,7 +42,8 @@ $(function(){
 					if(param.user_num == item.mem_num){//로그인한 회원번호와 작성자 회원번호 일치
 					//행단위로 같은 버튼이 만들어지는 거기 때문에 복수의 태그라 class로 설정 (id 설정시 맨 위만 설정이 되기 때문)
 						output += ' <input type="button" data-renum="'+item.re_num+'" value="수정" class="modify-btn">'; // "' 사이에 공백 X
-															// "" > HTML 태그의 속성값 / '' 자바스크립트의 문자열
+					}
+					if(param.user_num==3 || (param.user_num == item.mem_num)){//로그인한 회원번호와 작성자 회원번호 일치
 						output += ' <input type="button" data-renum="'+item.re_num+'" value="삭제" class="delete-btn">';
 					}
 					output += '<hr size="1" noshade width="100%">';

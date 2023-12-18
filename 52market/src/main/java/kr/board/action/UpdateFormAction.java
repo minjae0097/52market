@@ -19,13 +19,19 @@ public class UpdateFormAction implements Action{
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		if(user_auth != 9) { //관리자가 아닌 경우
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		
 		//회원번호와 작성자 회원번호 일치 확인
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardVO db_board = dao.getBoard(board_num);
 		
-		if(user_num != db_board.getMem_num()) {
+		if(user_num != db_board.getMem_num() || user_num != 3) {
 			return "/WEB-INF/views/common/notice.jsp"; //잘못된 접속입니다.
 		}
 		

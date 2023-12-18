@@ -18,10 +18,10 @@
 			<hr size="1" width="90%" noshade="noshade">
 				<ul class="align-center">
 					<li>
-						<c:if test="${empty board.mem_photo}">
+						<c:if test="${empty member.mem_photo}">
 							<img src="${pageContext.request.contextPath}/images/face.png" width="150" height="150" class="my-photo align-center">
 						</c:if>
-						<c:if test="${!empty board.mem_photo}">
+						<c:if test="${!empty member.mem_photo}">
 							<img src="${pageContext.request.contextPath}/upload/${board.mem_photo}" width="150" height="150" class="my-photo align-center">
 						</c:if>
 					</li>
@@ -34,38 +34,44 @@
 					</li>
 				</ul>
 				<ul class="align-center">
-					<li><h3>${board.mem_nickname}님</h3></li>
-					<li>주소 ${board.mem_address1}</li>
-					<li>가입일 ${board.mem_regdate}</li>
+					<li><h3>${member.mem_nickname}님</h3></li>
+					<li>주소 ${member.mem_address1}</li>
+					<li>가입일 ${member.mem_regdate}</li>
 				</ul>
-				<hr size="1" width="90%" noshade="noshade">
-				<ul>	
-					<li class="align-center">
-						<div>
-							<a href="${pageContext.request.contextPath}/board/board_myPageList.do"><b>작성할 글</b></a>
-						</div>
-					</li>
-					<li class="align-center">
-						<div>
-							<a href="${pageContext.request.contextPath}/board/board_myPageRelpyList.do"><b>댓글단 글</b></a>
-						</div>
-					</li>
-				</ul>
-				<hr size="1" width="90%" noshade="noshade">
-				<ul>
-					<li>
-						<h3>
-							비밀번호 수정
-							<input type="button" value="비밀번호 수정" onclick="${pageContext.request.contextPath}/member/myPage.do">
-						</h3>
-					</li>
-					<li>
-						<h3>
-							회원탈퇴
-							<input type="button" value="회원탈퇴" onclick="${pageContext.request.contextPath}/member/deleteUserForm.do'">
-						</h3>
-					</li>
-				</ul>
+				<hr size="1" width="100%" noshade="noshade">
+				<div class="align-center">
+				<h3>[관심 게시물 목록]</h3>
+				<table>
+					<tr>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+					</tr>
+					<c:forEach var="board" items="${boardFavList}">
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/board/detail.do?board_num=${board.board_num}" target="_blank">${fn:substring(board.board_title,0,12)}</a></td> 
+						<td>${member.mem_nickname}</td>
+						<td>${board.board_regdate}</td>
+					</tr>
+					</c:forEach>
+				</table>
+				<hr size="1" width="100%" noshade="noshade">
+				<h3>[댓글단 글 목록]</h3>
+				<table>
+					<tr>
+						<th>작성자</th>
+						<th>내용</th>
+						<th>등록일</th>
+					</tr>
+					<c:forEach var="board" items="${boardReplyList}">
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/board/detail.do?board_num=${board.board_num}" target="_blank">${board.mem_nickname}</a></td> 
+						<td>${board.re_content}</td>
+						<td>${board.re_regdate}</td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 			</div>
 		</div>
 </body>

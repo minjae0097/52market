@@ -1,5 +1,6 @@
 package kr.board.action;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,15 +23,24 @@ public class BoardMyPageAction implements Action{
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
-		
+		//request.setCharacterEncoding("utf-8");
+		//회원 정보 청리
 		MemberDAO dao = MemberDAO.getInstance();
-		//MemberVO member = dao.getMember(user_num);
+		MemberVO member = dao.getMember(user_num);
 		
+		//address 처리
+		String address = member.getMem_address1();
+		int space1 = address.indexOf(" ");
+		int space2 = address.indexOf(" ", space1+1);
+		
+		member.setMem_address1(address.substring(space1,space2));
+	
+		//좋아요 게시물, 댓글 게시물 정보
 		BoardDAO boardDao = BoardDAO.getInstance();
 		List<BoardVO> boardFavList = boardDao.getListBoardFav(1, 5, user_num);
 		List<BoardReplyVO> boardReplyList = boardDao.getListReplyBoard(1, 5, user_num);
-		
-		//request.setAttribute("member", member);
+
+		request.setAttribute("member", member);
 		request.setAttribute("boardFavList", boardFavList);
 		request.setAttribute("boardReplyList", boardReplyList);
 		

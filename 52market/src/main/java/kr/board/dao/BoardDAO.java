@@ -9,6 +9,7 @@ import java.util.List;
 import kr.board.vo.BoardFavVO;
 import kr.board.vo.BoardReplyVO;
 import kr.board.vo.BoardVO;
+import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
 import kr.util.DurationFromNow;
 import kr.util.StringUtil;
@@ -227,8 +228,8 @@ public class BoardDAO {
 					sub_sql += "WHERE board_title LIKE ?";
 			}
 
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM board JOIN member USING(mem_num) "
-					+ sub_sql + " ORDER BY board_num DESC)a) WHERE rnum>=? AND rnum <=?";
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM board INNER JOIN (SELECT * FROM member INNER JOIN member_detail "
+					+ "USING(mem_num)) USING(mem_num) " +sub_sql+ ")a ORDER BY board_num DESC) WHERE rnum>=? AND rnum <=?";
 
 			pstmt = conn.prepareStatement(sql);
 			if (keyword != null && !"".equals(keyword)) {
@@ -248,6 +249,11 @@ public class BoardDAO {
 				board.setBoard_hit(rs.getInt("board_hit"));
 				board.setBoard_regdate(rs.getDate("board_regdate"));
 				board.setMem_id(rs.getString("mem_id"));
+				board.setMem_address1(rs.getString("mem_address1"));
+				String address = board.getMem_address1();
+				int space1 = address.indexOf(" ");
+				int space2 = address.indexOf(" ", space1+1);
+				board.setShort_address(address.substring(space1,space2));
 
 				list.add(board);
 			}
@@ -600,5 +606,47 @@ public class BoardDAO {
 		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
+	}
+	
+	public MemberVO getMember(int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO member = null;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션을 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "SELECT * FROM member JOIN member_detail USING(mem_num) WHERE mem_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_passwd(rs.getString("mem_passwd"));
+				member.setMem_name(rs.getString("mem_name"));
+				member.setMem_nickname(rs.getString("mem_nickname"));
+				member.setMem_phone(rs.getString("mem_phone"));
+				member.setMem_email(rs.getString("mem_email"));
+				member.setMem_zipcode(rs.getString("mem_zipcode"));
+				member.setMem_address1(rs.getString("mem_address1"));
+				member.setMem_address2(rs.getString("mem_address2"));
+				member.setMem_photo(rs.getString("mem_photo"));
+				member.setMem_regdate(rs.getDate("mem_regdate"));//가입일
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return member;
 	}
 }

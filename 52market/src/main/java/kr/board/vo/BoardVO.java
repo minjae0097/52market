@@ -18,6 +18,7 @@ public class BoardVO {
 	private String mem_nickname;
 	private String mem_photo;
 	private String mem_address1;
+	private String short_address;
 	
 	
 	
@@ -94,6 +95,7 @@ public class BoardVO {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
+	
 	public String getMem_photo() {
 		return mem_photo;
 	}
@@ -109,6 +111,12 @@ public class BoardVO {
 	public void setMem_address11(String string) {
 		// TODO Auto-generated method stub
 		
+	}
+	public String getShort_address() {
+		return short_address;
+	}
+	public void setShort_address(String short_address) {
+		this.short_address = short_address;
 	}
 	
 	

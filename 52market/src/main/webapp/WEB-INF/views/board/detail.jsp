@@ -17,10 +17,10 @@
 		<div class="content-main">
 			<ul class="detail-info">
 				<li>
-					<c:if test="${!empty user_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${board.board_photo}" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
+					<c:if test="${!empty member.mem_photo}">
+						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
-					<c:if test="${empty user_photo}">
+					<c:if test="${empty member.mem_photo}">
 						<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
 				</li>
@@ -55,7 +55,21 @@
 					<c:if test="${user_num == board.mem_num}">
 						<input type="button" value="수정" onclick="location.href='updateForm.do?board_num=${board.board_num}'">
 						<input type="button" value="삭제" id="delete_btn">
-						<script type="text/javascript"> <%-- 버튼과 스크립트가 같이 보여지게 하기 위해 안에다 만듬 --%>
+						<script type="text/javascript">
+							let delete_btn = document.getElementById('delete_btn');
+							//이벤트 연결
+							delete_btn.onclick = function(){
+								let choice = confirm('삭제하시겠습니까?');
+								if(choice){
+									alert('게시글이 삭제되었습니다');
+									location.replace('delete.do?board_num=${board.board_num}');
+								}
+							};
+						</script>
+					</c:if>
+					<c:if test="${user_num == 3}">
+						<input type="button" value="삭제" id="delete_btn">
+						<script type="text/javascript">
 							let delete_btn = document.getElementById('delete_btn');
 							//이벤트 연결
 							delete_btn.onclick = function(){

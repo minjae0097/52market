@@ -75,12 +75,12 @@
 							</td>
 							<td class="align-center"><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
 							<td class="align-center">${board.board_content}</td>
-							<td></td>
-							<%-- <td>${board.mem_address1}</td> --%>
+							<td class="align-center">${board.short_address}</td>
 							<td class="align-center">${board.board_hit}</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<hr size="1" width="100%">
 				<div class="align-center">${page}</div>
 			</c:if>
 			<div class="list-space align-right">
