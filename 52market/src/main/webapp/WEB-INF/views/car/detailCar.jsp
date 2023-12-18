@@ -24,7 +24,7 @@
 		<c:if test="${empty seller.mem_photo}">
 		<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
 		</c:if>
-		<span>${detail.mem_nickname}</span>
+		<span>${seller.mem_nickname}</span>
 		<button onclick="location.href='updateCarForm.do?carlist_num=${list.carlist_num}'">수정</button>
 		<button id="delete_btn">삭제</button>
 		<script type="text/javascript">

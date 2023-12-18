@@ -32,6 +32,7 @@ create sequence carlist_seq;
 create table car_fav(
 	carlist_num number not null,
 	mem_num number not null,
+	regdate date default sysdate not null,
 	constraint car_fav_fk1  foreign key (carlist_num) references carlist (carlist_num),
 	constraint car_fav_fk2  foreign key (mem_num) references member (mem_num)
 );

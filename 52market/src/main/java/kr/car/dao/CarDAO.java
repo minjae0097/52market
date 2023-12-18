@@ -360,7 +360,7 @@ public class CarDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM member_detail WHERE mem_num=?";
+			sql = "SELECT * FROM member INNEF JOIN member_detail USING(mem_num) WHERE mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			rs = pstmt.executeQuery();
