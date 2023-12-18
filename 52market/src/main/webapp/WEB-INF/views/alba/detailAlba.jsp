@@ -8,6 +8,7 @@
 <title>알바 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/alba_fav.js"></script>
 </head>
 <body>
 <div class="page-main">
@@ -47,10 +48,19 @@
 		<div class="float-clear">
 		<hr width="100%" size="1" noshade="noshade">
 		<ul class="detail-sub">
-		<li></li>
 		<li>
+		<%-- 좋아요 시작 --%>
+		<c:if test="${user_num == member.mem_num}">
+			<img id="output_fav" data-num="${alba.alba_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+					관심
+			<span id="output_fcount"></span>
+		<%-- 좋아요 끝 --%>
+		</c:if>
+		</li>
+		<li>
+		<c:if test="${user_auth==3}">
 		<input type="button" value="수정" onclick="location.href='updateAlbaForm.do?alba_num=${alba.alba_num}'">
-		<input type="button" value="삭제" id="delete_btn" onclick="location.href='deleteAlbaForm.do?alba_num=${alba.alba_num}'">
+		<input type="button" value="삭제" id="delete_btn" onclick="location.href='deleteAlbaForm.do?alba_num=${alba.alba_num}'" <c:if test="${user_auth==9}"></c:if>>
 		<script type="text/javascript">
 			let delete_btn = document.getElementById('delete_btn');
 			//이벤트 연결
@@ -61,6 +71,7 @@
 				}
 			};
 			</script>
+		</c:if>
 		</li>
 		</ul>
 		</div>

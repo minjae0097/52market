@@ -69,23 +69,34 @@ public class AlbaDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색처리
 				if(keyfield.equals("1")) sub_sql += " WHERE alba_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql +=" WHERE (alba_content1 LIKE ? or alba_content2 LIKE ?)";
+				else if(keyfield.equals("2")) sub_sql +=" WHERE (alba_content2 LIKE ? or alba_content1 LIKE ?)";
+				else if(keyfield.equals("3")) sub_sql +=" WHERE (alba_title LIKE ? or alba_content2 LIKE ? or alba_content1 LIKE ?)";
 			}
 			
-			sql = "SELECT COUNT (*) FROM alba JOIN member USING(mem_num)" + sub_sql;
+			sql = "SELECT COUNT (*) FROM alba JOIN member USING(mem_num) " + sub_sql;
 			//PreparedStatement 객체
 			pstmt = conn.prepareStatement(sql);
-			if(keyword != null && !"".equals(keyword)) {
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("1")) {
 				pstmt.setString(1, "%"+keyword+"%");
+			}
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("2")) {
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("3")) {
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setString(3, "%"+keyword+"%");
 			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
+				
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, null, null);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return count;
 	}
@@ -106,7 +117,8 @@ public class AlbaDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += "WHERE alba_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += "WHERE (alba_content1 LIKE ? or alba_content2 LIKE ?)";
+				else if(keyfield.equals("2")) sub_sql += "WHERE (alba_content2 LIKE ? or alba_content1 LIKE ?)";
+				else if(keyfield.equals("3")) sub_sql +=" WHERE (alba_title LIKE ? or alba_content2 LIKE ? or alba_content1 LIKE ?)";
 			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM alba JOIN member USING(mem_num) " +sub_sql
@@ -114,7 +126,16 @@ public class AlbaDAO {
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			if(keyword !=null && !"".equals(keyword)) {
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("1")) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("2")) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			if(keyword != null && !"".equals(keyword)&&keyfield.equals("3")) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+				pstmt.setString(++cnt, "%"+keyword+"%");
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
 			pstmt.setInt(++cnt, start);
@@ -122,6 +143,7 @@ public class AlbaDAO {
 			
 			//SQL문 실행
 			rs = pstmt.executeQuery();
+			AlbaDAO dao = AlbaDAO.instance;
 			list = new ArrayList<AlbaVO>();
 			while(rs.next()) {
 				AlbaVO alba = new AlbaVO();
@@ -129,9 +151,11 @@ public class AlbaDAO {
 				//HTML을 허용하지 않음
 				alba.setAlba_title(StringUtil.useBrNoHtml(rs.getString("alba_title")));
 				alba.setAlba_hit(rs.getInt("alba_hit"));
+				alba.setAlba_fav(rs.getInt("alba_fav"));
 				alba.setAlba_content1("alba_content1");
 				alba.setAlba_photo(rs.getString("alba_photo"));
 				alba.setAlba_address1(rs.getString("alba_address1"));
+				alba.setAlba_fav(dao.selectFavCount(alba.getAlba_num()));
 				
 				list.add(alba);
 			}

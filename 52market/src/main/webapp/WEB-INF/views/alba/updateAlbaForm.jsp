@@ -36,43 +36,6 @@ window.onload=function(){
 				<li>
 					<label for="alba_photo">사진등록</label>
 					<input type="file" name="alba_photo" id="alba_photo" accept="image/gif,image/png,/image/jpeg">
-					<%-- 
-					<c:if test="${!empty alba.photo}">
-					<div id="file_detail">
-						(${alba.photo})파일이 등록 되어 있습니다.
-						<input type="button" value="파일삭제" id="file_del">
-						<script type="text/javascript">
-							$(function(){
-								$('#file_del').click(function(){
-									let choice = confirm('삭제하시겠습니까?');
-									if(choice){
-										$.ajax({
-											url:'deleteFile.do',
-											type:'post',
-											data:{alba_num:${alba.alba_num}},
-											dataType:'json',
-											success:function(param){
-												if(param.result == 'logout'){
-													alert('로그인 후 사용하세요');
-												}else if(param.result == 'success'){
-													$('#file_detail').hide();
-												}else if(param.result == 'wrongAccess'){
-													alert('잘못 된 접속입니다.');
-												}else{
-													alert('파일 삭제 오류 발생');
-												}
-											},
-											error:function(){
-												alert('네트워크 오류 발생');
-											}
-										});
-									}
-								});
-							});
-						</script>
-					</div>
-					</c:if>
-					--%>				
 				</li>
 				<li>
 					<label for="alba_title">제목</label>
@@ -90,43 +53,6 @@ window.onload=function(){
 					<label for="alba_location">위치(사진)</label>
 					<input type="file" name="alba_location" id="alba_location" accept="image/gif,image/png,/image/jpeg">
 				</li>
-				<%--
-				<c:if test="${!empty alba.location}">
-					<div id="file_detail">
-						(${alba.location})파일이 등록 되어 있습니다.
-						<input type="button" value="파일삭제" id="file_del">
-						<script type="text/javascript">
-							$(function(){
-								$('#file_del').click(function(){
-									let choice = confirm('삭제하시겠습니까?');
-									if(choice){
-										$.ajax({
-											url:'deleteFile.do',
-											type:'post',
-											data:{alba_num:${alba.alba_num}},
-											dataType:'json',
-											success:function(param){
-												if(param.result == 'logout'){
-													alert('로그인 후 사용하세요');
-												}else if(param.result == 'success'){
-													$('#file_detail').hide();
-												}else if(param.result == 'wrongAccess'){
-													alert('잘못 된 접속입니다.');
-												}else{
-													alert('파일 삭제 오류 발생');
-												}
-											},
-											error:function(){
-												alert('네트워크 오류 발생');
-											}
-										});
-									}
-								});
-							});
-						</script>
-					</div>
-					</c:if>
-				 --%>
 				<li>
 					<label for="zipcode">우편번호</label>
 					<input type="text" name="alba_zipcode" id="zipcode" maxlength="5">

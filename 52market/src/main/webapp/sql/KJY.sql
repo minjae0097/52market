@@ -22,6 +22,7 @@ create sequence alba_seq;
 create table alba_fav(
 	alba_num number not null,
 	mem_num number not null,
+	regdate date default sysdate not null,
 	constraint alba_fav_fk1 foreign key (alba_num) references alba (alba_num),
 	constraint alba_fav_fk2 foreign key (mem_num) references member (mem_num)
 );

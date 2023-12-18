@@ -13,7 +13,7 @@ import kr.alba.dao.AlbaDAO;
 import kr.alba.vo.Alba_FavVO;
 import kr.controller.Action;
 
-public class InsertAlbaFavAction implements Action{
+public class WriteAlbaFavAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
