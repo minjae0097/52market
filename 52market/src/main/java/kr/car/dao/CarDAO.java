@@ -649,6 +649,39 @@ public class CarDAO {
 			
 			return list;
 		}
+		//중고차 관심리스트 개수
+		//전체 레코드수/검색 레코드수
+		public int getCarFavListCount(int mem_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+
+				//SQL문 작성
+				sql = "SELECT count(*) FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+						+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? )";
+				//PreparedStatement 객체
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_num);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
+		}
+
+		
 		//중고차 판매여부 변경
 		public void updateCarStatus(int carlist_status, int carlist_num)throws Exception{
 			Connection conn = null;
@@ -674,7 +707,7 @@ public class CarDAO {
 				DBUtil.executeClose(null, pstmt, conn);
 			}		
 		}
-	
+		
 }
 
 

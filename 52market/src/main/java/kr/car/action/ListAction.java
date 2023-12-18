@@ -33,10 +33,7 @@ public class ListAction implements Action{
 		CarDAO dao = CarDAO.getInstance();
 		int count = dao.getCarCount(keyfield, keyword,carlist_status,car_type,car_fuel,car_transmission,car_origin);
 		
-		/*
-		 * PageUtil page = new PageUtil(keyfield, keyword,
-		 * Integer.parseInt(pageNum),count,8,5,"list.do");
-		 */
+	
 		PageUtilCar carpage = new PageUtilCar(keyfield, keyword, Integer.parseInt(pageNum),count,8,5,"list.do",carlist_status, car_type, car_fuel, car_transmission, car_origin);
 		
 		List<CarList_DetailVO> carList = null;
