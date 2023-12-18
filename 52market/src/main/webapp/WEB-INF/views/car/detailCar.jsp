@@ -10,7 +10,63 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/car_fav.js"></script>
+<script type="text/javascript">
+$(function(){
+	//좋아요 선택 여부와 선택한 총 개수 읽기
+	function selectFav(){
+		$.ajax({
+			url:'getCarFav.do',
+			type:'post',
+			data:{carlist_num:$('#output_fav').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayFav(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	}
+	//좋아요 등록(및 삭제) 이벤트 연결
+	$('#output_fav').click(function(){
+		$.ajax({
+			url:'writeCarFav.do',
+			type:'post',
+			data:{carlist_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요');
+				}else if(param.result == 'success'){
+					displayFav(param);
+				}else{
+					alert('좋아요 등록 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	//좋아요 표시
+	function displayFav(param){
+		let output;
+		if(param.status=='yesFav'){//좋아요 선택
+			output = '../images/fav02.gif';
+		}else{//좋아요 미선택
+			output = '../images/fav01.gif';
+		}
+		
+		//문서 객체에 설정
+		$('#output_fav').attr('src',output);
+		$('#output_fcount').text(param.count);
+	}
+	//초기 데이터 호출
+	if(user_num!=${detail.car_seller})	{
+		selectFav();
+	}
+});
+</script>
 </head>
 <body>
 <div class="page-main">
@@ -39,6 +95,8 @@
 	</div>
 	<hr width="100%" size="1">
 	<div>
+		<c:if test="${list.carlist_status==0}"><span style=" border: 3px solid;"><b>판매중</b></span> . </c:if>
+		<c:if test="${list.carlist_status==1}"><span style=" border: 3px solid;"><b>판매완료</b></span> . </c:if>
 		<span>${detail.car_title} . 
 		<c:if test="${detail.car_price%10000==0}"><fmt:formatNumber value="${detail.car_price/10000}"/>만원</c:if>
 		<c:if test="${detail.car_price%10000!=0}"><fmt:formatNumber value="${detail.car_price}"/>원</c:if> . 
@@ -67,11 +125,23 @@
 	</div>
 	<hr width="100%" size="1">
 		<div>
+			<c:if test="${user_num!=detail.car_seller}">
 			<%-- 좋아요 시작 --%>
-					<img id="output_fav" data-num="${list.carlist_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-					좋아요
-					<span id="output_fcount"></span>
+				<img id="output_fav" data-num="${list.carlist_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				좋아요
+				<span id="output_fcount"></span>
+				
 			<%-- 좋아요 끝 --%>
+			</c:if>
+			<c:if test="${user_num==detail.car_seller}">
+				<form action="updateStatus.do" id="update_form" method="post">
+				<input type="hidden" name="carlist_num" value="${detail.carlist_num}">
+				<select name="carlist_status" onchange="this.form.submit()">
+					<option value="0" <c:if test="${list.carlist_status==0}">selected</c:if>>판매중</option>
+					<option value="1" <c:if test="${list.carlist_status==1}">selected</c:if>>판매완료</option>
+				</select>
+				</form>
+			</c:if>
 		</div>
 	</div>
 </div>

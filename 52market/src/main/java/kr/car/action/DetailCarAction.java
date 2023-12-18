@@ -15,6 +15,7 @@ public class DetailCarAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		int carlist_num = Integer.parseInt(request.getParameter("carlist_num"));
 		
 		CarDAO car = CarDAO.getInstance();

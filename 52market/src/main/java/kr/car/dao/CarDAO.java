@@ -600,6 +600,80 @@ public class CarDAO {
 			}		
 			return fav;
 		}
+		//중고차 관심리스트
+		public List<CarList_DetailVO> getFavList(int mem_num,int start, int end)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<CarList_DetailVO> list = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+						+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? ORDER BY regdate DESC)a) WHERE rnum >=? AND rnum <=?";
+				//PreparedStatrment 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, mem_num);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				rs = pstmt.executeQuery();
+				list = new ArrayList<CarList_DetailVO>();
+				while(rs.next()) {
+					CarList_DetailVO detail = new CarList_DetailVO();
+					detail.setCarlist_num(rs.getInt("carlist_num"));
+					detail.setCar_title(rs.getString("car_title"));
+					detail.setCar_buyer(rs.getInt("car_buyer"));
+					detail.setCar_type(rs.getString("car_type"));
+					detail.setCar_fuel(rs.getString("car_fuel"));
+					detail.setCar_price(rs.getInt("car_price"));
+					detail.setCar_model_year(rs.getInt("car_model_year"));
+					detail.setCar_distance(rs.getInt("car_distance"));
+					detail.setCar_transmission(rs.getString("car_transmission"));
+					detail.setCar_origin(rs.getString("car_origin"));
+					detail.setCar_image(rs.getString("car_image"));
+					
+					list.add(detail);
+				}
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			
+			return list;
+		}
+		//중고차 판매여부 변경
+		public void updateCarStatus(int carlist_status, int carlist_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "UPDATE carlist SET carlist_status=? WHERE carlist_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, carlist_status);
+				pstmt.setInt(2, carlist_num);
+				//SQL문 실행
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}		
+		}
 	
 }
 
