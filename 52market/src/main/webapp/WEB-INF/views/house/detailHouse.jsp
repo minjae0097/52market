@@ -50,8 +50,8 @@
 		</div>
 		<div>
 			<span>
-			<c:if test="${list.house_status == 0}">판매중</c:if>
-			<c:if test="${list.house_status == 1}">판매완료</c:if>  
+			<c:if test="${list.house_status == 0}"><span style="color:#f7b165"><b>판매중</b></span></c:if>
+			<c:if test="${list.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if>  
 			<c:if test="${detail.house_deal_type == 1}">전세</c:if>
 			<c:if test="${detail.house_deal_type == 2}">매매</c:if>
 			<c:if test="${detail.house_deal_type == 3}">월세</c:if>

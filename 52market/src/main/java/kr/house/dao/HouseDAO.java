@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import kr.house.vo.HouseDetailVO;
 import kr.house.vo.HouseFavVO;
 import kr.house.vo.HouseListVO;
-import kr.house.vo.House_MapVO;
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
@@ -23,12 +23,11 @@ public class HouseDAO {
 	private HouseDAO() {}
 	
 	//부동산 글쓰기
-	public void insertHouse(HouseListVO list, HouseDetailVO detail,House_MapVO map)throws Exception{
+	public void insertHouse(HouseListVO list, HouseDetailVO detail)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
-		PreparedStatement pstmt4 = null;
 		ResultSet rs = null;
 		String sql = null;
 		int num = 0;
@@ -76,17 +75,6 @@ public class HouseDAO {
 			pstmt3.setString(2, list.getHouse_content());
 			pstmt3.executeUpdate();
 			
-			sql = "INSERT INTO house_map (house_num,location_x,location_y,location,road_address_name,address_name) "
-					+" VALUES(?,?,?,?,?,?)";
-			pstmt4 = conn.prepareStatement(sql);
-			pstmt4.setInt(1, num);
-			pstmt4.setString(2, map.getLocation_x());
-			pstmt4.setString(3, map.getLocation_y());
-			pstmt4.setString(4, map.getLocation());
-			pstmt4.setString(5, map.getRoad_address_name());
-			pstmt4.setString(6, map.getAddress_name());
-			pstmt4.executeUpdate();
-			
 			conn.commit();
 
 		}catch(Exception e) {
@@ -95,8 +83,7 @@ public class HouseDAO {
 		}finally {
 			DBUtil.executeClose(null, pstmt, null);
 			DBUtil.executeClose(null, pstmt2, null);
-			DBUtil.executeClose(null, pstmt3, null);
-			DBUtil.executeClose(rs, pstmt4, conn);
+			DBUtil.executeClose(rs, pstmt3, conn);
 		}
 	}
 	//전체 레코드수/검색 레코드수
@@ -223,7 +210,6 @@ public class HouseDAO {
 			
 			//?에 데이터 바인딩
 			pstmt.setInt(++cnt, house_status);
-			
 			if(keyword != null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 			}
@@ -253,12 +239,11 @@ public class HouseDAO {
 				detail.setHouse_photo2(rs.getString("house_photo2"));
 				detail.setHouse_price(rs.getInt("house_price"));
 				detail.setMem_num(rs.getInt("mem_num"));
+				detail.setMem_nickname(rs.getString("mem_nickname"));
 				detail.setHouse_seller_type(rs.getInt("house_seller_type"));
 				detail.setHouse_type(rs.getInt("house_type"));
 				detail.setHouse_deal_type(rs.getInt("house_deal_type"));
 				detail.setHouse_move_in(rs.getInt("house_move_in"));
-				
-				detail.setMem_nickname(rs.getString("mem_nickname"));
 				
 				list.add(detail);
 			}
@@ -367,36 +352,6 @@ public class HouseDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return list;
-	}
-	//부동산 상세 map
-	public House_MapVO getHouseMap(int house_num)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		House_MapVO map = null;
-		
-		try {
-			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM house_map WHERE house_num=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, house_num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				map = new House_MapVO();
-				map.setLocation_x(rs.getString("location_x"));
-				map.setLocation_y(rs.getString("location_y"));
-				map.setLocation(rs.getString("location"));
-				map.setRoad_address_name(rs.getString("road_address_name"));
-				map.setAddress_name(rs.getString("address_name"));
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
-		}
-		
-		return map;
 	}
 	//회원정보
 	public MemberVO getHouseMember(int mem_num)throws Exception{
@@ -707,115 +662,114 @@ public class HouseDAO {
 		}
 	}
 	//내가 선택한 좋아요 목록
-	
+	//-----------------
 	//부동산 관심리스트
-	public List<HouseDetailVO> getFavList(int mem_num,int start,int end,String keyfield,String keyword)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<HouseDetailVO> list = null;
-		String sub_sql = "";
-		int cnt = 0;
-		String sql = null;
-		
-		try {
-			//커넥션풀로부터 커넥션 할당
-			conn = DBUtil.getConnection();
-			if(keyword!=null && !"".equals(keyword)) {
-				//검색 처리
-				if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-				else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+		public List<HouseDetailVO> getFavList(int mem_num,int start,int end,String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<HouseDetailVO> list = null;
+			String sub_sql = "";
+			int cnt = 0;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
+					else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+				}
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT *FROM house_fav f "
+						+ "INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail "
+						+ "USING(house_num)) b on f.house_num=b.house_num WHERE mem_num=? " +sub_sql
+						+ " ORDER BY reg_date DESC)a) WHERE rnum >=? AND rnum <=?";
+				//PreparedStatrment 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, mem_num);
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				rs = pstmt.executeQuery();
+				list = new ArrayList<HouseDetailVO>();
+				while(rs.next()) {
+					HouseDetailVO detail = new HouseDetailVO();
+					detail.setHouse_num(rs.getInt("house_num"));
+					detail.setHouse_title(rs.getString("house_title"));
+					detail.setHouse_seller_type(rs.getInt("house_seller_type"));
+					detail.setHouse_type(rs.getInt("house_type"));
+					detail.setHouse_deal_type(rs.getInt("house_deal_type"));
+					detail.setHouse_diposit(rs.getInt("house_diposit"));
+					detail.setHouse_price(rs.getInt("house_price"));
+					detail.setHouse_cost(rs.getInt("house_cost"));
+					detail.setZipcode(rs.getString("zipcode"));
+					detail.setHouse_address1(rs.getString("house_address1"));
+					detail.setHouse_address2(rs.getString("house_address2"));
+					detail.setHouse_space(rs.getInt("house_space"));
+					detail.setHouse_floor(rs.getInt("house_floor"));
+					detail.setHouse_move_in(rs.getInt("house_move_in"));
+					detail.setHouse_photo1(rs.getString("house_photo1"));
+					detail.setHouse_photo2(rs.getString("house_photo2"));
+					detail.setHouse_trade_date(rs.getDate("house_trade_date"));
+					detail.setHouse_buyer(rs.getInt("house_buyer"));
+					detail.setMem_num(rs.getInt("mem_num"));
+					detail.setHouse_modify_date(rs.getDate("house_modify_date"));
+					
+					list.add(detail);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
 			}
-			//SQL문 작성
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT *FROM house_fav f "
-					+ "INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail "
-					+ "USING(house_num)) b on f.house_num=b.house_num WHERE mem_num=? " +sub_sql
-					+ " ORDER BY reg_date DESC)a) WHERE rnum >=? AND rnum <=?";
-			//PreparedStatrment 객체 생성
-			pstmt = conn.prepareStatement(sql);
-			//?에 데이터 바인딩
-			pstmt.setInt(1, mem_num);
-			if(keyword != null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, "%"+keyword+"%");
-			}
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
-			rs = pstmt.executeQuery();
-			list = new ArrayList<HouseDetailVO>();
-			while(rs.next()) {
-				HouseDetailVO detail = new HouseDetailVO();
-				detail.setHouse_num(rs.getInt("house_num"));
-				detail.setHouse_title(rs.getString("house_title"));
-				detail.setHouse_seller_type(rs.getInt("house_seller_type"));
-				detail.setHouse_type(rs.getInt("house_type"));
-				detail.setHouse_deal_type(rs.getInt("house_deal_type"));
-				detail.setHouse_diposit(rs.getInt("house_diposit"));
-				detail.setHouse_price(rs.getInt("house_price"));
-				detail.setHouse_cost(rs.getInt("house_cost"));
-				detail.setZipcode(rs.getString("zipcode"));
-				detail.setHouse_address1(rs.getString("house_address1"));
-				detail.setHouse_address2(rs.getString("house_address2"));
-				detail.setHouse_space(rs.getInt("house_space"));
-				detail.setHouse_floor(rs.getInt("house_floor"));
-				detail.setHouse_move_in(rs.getInt("house_move_in"));
-				detail.setHouse_photo1(rs.getString("house_photo1"));
-				detail.setHouse_photo2(rs.getString("house_photo2"));
-				detail.setHouse_trade_date(rs.getDate("house_trade_date"));
-				detail.setHouse_buyer(rs.getInt("house_buyer"));
-				detail.setMem_num(rs.getInt("mem_num"));
-				detail.setHouse_modify_date(rs.getDate("house_modify_date"));
-				
-				list.add(detail);
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
+			
+			return list;
 		}
-		
-		return list;
-	}
-	//부동산 관심리스트 개수
-	public int getHouseFavListCount(int mem_num,String keyfield,String keyword)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		ResultSet rs = null;
-		String sub_sql = "";
-		int cnt = 0;
-		int count = 0;
-		
-		try {
-			//커넥션풀로부터 커넥션 할당
-			conn = DBUtil.getConnection();
-			if(keyword!=null && !"".equals(keyword)) {
-				//검색 처리
-				if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-				else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+		//부동산 관심리스트 개수
+		public int getHouseFavListCount(int mem_num,String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			String sub_sql = "";
+			int cnt = 0;
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
+					else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+				}
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM (SELECT house_fav f INNER JOIN (SELECT * FROM houselist "
+						+ "INNER JOIN house_detail USING(house_num)) b on f.house_num=b.house_num "
+						+ "WHERE mem_num=? "+sub_sql+" )";
+				//PreparedStatement 객체
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_num);
+				rs = pstmt.executeQuery();
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
 			}
-			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM (SELECT house_fav f INNER JOIN (SELECT * FROM houselist "
-					+ "INNER JOIN house_detail USING(house_num)) b on f.house_num=b.house_num "
-					+ "WHERE mem_num=? "+sub_sql+" )";
-			//PreparedStatement 객체
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
-			rs = pstmt.executeQuery();
-			if(keyword != null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, "%"+keyword+"%");
-			}
-			if(rs.next()) {
-				count = rs.getInt(1);
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
+			
+			return count;
 		}
-		
-		return count;
-	}
-	
 }

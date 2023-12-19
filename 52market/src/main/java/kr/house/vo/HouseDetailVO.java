@@ -21,7 +21,7 @@ public class HouseDetailVO {
 	private String house_photo2;	//디테일 사진
 	private Date house_trade_date;	//부동산 거래완료일
 	private int house_buyer;		//부동산 구매자
-	private int mem_num;			//판매자 회원번호	
+	private int mem_num;			//판매자 회원번호
 	
 	private String mem_nickname;		//닉네임
 	private Date house_modify_date;		//수정일

@@ -10,7 +10,6 @@ import kr.controller.Action;
 import kr.house.dao.HouseDAO;
 import kr.house.vo.HouseDetailVO;
 import kr.house.vo.HouseListVO;
-import kr.house.vo.House_MapVO;
 import kr.util.FileUtil;
 
 public class InsertHouseAction implements Action {
@@ -28,7 +27,6 @@ public class InsertHouseAction implements Action {
 		MultipartRequest multi = FileUtil.createFile(request);		
 		HouseListVO list = new HouseListVO();
 		HouseDetailVO detail = new HouseDetailVO();
-		House_MapVO map = new House_MapVO();
 		list.setHouse_content(multi.getParameter("house_content"));
 		
 		detail.setMem_num(user_num);
@@ -48,14 +46,8 @@ public class InsertHouseAction implements Action {
 		detail.setHouse_photo1(multi.getFilesystemName("house_photo1"));
 		detail.setHouse_photo2(multi.getFilesystemName("house_photo2"));
 		
-		map.setLocation_x(multi.getParameter("location_x"));
-		map.setLocation_y(multi.getParameter("location_y"));
-		map.setLocation(multi.getParameter("location"));
-		map.setRoad_address_name(multi.getParameter("road_address_name"));
-		map.setAddress_name(multi.getParameter("address_name"));
-		
 		HouseDAO dao = HouseDAO.getInstance();
-		dao.insertHouse(list, detail,map);
+		dao.insertHouse(list, detail);
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/house/insertHouse.jsp";
