@@ -62,6 +62,7 @@ $(function(){
 		$('#output_fcount').text(param.count);
 	}
 	//초기 데이터 호출
+	
 	if(user_num!=${detail.car_seller})	{
 		selectFav();
 	}

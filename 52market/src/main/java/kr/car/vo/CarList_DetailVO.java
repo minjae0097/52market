@@ -17,6 +17,14 @@ public class CarList_DetailVO {
 	private String car_image;		//중고차 이미지
 	private Date car_tradedate;		//판매 완료일
 	private String mem_nickname;		//닉네임
+	private Date carlist_modify_date; //수정일
+	public Date getCarlist_modify_date() {
+		return carlist_modify_date;
+	}
+
+	public void setCarlist_modify_date(Date carlist_modify_date) {
+		this.carlist_modify_date = carlist_modify_date;
+	}
 
 	public String getMem_nickname() {
 		return mem_nickname;

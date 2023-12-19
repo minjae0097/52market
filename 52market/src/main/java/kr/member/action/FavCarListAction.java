@@ -24,13 +24,16 @@ public class FavCarListAction implements Action{
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) pageNum = "1";
 		
-		CarDAO car = CarDAO.getInstance();
-		int count = car.getCarFavListCount(user_num);
+		String keyfield = request.getParameter("keyfield");
+		String keyword = request.getParameter("keyword");
 		
-		PageUtil page = new PageUtil(Integer.parseInt(pageNum), count, 10, 5, "favCarList.do");
+		CarDAO car = CarDAO.getInstance();
+		int count = car.getCarFavListCount(user_num,keyfield,keyword);
+		
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum), count, 10, 5, "favCarList.do");
 		List<CarList_DetailVO> detail = null;
 		if(count>0) {
-			detail = car.getFavList(user_num, page.getStartRow(), page.getEndRow());
+			detail = car.getFavList(user_num, page.getStartRow(), page.getEndRow(),keyfield,keyword);
 		}
 		
 		request.setAttribute("count", count);
