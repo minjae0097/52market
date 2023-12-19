@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardList</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript">
 	window.onload = function(){
 		let myForm = document.getElementById('search_form');
