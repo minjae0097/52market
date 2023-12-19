@@ -11,11 +11,11 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/product/list.do">중고거래</a>
 			<ul>
-				<li><a href="#">디지털기기</a></li>
-				<li><a href="#">생활/주방</a></li>
-				<li><a href="#">유아동</a></li>
-				<li><a href="#">의류/잡화</a></li>
-				<li><a href="#">티켓/교환권</a></li>
+				<li><a href="${pageContext.request.contextPath}/product/list.do?product_category=1">디지털기기</a></li>
+				<li><a href="${pageContext.request.contextPath}/product/list.do?product_category=2">생활/주방</a></li>
+				<li><a href="${pageContext.request.contextPath}/product/list.do?product_category=3">유아동</a></li>
+				<li><a href="${pageContext.request.contextPath}/product/list.do?product_category=4">의류/잡화</a></li>
+				<li><a href="${pageContext.request.contextPath}/product/list.do?product_category=5">티켓/교환권</a></li>
 			</ul>
 		</li>
 		<li>

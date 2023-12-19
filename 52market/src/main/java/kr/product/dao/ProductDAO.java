@@ -90,7 +90,7 @@ public class ProductDAO {
 	}
 
 	//관리자/사용자 - 전체 상품 개수/검색 상품 개수
-		public int getProductCount(String keyfield,String keyword,int status)throws Exception{
+		public int getProductCount(String keyfield,String keyword,int status,int product_category)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -107,18 +107,24 @@ public class ProductDAO {
 					else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
 				}
 				
-				//sql = "SELECT COUNT(*) FROM product WHERE product_status <= ?" + sub_sql;
+				if(product_category>0) {
+					sub_sql += "AND product_category=?";
+				}
 				
 				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM product "
 						+ "INNER JOIN product_detail USING(product_num))a "
 						+ "ON m.mem_num = a.product_seller WHERE "
-						+ "product_status<=?" + sub_sql;
+						+ "product_status<=? " + sub_sql;
 				
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(++cnt, status);
+				
 				if(keyword!=null && !"".equals(keyword)) {
 					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				if(product_category>0) {
+					pstmt.setInt(++cnt, product_category);
 				}
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
@@ -134,7 +140,7 @@ public class ProductDAO {
 		
 		
 		//관리자/사용자 - 전체 상품 개수/검색 상품 목록
-		public List<Product_DetailVO> getListProduct(int start,int end,String keyfield,String keyword,int product_status)throws Exception{
+		public List<Product_DetailVO> getListProduct(int start,int end,String keyfield,String keyword,int product_status, int product_category)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -149,6 +155,10 @@ public class ProductDAO {
 				if(keyword!=null && !"".equals(keyword)) {
 					if(keyfield.equals("1")) sub_sql += "AND product_name LIKE ?";
 					else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+				}
+				
+				if(product_category>0) {
+					sub_sql += "AND product_category=?";
 				}
 				
 				/*
@@ -168,7 +178,9 @@ public class ProductDAO {
 				if(keyword!=null && !"".equals(keyword)) {
 					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
-				
+				if(product_category>0) {
+					pstmt.setInt(++cnt, product_category);
+				}
 				pstmt.setInt(++cnt, start);
 				pstmt.setInt(++cnt, end);
 				

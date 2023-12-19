@@ -18,6 +18,12 @@ public class ListAction implements Action{
 		
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		
+		int product_category = 0;
+		if(request.getParameter("product_category")!=null) {
+			product_category=Integer.parseInt(request.getParameter("product_category"));
+		}
+		
 		//판매중인것만 보기
 		int product_status = 1;
 		if(request.getParameter("product_status")!=null) {
@@ -25,14 +31,17 @@ public class ListAction implements Action{
 		}
 		
 		ProductDAO dao = ProductDAO.getInstance();
-		int count = dao.getProductCount(keyfield, keyword, product_status);
+		int count = dao.getProductCount(keyfield, keyword, product_status, product_category);
 		
 		PageUtilProduct productpage = new PageUtilProduct(keyfield, keyword, Integer.parseInt(pageNum),count,9,5,"list.do",product_status);
 		
 		List<Product_DetailVO> productList = null;
 		if(count>0) {
-			productList = dao.getListProduct(productpage.getStartRow(), productpage.getEndRow(), keyfield, keyword, product_status);
+			productList = dao.getListProduct(productpage.getStartRow(), productpage.getEndRow(), keyfield, keyword, product_status, product_category);
 		}
+		
+		
+	
 		
 		request.setAttribute("count", count);
 		request.setAttribute("productList", productList);

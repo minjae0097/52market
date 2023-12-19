@@ -56,7 +56,7 @@ window.onload=function(){
 			</li>
 			<li>
 				<label for="location">거래희망장소</label>
-				<input type="text" id="location" name="location">
+				<input type="text" id="location" name="location" readonly>
 				<input type="button" name="mapopen" id="mapopen"  value="장소 선택">
 				<input type="hidden" name="location_x" id="location_x">
 				<input type="hidden" name="location_y" id="location_y">
