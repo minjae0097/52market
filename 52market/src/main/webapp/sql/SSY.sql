@@ -42,7 +42,18 @@ constraint house_detail_fk2 foreign key (house_buyer) references member (mem_num
 create table house_fav(
 house_num number not null,
 mem_num number not null,
-house_reg_date date default sysdate not null,
+reg_date date default sysdate not null,
 constraint house_fav_fk1 foreign key (house_num) references houselist (house_num),
 constraint house_fav_fk2 foreign key (mem_num) references member(mem_num)
+);
+
+--map table
+create table house_map(
+house_num number(30) not null,
+location_x varchar2(30) not null,
+	location_y varchar2(30) not null,
+	location varchar2(50) not null,
+	road_address_name varchar2(100) not null,
+	address_name varchar2(100) not null,
+	constraint house_map_fk foreign key (house_num) references houselist (house_num)
 );
