@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <!-- header 시작 -->
 <div id="main_logo">
 	<h1 class="align-center"><a href="${pageContext.request.contextPath}/main/main.do">오이마켓</a></h1>
@@ -9,6 +10,13 @@
 	<ul>
 		<li>
 			<a href="${pageContext.request.contextPath}/product/list.do">중고거래</a>
+			<ul>
+				<li><a href="#">디지털기기</a></li>
+				<li><a href="#">생활/주방</a></li>
+				<li><a href="#">유아동</a></li>
+				<li><a href="#">의류/잡화</a></li>
+				<li><a href="#">티켓/교환권</a></li>
+			</ul>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/board/list.do">동네생활</a>

@@ -16,6 +16,14 @@ public class Product_DetailVO {
 	private String mem_nickname;	//member(닉네임)
 	private String mem_photo;		//member(프로필사진)
 	
+	private Date product_modify_date;//product(수정일)
+	
+	public Date getProduct_modify_date() {
+		return product_modify_date;
+	}
+	public void setProduct_modify_date(Date product_modify_date) {
+		this.product_modify_date = product_modify_date;
+	}
 	public int getProduct_num() {
 		return product_num;
 	}
