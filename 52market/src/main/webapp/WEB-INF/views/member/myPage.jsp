@@ -147,7 +147,7 @@ $(function(){
 		<ul>
 			<li><a href="favList.do">관심목록</a></li>
 			<li><a>구매내역</a></li>
-			<li><a>판매내역</a></li>
+			<li><a href="mySellList.do">판매내역</a></li>
 		</ul>
 		</div>
 		<hr size="1" width="100%">

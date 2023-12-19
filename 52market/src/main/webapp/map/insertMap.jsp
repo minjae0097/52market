@@ -64,7 +64,7 @@
     <div style="align-content: center;">
     		<input type="hidden" id="result_x" name="result_x">
     		<input type="hidden" id="result_y" name="result_y">
-    		<input type="text" id="result" name="result">
+    		<input type="text" id="result" name="result" readonly>
     		<input type="hidden" id="road_address_name" name="road_address_name">
     		<input type="hidden" id="address_name" name="address_name">
     		<button id="select" onclick="throwMapData()">선택</button>

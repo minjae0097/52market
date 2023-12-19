@@ -47,3 +47,24 @@ create table car_map(
 	constraint car_map_fk foreign key (carlist_num) references carlist (carlist_num)
 );
 
+
+create table car_chatroom(
+	chatroom_num number primary key,
+	carlist_num number references carlist (carlist_num) not null,
+	seller_num number references member (mem_num) not null,
+	buyer_num number references member (mem_num) not null
+);
+
+create table car_chat(
+	chat_num number primary key,
+	chatroom_num number references car_chatroom (chatroom_num) not null,
+	mem_num number references member (mem_num) not null,
+	message varchar2(900) not null,
+	reg_date date default SYSDATE,
+	read_check number(1) default 1 not null
+);
+
+create sequence car_chatroom_seq;
+create sequence car_chat_seq;
+
+

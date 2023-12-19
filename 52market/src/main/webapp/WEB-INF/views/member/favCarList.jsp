@@ -14,6 +14,25 @@
 	<div class="content-main">
 		<h2>중고차 관심목록</h2>
 		<hr size="1" width="100%">
+		<form id="search_form" action="favCarList.do" method="get">
+			<ul class="search">
+				<li>
+				<input type="button" value="필터"  id = "show_filter">
+					<select name="keyfield">
+						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
+					</select>
+				</li>
+				<li>
+					<input type="search" size="16" name="keyword" id="keyword" 
+					                              value="${param.keyword}">
+				</li>
+				<li>
+					<input type="submit" value="검색">
+				</li>
+				
+			</ul>
+			</form>
 			<c:if test="${empty detail}">
 			<div>
 			관심목록이 없습니다.
@@ -23,7 +42,7 @@
 			<c:forEach var="detail" items="${detail}">
 			<div>
 				<ul>
-					<li>${detail.car_title}</li>
+					<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${detail.carlist_num}">${detail.car_title}</a></li>
 				</ul>
 			</div>
 			</c:forEach>

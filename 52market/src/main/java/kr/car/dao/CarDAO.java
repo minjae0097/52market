@@ -19,7 +19,7 @@ public class CarDAO {
 		return instance;
 	}
 	private CarDAO() {}
-	
+
 	//중고차 글쓰기
 	public void insertCar(CarlistVO list, CarList_DetailVO detail,Car_MapVO map)throws Exception{
 		Connection conn = null;
@@ -33,14 +33,14 @@ public class CarDAO {
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			sql = "SELECT carlist_seq.nextval FROM dual";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				num = rs.getInt(1);
 			}
-			
+
 			sql = "INSERT INTO carlist_detail (carlist_num, car_seller,car_type,car_fuel,car_price,"
 					+ "car_model_year,car_distance,car_transmission,car_origin,car_image,car_title) VALUES("
 					+ "?,?,?,?,?,?,?,?,?,?,?)";
@@ -57,13 +57,13 @@ public class CarDAO {
 			pstmt2.setString(10, detail.getCar_image());
 			pstmt2.setString(11, detail.getCar_title());
 			pstmt2.executeUpdate();
-			
+
 			sql = "INSERT INTO carlist (carlist_num,carlist_content) VALUES(?,?)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setString(2, list.getCarlist_content());
 			pstmt3.executeUpdate();
-			
+
 			sql = "INSERT INTO car_map (carlist_num,location_x,location_y,location,road_address_name,address_name) "
 					+ " VALUES(?,?,?,?,?,?)";
 			pstmt4 = conn.prepareStatement(sql);
@@ -74,9 +74,9 @@ public class CarDAO {
 			pstmt4.setString(5, map.getRoad_address_name());
 			pstmt4.setString(6, map.getAddress_name());
 			pstmt4.executeUpdate();
-			
+
 			conn.commit();
-			
+
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
@@ -86,78 +86,78 @@ public class CarDAO {
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(rs, pstmt4, conn);
 		}
-		
+
 	}
 	//전체 레코드수/검색 레코드수
-		public int getCarCount(String keyfield,String keyword,int status,String car_type,String car_fuel,String car_transmission,String car_origin)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			String sub_sql = "";
-			String type = "";
-			String fuel = "";
-			String transmission = "";
-			String origin = "";
-			int cnt = 0;
-			int count = 0;
-			
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				
-				if(keyword!=null && !"".equals(keyword)) {
-					//검색 처리
-					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
-				}
-				//필터
-				if(car_type!=null) {
-					type += " AND car_type in ? ";
-				}
-				if(car_fuel!=null) {
-					fuel += " AND car_fuel in ? ";
-				}
-				if(car_transmission!=null) {
-					transmission += " AND car_transmission in ? ";
-				}
-				if(car_origin!=null) {
-					origin += " AND car_origin in ? ";
-				}
-				//SQL문 작성
-				sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
-						+ " ON m.mem_num = a.car_seller WHERE carlist_status<=?" + sub_sql +type+fuel+transmission+origin;
-				//PreparedStatement 객체
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(++cnt, status);
-				if(keyword != null && !"".equals(keyword)) {
-					pstmt.setString(++cnt, "%"+keyword+"%");
-				}
-				if(car_type!=null) {
-					pstmt.setString(++cnt, car_type);
-				}
-				if(car_fuel!=null) {
-					pstmt.setString(++cnt, car_fuel);
-				}
-				if(car_transmission!=null) {
-					pstmt.setString(++cnt, car_transmission);
-				}
-				if(car_origin!=null) {
-					pstmt.setString(++cnt, car_origin);
-				}
-				//SQL문 실행
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					count = rs.getInt(1);
-				}
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}		
-			return count;
-		}
+	public int getCarCount(String keyfield,String keyword,int status,String car_type,String car_fuel,String car_transmission,String car_origin)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		String type = "";
+		String fuel = "";
+		String transmission = "";
+		String origin = "";
+		int cnt = 0;
+		int count = 0;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
+				else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//필터
+			if(car_type!=null) {
+				type += " AND car_type in ? ";
+			}
+			if(car_fuel!=null) {
+				fuel += " AND car_fuel in ? ";
+			}
+			if(car_transmission!=null) {
+				transmission += " AND car_transmission in ? ";
+			}
+			if(car_origin!=null) {
+				origin += " AND car_origin in ? ";
+			}
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num)) a "
+					+ " ON m.mem_num = a.car_seller WHERE carlist_status<=?" + sub_sql +type+fuel+transmission+origin;
+			//PreparedStatement 객체
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, status);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			if(car_type!=null) {
+				pstmt.setString(++cnt, car_type);
+			}
+			if(car_fuel!=null) {
+				pstmt.setString(++cnt, car_fuel);
+			}
+			if(car_transmission!=null) {
+				pstmt.setString(++cnt, car_transmission);
+			}
+			if(car_origin!=null) {
+				pstmt.setString(++cnt, car_origin);
+			}
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
 	//중고차 리스트
 	public List<CarList_DetailVO> getList(int start, int end, String keyfield, String keyword, int carlist_status,String car_type,String car_fuel,String car_transmission,String car_origin)throws Exception{
 		Connection conn = null;
@@ -174,7 +174,7 @@ public class CarDAO {
 		try {
 			//커넥션풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
-			
+
 			if(keyword!=null&&!"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
@@ -233,17 +233,17 @@ public class CarDAO {
 				detail.setCar_transmission(rs.getString("car_transmission"));
 				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
-				
+
 				list.add(detail);
 			}
-			
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
-		
+
+
 		return list;
 	}
 	//중고차 상세 detail
@@ -253,7 +253,7 @@ public class CarDAO {
 		ResultSet rs = null;
 		CarList_DetailVO detail = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM  carlist_detail d INNER JOIN member m on d.car_seller=m.mem_num WHERE carlist_num=?";
@@ -276,14 +276,14 @@ public class CarDAO {
 				detail.setCar_title(rs.getString("car_title"));
 				detail.setMem_nickname(rs.getString("mem_nickname"));
 			}
-			
-			
+
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
+
 		return detail;
 	}
 	// 중고차 상세 list
@@ -293,14 +293,14 @@ public class CarDAO {
 		ResultSet rs = null;
 		String sql = null;
 		CarlistVO list = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM carlist WHERE carlist_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, carlist_num);
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				list = new CarlistVO();
 				list.setCarlist_num(rs.getInt("carlist_num"));
@@ -309,13 +309,13 @@ public class CarDAO {
 				list.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
 				list.setCarlist_status(rs.getInt("carlist_status"));
 			}
-			
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
+
 		return list;
 	}
 	//중고차 상세 map
@@ -325,14 +325,14 @@ public class CarDAO {
 		ResultSet rs = null;
 		String sql = null;
 		Car_MapVO map = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM car_map WHERE carlist_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, carlist_num);
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
 				map = new Car_MapVO();
 				map.setLocation_x(rs.getString("location_x"));
@@ -341,13 +341,13 @@ public class CarDAO {
 				map.setRoad_address_name(rs.getString("road_address_name"));
 				map.setAddress_name(rs.getString("address_name"));
 			}
-			
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
+
 		return map;
 	}
 	//회원정보 받아오기
@@ -357,7 +357,7 @@ public class CarDAO {
 		ResultSet rs = null;
 		String sql = null;
 		MemberVO member = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM member INNEF JOIN member_detail USING(mem_num) WHERE mem_num=?";
@@ -369,13 +369,13 @@ public class CarDAO {
 				member.setMem_nickname(rs.getString("mem_nickname"));
 				member.setMem_photo(rs.getString("mem_photo"));
 			}
-			
+
 		}catch(Exception e) {
-			
+
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
+
 		return member;
 	}
 	//중고차 수정
@@ -389,8 +389,8 @@ public class CarDAO {
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
-			
+
+
 			sql = "UPDATE carlist_detail SET car_type=?,car_fuel=?,car_price=?,"
 					+ "car_model_year=?,car_distance=?,car_transmission=?,car_origin=?,car_image=?,car_title=? WHERE carlist_num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -405,13 +405,13 @@ public class CarDAO {
 			pstmt.setString(9, detail.getCar_title());
 			pstmt.setInt(10, carlist_num);
 			pstmt.executeUpdate();
-			
+
 			sql = "UPDATE carlist SET carlist_content=? WHERE carlist_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setString(1, list.getCarlist_content());
 			pstmt2.setInt(2, carlist_num);
 			pstmt2.executeUpdate();
-			
+
 			sql = "UPDATE car_map SET location_x=?,location_y=?,location=?,road_address_name=?,address_name=? WHERE carlist_num=? ";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setString(1, map.getLocation_x());
@@ -421,9 +421,9 @@ public class CarDAO {
 			pstmt3.setString(5, map.getAddress_name());
 			pstmt3.setInt(6, carlist_num);
 			pstmt3.executeUpdate();
-			
+
 			conn.commit();
-			
+
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
@@ -432,7 +432,7 @@ public class CarDAO {
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt3, conn);
 		}
-		
+
 	}
 	//중고차 삭제
 	public void deleteCar(int carlist_num)throws Exception{
@@ -445,12 +445,12 @@ public class CarDAO {
 		ResultSet rs = null;
 		String sql = null;
 		int status = 0;
-		
+
 		try {
 			conn = DBUtil.getConnection();
-			
+
 			conn.setAutoCommit(false);
-			
+
 			//car_fav 삭제
 			sql = "DELETE FROM car_fav WHERE carlist_num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -492,26 +492,26 @@ public class CarDAO {
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
-		
+
 	}
 	//중고차 관심 등록
 	public void insertCarFav(Car_FavVO carfav)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
-			
+
 			sql = "INSERT INTO car_fav(carlist_num,mem_num) VALUES(?,?)";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, carfav.getCarlist_num());
 			pstmt.setInt(2, carfav.getMem_num());
 			pstmt.executeUpdate();
-			
-			
-			
+
+
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -523,16 +523,16 @@ public class CarDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
-			
+
 			sql = "DELETE FROM car_fav WHERE carlist_num=? AND mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, carfav.getCarlist_num());
 			pstmt.setInt(2, carfav.getMem_num());
 			pstmt.executeUpdate();
-			
+
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -540,194 +540,292 @@ public class CarDAO {
 		}
 	}
 	//좋아요 개수
-		public int selectFavCount(int carlist_num)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			int count = 0;
-			
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				//SQL문 작성
-				sql = "SELECT COUNT(*) FROM car_fav WHERE carlist_num=?";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, carlist_num);
-				//SQL문 실행
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					count = rs.getInt(1);
-				}			
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}		
-			return count;
-		}
-		//회원번호와 게시물 번호를 이용한 좋아요 정보(좋아요 선택 여부)
-		public Car_FavVO selectFav(Car_FavVO carfav)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			Car_FavVO fav = null;
-			String sql = null;
-			
-			try {
-				//커넥션풀로부터 커넥션을 할당
-				conn = DBUtil.getConnection();
-				//SQL문 작성
-				sql = "SELECT * FROM car_fav WHERE carlist_num=? AND mem_num=?";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, carfav.getCarlist_num());
-				pstmt.setInt(2, carfav.getMem_num());
-				//SQL문 실행
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					fav = new Car_FavVO();
-					fav.setCarlist_num(rs.getInt("carlist_num"));
-					fav.setMem_num(rs.getInt("mem_num"));
-				}
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}		
-			return fav;
-		}
-		//중고차 관심리스트
-		public List<CarList_DetailVO> getFavList(int mem_num,int start, int end ,String keyfield,String keyword)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			List<CarList_DetailVO> list = null;
-			String sub_sql = "";
-			int cnt = 0;
-			String sql = null;
-			
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				if(keyword!=null && !"".equals(keyword)) {
-					//검색 처리
-					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
-				}
-				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
-						+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? "+sub_sql+" ORDER BY regdate DESC)a) WHERE rnum >=? AND rnum <=?";
-				//PreparedStatrment 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, mem_num);
-				if(keyword != null && !"".equals(keyword)) {
-					pstmt.setString(++cnt, "%"+keyword+"%");
-				}
-				pstmt.setInt(2, start);
-				pstmt.setInt(3, end);
-				rs = pstmt.executeQuery();
-				list = new ArrayList<CarList_DetailVO>();
-				while(rs.next()) {
-					CarList_DetailVO detail = new CarList_DetailVO();
-					detail.setCarlist_num(rs.getInt("carlist_num"));
-					detail.setCar_title(rs.getString("car_title"));
-					detail.setCar_buyer(rs.getInt("car_buyer"));
-					detail.setCar_type(rs.getString("car_type"));
-					detail.setCar_fuel(rs.getString("car_fuel"));
-					detail.setCar_price(rs.getInt("car_price"));
-					detail.setCar_model_year(rs.getInt("car_model_year"));
-					detail.setCar_distance(rs.getInt("car_distance"));
-					detail.setCar_transmission(rs.getString("car_transmission"));
-					detail.setCar_origin(rs.getString("car_origin"));
-					detail.setCar_image(rs.getString("car_image"));
-					detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
-					
-					list.add(detail);
-				}
-				
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
+	public int selectFavCount(int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM car_fav WHERE carlist_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, carlist_num);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+	//회원번호와 게시물 번호를 이용한 좋아요 정보(좋아요 선택 여부)
+	public Car_FavVO selectFav(Car_FavVO carfav)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Car_FavVO fav = null;
+		String sql = null;
+
+		try {
+			//커넥션풀로부터 커넥션을 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "SELECT * FROM car_fav WHERE carlist_num=? AND mem_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, carfav.getCarlist_num());
+			pstmt.setInt(2, carfav.getMem_num());
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				fav = new Car_FavVO();
+				fav.setCarlist_num(rs.getInt("carlist_num"));
+				fav.setMem_num(rs.getInt("mem_num"));
 			}
-			
-			
-			return list;
-		}
-		//중고차 관심리스트 개수
-		public int getCarFavListCount( int mem_num, String keyfield,String keyword)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			ResultSet rs = null;
-			String sub_sql = "";
-			int cnt = 0;
-			int count = 0;
-			
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				if(keyword!=null && !"".equals(keyword)) {
-					//검색 처리
-					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
-				}
-				//SQL문 작성
-				sql = "SELECT count(*) FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
-						+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? "+sub_sql+" )";
-				//PreparedStatement 객체
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, mem_num);
-				rs = pstmt.executeQuery();
-				if(keyword != null && !"".equals(keyword)) {
-					pstmt.setString(++cnt, "%"+keyword+"%");
-				}
-				if(rs.next()) {
-					count = rs.getInt(1);
-				}
-				
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}		
-			return count;
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return fav;
+	}
+	//중고차 관심리스트
+	public List<CarList_DetailVO> getFavList(int mem_num,int start, int end ,String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<CarList_DetailVO> list = null;
+		String sub_sql = "";
+		int cnt = 0;
+		String sql = null;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//SQL문 작성
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+					+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? "+sub_sql+" ORDER BY regdate DESC)a) WHERE rnum >=? AND rnum <=?";
+			//PreparedStatrment 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<CarList_DetailVO>();
+			while(rs.next()) {
+				CarList_DetailVO detail = new CarList_DetailVO();
+				detail.setCarlist_num(rs.getInt("carlist_num"));
+				detail.setCar_title(rs.getString("car_title"));
+				detail.setCar_buyer(rs.getInt("car_buyer"));
+				detail.setCar_type(rs.getString("car_type"));
+				detail.setCar_fuel(rs.getString("car_fuel"));
+				detail.setCar_price(rs.getInt("car_price"));
+				detail.setCar_model_year(rs.getInt("car_model_year"));
+				detail.setCar_distance(rs.getInt("car_distance"));
+				detail.setCar_transmission(rs.getString("car_transmission"));
+				detail.setCar_origin(rs.getString("car_origin"));
+				detail.setCar_image(rs.getString("car_image"));
+				detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
+
+				list.add(detail);
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 
-		
-		//중고차 판매여부 변경
-		public void updateCarStatus(int carlist_status, int carlist_num)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				//SQL문 작성
-				sql = "UPDATE carlist SET carlist_status=? WHERE carlist_num=?";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, carlist_status);
-				pstmt.setInt(2, carlist_num);
-				//SQL문 실행
-				pstmt.executeUpdate();
-				
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(null, pstmt, conn);
-			}		
+
+		return list;
+	}
+	//중고차 관심리스트 개수
+	public int getCarFavListCount( int mem_num, String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		String sub_sql = "";
+		int count = 0;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//SQL문 작성
+			sql = "SELECT count(*) FROM (SELECT * FROM car_fav f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+					+ " ) b on f.carlist_num=b.carlist_num WHERE mem_num=? "+sub_sql+" )";
+			//PreparedStatement 객체
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+
+
+	//중고차 판매여부 변경
+	public void updateCarStatus(int carlist_status, int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "UPDATE carlist SET carlist_status=? WHERE carlist_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, carlist_status);
+			pstmt.setInt(2, carlist_num);
+			//SQL문 실행
+			pstmt.executeUpdate();
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}		
+	}
+
+	//중고차 판매리스트
+	public List<CarList_DetailVO> getSellList(int mem_num,int start, int end ,String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<CarList_DetailVO> list = null;
+		String sub_sql = "";
+		int cnt = 0;
+		String sql = null;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//SQL문 작성
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+					+ " ) b on f.mem_num=b.car_seller WHERE car_seller=? "+sub_sql+" ORDER BY carlist_modify_date DESC)a) WHERE rnum >=? AND rnum <=?";
+			//PreparedStatrment 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<CarList_DetailVO>();
+			while(rs.next()) {
+				CarList_DetailVO detail = new CarList_DetailVO();
+				detail.setCarlist_num(rs.getInt("carlist_num"));
+				detail.setCar_title(rs.getString("car_title"));
+				detail.setCar_buyer(rs.getInt("car_buyer"));
+				detail.setCar_type(rs.getString("car_type"));
+				detail.setCar_fuel(rs.getString("car_fuel"));
+				detail.setCar_price(rs.getInt("car_price"));
+				detail.setCar_model_year(rs.getInt("car_model_year"));
+				detail.setCar_distance(rs.getInt("car_distance"));
+				detail.setCar_transmission(rs.getString("car_transmission"));
+				detail.setCar_origin(rs.getString("car_origin"));
+				detail.setCar_image(rs.getString("car_image"));
+				detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
+
+				list.add(detail);
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		
+
+
+		return list;
+	}
+	//중고차 판매리스트 개수
+	public int getSellListCount(int mem_num, String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		String sub_sql = "";
+		int count = 0;
+
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+			}
+			//SQL문 작성
+			sql = "SELECT count(*) FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+					+ " ) b on f.mem_num=b.car_seller WHERE car_seller=? "+sub_sql+" )";
+			//PreparedStatement 객체
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+
+
 }
 
 
