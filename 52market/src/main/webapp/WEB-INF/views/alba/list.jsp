@@ -8,7 +8,43 @@
 <title>알바</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/alba_fav.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//좋아요 선택 여부와 선택한 총 개수 읽기
+	function selectFav(){
+		$.ajax({
+			url:'getAlbaFav.do',
+			type:'post',
+			data:{alba_num:$('#output_fav').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayFav(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	}
+	//좋아요 표시
+	function displayFav(param){
+		let output;
+		if(param.status=='yesFav'){//좋아요 선택
+			output = '../images/fav02.gif';
+		}else{//좋아요 미선택
+			output = '../images/fav01.gif';
+		}
+		
+		//문서 객체에 설정
+		$('#output_fav').attr('src',output);
+		$('#output_fcount').text(param.count);
+	}
+	//초기 데이터 호출
+	
+	<c:if test="${user_auth == 1 && user_auth==2}">selectFav();</c:if>
+	
+});
+</script>
 </head>
 <body>
 <div class="page-main">

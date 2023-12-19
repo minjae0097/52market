@@ -8,7 +8,137 @@
 <title>알바 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/alba_fav.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	//좋아요 선택 여부와 선택한 총 개수 읽기
+	let element_layer = document.getElementById('layer');
+	let element_layer2 = document.getElementById('layer2');
+	
+	function selectFav(){
+		$.ajax({
+			url:'getAlbaFav.do',
+			type:'post',
+			data:{alba_num:$('#output_fav').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayFav(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	}
+	//좋아요 등록(및 삭제) 이벤트 연결
+	$('#output_fav').click(function(){
+		$.ajax({
+			url:'writeAlbaFav.do',
+			type:'post',
+			data:{alba_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요');
+				}else if(param.result == 'success'){
+					displayFav(param);
+				}else{
+					alert('좋아요 등록 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	//좋아요 표시
+	function displayFav(param){
+		let output;
+		if(param.status=='yesFav'){//좋아요 선택
+			output = '../images/fav02.gif';
+		}else{//좋아요 미선택
+			output = '../images/fav01.gif';
+		}
+		
+		//문서 객체에 설정
+		$('#output_fav').attr('src',output);
+		$('#output_fcount').text(param.count);
+	}
+	//초기 데이터 호출
+	
+	<c:if test="${user_auth == 1 || user_auth==2}">selectFav();</c:if>
+	
+	let call_btn = document.getElementById('call_btn');
+	//이벤트 연결
+	call_btn.onclick=function(){
+	    
+		openlayer();
+	};
+	
+	function closelayer() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer.style.display = 'none';
+    }
+    function openlayer() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer.style.display = 'block';
+        initLayerPosition();
+    }
+    function initLayerPosition(){
+        var width = 300; //우편번호서비스가 들어갈 element의 width
+        var height = 100; //우편번호서비스가 들어갈 element의 height
+        var borderWidth = 3; //샘플에서 사용하는 border의 두께
+
+        // 위에서 선언한 값들을 실제 element에 넣는다.
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+	let close_btn = document.getElementById('close_btn');
+	close_btn.onclick=function(){
+		closelayer();
+	}
+	
+	
+	
+	let apply_btn = document.getElementById('apply_btn');
+	//이벤트 연결
+	apply_btn.onclick=function(){
+	    
+		openlayer2();
+	};
+	
+	function closelayer2() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer2.style.display = 'none';
+    }
+    function openlayer2() {
+        // iframe을 넣은 element를 안보이게 한다.
+        element_layer2.style.display = 'block';
+        initLayerPosition2();
+    }
+    function initLayerPosition2(){
+        var width = 300; //우편번호서비스가 들어갈 element의 width
+        var height = 130; //우편번호서비스가 들어갈 element의 height
+        var borderWidth = 3; //샘플에서 사용하는 border의 두께
+
+        // 위에서 선언한 값들을 실제 element에 넣는다.
+        element_layer2.style.width = width + 'px';
+        element_layer2.style.height = height + 'px';
+        element_layer2.style.border = borderWidth + 'px solid';
+        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+        element_layer2.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer2.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+	let close_btn2 = document.getElementById('close_btn2');
+	close_btn2.onclick=function(){
+		closelayer2();
+	}
+	
+};
+</script>
 </head>
 <body>
 <div class="page-main">
@@ -50,7 +180,7 @@
 		<ul class="detail-sub">
 		<li>
 		<%-- 좋아요 시작 --%>
-		<c:if test="${user_num == member.mem_num}">
+		<c:if test="${user_auth != 3 && user_auth!=9}">
 			<img id="output_fav" data-num="${alba.alba_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 					관심
 			<span id="output_fcount"></span>
@@ -58,9 +188,15 @@
 		</c:if>
 		</li>
 		<li>
+		<input type="button" value="문의하기" id="call_btn">
+		<input type="button" value="지원하기" id="apply_btn">
+		</li>
+		<li>
 		<c:if test="${user_auth==3}">
 		<input type="button" value="수정" onclick="location.href='updateAlbaForm.do?alba_num=${alba.alba_num}'">
-		<input type="button" value="삭제" id="delete_btn" onclick="location.href='deleteAlbaForm.do?alba_num=${alba.alba_num}'" <c:if test="${user_auth==9}"></c:if>>
+		</c:if>
+		<c:if test="${user_auth==9||user_auth==3}">
+		<input type="button" value="삭제" id="delete_btn" onclick="location.href='deleteAlbaForm.do?alba_num=${alba.alba_num}'">
 		<script type="text/javascript">
 			let delete_btn = document.getElementById('delete_btn');
 			//이벤트 연결
@@ -78,5 +214,28 @@
 		</div>
 	</div>
 </div>
+<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
+<ul>
+	<li>전화번호: ${db_member.mem_phone}</li>
+</ul>
+	<div class="align-center">
+	<button id="close_btn">닫기</button>
+	</div>
+</div>
+
+<div id="layer2" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
+<ul>
+	<li>
+		<label for="filename">지원서 파일 등록</label>
+		<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg">
+	</li>
+</ul>
+	<div class="align-center">
+	<button id="apply_btn2" onclick="location.href='applyList.do'">등록</button>
+	<button id="close_btn2">취소</button>
+	</div>
+</div>
 </body>
 </html>
+
+

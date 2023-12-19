@@ -197,6 +197,7 @@ public class AlbaDAO {
 				alba.setAlba_reg_date(rs.getDate("alba_reg_date"));
 				alba.setAlba_modify_date(rs.getDate("alba_modify_date"));
 				alba.setMem_nickname(rs.getString("mem_nickname"));
+				alba.setMem_num(rs.getInt("mem_num"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
