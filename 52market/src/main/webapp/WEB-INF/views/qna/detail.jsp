@@ -37,7 +37,24 @@
 		${qna.question_content}
 	</p>
 	<hr size="1" noshade="noshade" width="100%">
-	
+	<ul class="detail-sub">
+		<li>
+			작성일 : ${qna.question_regdate}
+			<input type="button" value="삭제" id="delete_btn">
+			<script type="text/javascript">
+				let delete_btn = document.getElementById('delete_btn');
+				//이벤트 연결
+				delete_btn.onclick=function(){
+					let choice = confirm('삭제하시겠습니까?');
+					if(choice){
+						location.replace('delete.do?qna_num=${qna.qna_num}');
+					}
+				};
+			</script>
+			<input type="button" value="목록" onclick="location.href='list.do'">
+		</li>
+	</ul>
+	<hr size="1" noshade="noshade" width="100%">
 	<%-- if --%>
 	<c:if test="${qna.ask_content!=null}">
 	<h2>${qna.mem_nickname}님, 답변 드립니다.</h2>
@@ -58,26 +75,10 @@
 	<hr size="1" noshade="noshade" width="100%">
 	</c:if>
 	<%-- if 끝 --%>
-	
 	<ul class="detail-sub">
-		<li>
-			작성일 : ${qna.question_regdate}
-			<c:if test="${!empty qna.ask_content}">
-				답변일 : ${qna.ask_regdate}
-			</c:if>
-			<input type="button" value="삭제" id="delete_btn">
-			<script type="text/javascript">
-				let delete_btn = document.getElementById('delete_btn');
-				//이벤트 연결
-				delete_btn.onclick=function(){
-					let choice = confirm('삭제하시겠습니까?');
-					if(choice){
-						location.replace('delete.do?qna_num=${qna.qna_num}');
-					}
-				};
-			</script>
-			<input type="button" value="목록" onclick="location.href='list.do'">
-		</li>
+		<c:if test="${!empty qna.ask_content}">
+			답변일 : ${qna.ask_regdate}
+		</c:if>
 	</ul>
 	</div>
 </div>

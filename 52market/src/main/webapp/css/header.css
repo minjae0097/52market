@@ -17,8 +17,8 @@
 /* 폰트, 글자크기 글자색은 검정색, 라인높이30 menu박스 가운데정렬, 글자가운데 정렬 */
 	#main_nav {
 		font:bold 12px "malgun gothic";
-		color:black;
-		line-height:30px; 
+		color:#4a4a4a;
+		line-height:10px; 
 		margin:0 auto;
 		text-align:center;
 	}
@@ -28,15 +28,15 @@
 		float:left;
 		width:100px;
 		position:relative;
+		line-height:30px;
+		/*word-spacing:3px;*/ 
 	}
 
 /* font, background color 추후 어울리는 색으로 변경 */
-
 	#main_nav > ul > li > ul {
 		width:100px;
 		display:none;
 		position: absolute;
-		font-size:12px;
 		background: white;
 	}
 	
@@ -45,7 +45,7 @@
 	}
 	
 	#main_nav > ul > li > ul > li:hover {
-		background: black;
+		background:#9eea9e;
 		color:white;
 		transition: ease 1s;
 		}
