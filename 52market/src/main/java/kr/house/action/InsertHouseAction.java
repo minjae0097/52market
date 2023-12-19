@@ -37,10 +37,10 @@ public class InsertHouseAction implements Action {
 		detail.setHouse_address1(multi.getParameter("house_address1"));
 		detail.setHouse_address2(multi.getParameter("house_address2"));
 		detail.setHouse_deal_type(Integer.parseInt(multi.getParameter("house_deal_type")));
-		detail.setHouse_price(Integer.parseInt(multi.getParameter("house_price")));
+		detail.setHouse_price(Long.parseLong(multi.getParameter("house_price")));
 		detail.setHouse_space(Integer.parseInt(multi.getParameter("house_space")));
 		detail.setHouse_floor(Integer.parseInt(multi.getParameter("house_floor")));
-		detail.setHouse_diposit(Integer.parseInt(multi.getParameter("house_diposit")));
+		detail.setHouse_diposit(Long.parseLong(multi.getParameter("house_diposit")));
 		detail.setHouse_cost(Integer.parseInt(multi.getParameter("house_cost")));
 		detail.setHouse_move_in(Integer.parseInt(multi.getParameter("house_move_in")));
 		detail.setHouse_photo1(multi.getFilesystemName("house_photo1"));

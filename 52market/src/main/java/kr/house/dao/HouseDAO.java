@@ -58,12 +58,12 @@ public class HouseDAO {
 			pstmt2.setString(6, detail.getHouse_address1());
 			pstmt2.setString(7, detail.getHouse_address2());
 			pstmt2.setInt(8, detail.getHouse_deal_type());
-			pstmt2.setInt(9, detail.getHouse_price());
+			pstmt2.setLong(9, detail.getHouse_price());
 			pstmt2.setInt(10, detail.getHouse_space());
 			pstmt2.setInt(11, detail.getHouse_floor());
 			pstmt2.setString(12, detail.getHouse_photo1());
 			pstmt2.setString(13, detail.getHouse_photo2());
-			pstmt2.setInt(14, detail.getHouse_diposit());
+			pstmt2.setLong(14, detail.getHouse_diposit());
 			pstmt2.setInt(15, detail.getHouse_cost());
 			pstmt2.setInt(16, detail.getHouse_move_in());
 			pstmt2.setInt(17, detail.getMem_num());
@@ -88,7 +88,7 @@ public class HouseDAO {
 	}
 	//전체 레코드수/검색 레코드수
 	public int getHouseCount(String keyfield,String keyword,int house_status,int house_seller_type,int house_type,int house_deal_type,int house_move_in)throws Exception{
-		System.out.println("!!!!!!!!!!");
+		//System.out.println("!!!!!!!!!!");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -126,7 +126,7 @@ public class HouseDAO {
 					+ "JOIN house_detail USING(house_num)) a ON m.mem_num = a.mem_num "
 					+ "WHERE house_status<=?" + sub_sql;
 			
-			System.out.println("getHouseCount sql : " + sql);
+			//System.out.println("getHouseCount sql : " + sql);
 			
 			//PreparedStatement 객체 생성 3단계
 			pstmt = conn.prepareStatement(sql);
@@ -186,7 +186,7 @@ public class HouseDAO {
 			}
 			//필터
 			if(house_seller_type >= 1 && house_seller_type <= 9) {
-				System.out.println("house_seller_type : " + house_seller_type);
+				//System.out.println("house_seller_type : " + house_seller_type);
 				sub_sql += " AND house_seller_type = ?";
 			}
 			if(house_type >= 1 && house_type <= 9) {
@@ -420,7 +420,7 @@ public class HouseDAO {
 	}
 	//글 수정
 	public void updateHouse(HouseListVO list,HouseDetailVO detail)throws Exception{
-		System.out.println(detail);
+		//System.out.println(detail);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -445,7 +445,7 @@ public class HouseDAO {
 			pstmt.setString(5, detail.getHouse_address1());
 			pstmt.setString(6, detail.getHouse_address2());
 			pstmt.setInt(7, detail.getHouse_deal_type());
-			pstmt.setInt(8, detail.getHouse_price());
+			pstmt.setLong(8, detail.getHouse_price());
 			pstmt.setInt(9, detail.getHouse_space());
 			pstmt.setInt(10, detail.getHouse_floor());
 			pstmt.setString(11, detail.getHouse_photo1());

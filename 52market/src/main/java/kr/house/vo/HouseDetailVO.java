@@ -8,8 +8,8 @@ public class HouseDetailVO {
 	private int house_seller_type; 	//부동산 판매자 타입
 	private int house_type;			//매물 종류
 	private int house_deal_type;	//거래방식
-	private int house_diposit;		//보증금
-	private int house_price;		//가격
+	private long house_diposit;		//보증금
+	private long house_price;		//가격
 	private int house_cost;			//관리비
 	private String zipcode;			//우편번호
 	private String house_address1;	//매물주소
@@ -56,16 +56,16 @@ public class HouseDetailVO {
 	public void setHouse_deal_type(int house_deal_type) {
 		this.house_deal_type = house_deal_type;
 	}
-	public int getHouse_diposit() {
+	public long getHouse_diposit() {
 		return house_diposit;
 	}
-	public void setHouse_diposit(int house_diposit) {
+	public void setHouse_diposit(long house_diposit) {
 		this.house_diposit = house_diposit;
 	}
-	public int getHouse_price() {
+	public long getHouse_price() {
 		return house_price;
 	}
-	public void setHouse_price(int house_price) {
+	public void setHouse_price(long house_price) {
 		this.house_price = house_price;
 	}
 	public int getHouse_cost() {
