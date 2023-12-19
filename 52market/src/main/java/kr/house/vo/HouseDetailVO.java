@@ -21,9 +21,10 @@ public class HouseDetailVO {
 	private String house_photo2;	//디테일 사진
 	private Date house_trade_date;	//부동산 거래완료일
 	private int house_buyer;		//부동산 구매자
-	private int mem_num;			//판매자 회원번호
+	private int mem_num;			//판매자 회원번호	
 	
 	private String mem_nickname;		//닉네임
+	private Date house_modify_date;		//수정일
 	
 	public int getHouse_num() {
 		return house_num;
@@ -144,6 +145,12 @@ public class HouseDetailVO {
 	}
 	public void setMem_nickname(String mem_nickname) {
 		this.mem_nickname = mem_nickname;
+	}
+	public Date getHouse_modify_date() {
+		return house_modify_date;
+	}
+	public void setHouse_modify_date(Date house_modify_date) {
+		this.house_modify_date = house_modify_date;
 	}
 	
 	

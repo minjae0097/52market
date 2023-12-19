@@ -213,7 +213,7 @@ window.onload=function(){
 								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
 								<span>${house.house_title}</span>
 								<br>
-								<b>${house.mem_nickname}<fmt:formatNumber value="${house.house_price}"/>원</b><br>
+								${house.mem_nickname}<b><fmt:formatNumber value="${house.house_price}"/>원</b><br>
 							</a>
 						</div>
 					</c:forEach>

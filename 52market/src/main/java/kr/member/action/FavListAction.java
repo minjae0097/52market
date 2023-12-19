@@ -22,7 +22,7 @@ public class FavListAction implements Action{
 		
 		CarDAO car = CarDAO.getInstance();
 		List<CarList_DetailVO> carList = null;
-		carList = car.getFavList(user_num,1,2);
+		carList = car.getFavList(user_num,1,2,null,null);
 		
 
 		
