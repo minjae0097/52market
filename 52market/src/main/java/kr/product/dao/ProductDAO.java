@@ -550,6 +550,28 @@ public class ProductDAO {
 	}
 	
 	
+	//상품 판매여부 변경
+	public void updateProductStatus(int product_status, int product_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE product SET product_status=? WHERE product_num=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, product_status);
+			pstmt.setInt(2, product_num);
+			
+			pstmt.executeUpdate();
+					
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	
 	
 	//채팅

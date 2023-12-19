@@ -9,15 +9,61 @@
 <title>거래글 상세 정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/product.fav.js"></script>
 <script type="text/javascript">
-<%--$('#product_status').change(function(){
-	if($(this).val()=="0"){//판매중
-		$('#text_test').text("판매중");
-	}else if($(this).val()=="1"){//판매완료
-		$('#text_test').text("판매완료");
+$(function(){
+	//좋아요 선택 여부와 선택한 총 개수 읽기
+	function selectFav(){
+		$.ajax({
+			url:'getProductFav.do',
+			type:'post',
+			data:{product_num:$('#output_fav').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayFav(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
 	}
-});--%>
+	//좋아요 등록(및 삭제) 이벤트 연결
+	$('#output_fav').click(function(){
+		$.ajax({
+			url:'writeProductFav.do',
+			type:'post',
+			data:{product_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요');
+				}else if(param.result == 'success'){
+					displayFav(param);
+				}else{
+					alert('좋아요 등록 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	//좋아요 표시
+	function displayFav(param){
+		let output;
+		if(param.status=='yesFav'){ //좋아요 선택
+			output = '../images/fav02.gif';
+		}else{ //좋아요 미선택
+			output = '../images/fav01.gif';
+		}
+		//문서 객체에 설정
+		$('#output_fav').attr('src',output);
+		$('#output_fcount').text(param.count);
+	}
+	//초기 데이터 호출
+	if(user_num!=${detail.product_seller}){
+		selectFav();
+	}
+});
 </script>
 </head>
 <body>
@@ -57,8 +103,8 @@
 		<div>
 			<ul>
 				<li>
-				<c:if test="${product.product_status == 0}">판매중</c:if> <%-- span, text로 값 바꾸기 --%>
-				<c:if test="${product.product_status == 1}">판매완료</c:if>
+				<c:if test="${product.product_status == 0}"><span><b>판매중</b></span></c:if> <%-- span, text로 값 바꾸기 --%>
+				<c:if test="${product.product_status == 1}"><span><b>판매완료</b></span></c:if>
 				${product.product_title}</li>
 				<li>
 				<c:if test="${detail.product_category == 1}">디지털기기</c:if>
@@ -71,7 +117,7 @@
 			</ul>
 			<ul>
 				<li>
-					<span>가격 : ${detail.product_price}</span><br>
+					<span>가격 : <fmt:formatNumber value="${detail.product_price}"/>원</span><br>
 					<span>${product.product_content}</span>
 				</li>
 			</ul>
@@ -103,14 +149,17 @@
 					<span id="output_fcount"></span>                                               
 				</li>
 			</c:if>
+			<%-- 좋아요 끝 --%>
 			
+			<%-- 판매상태 변경 버튼 --%>
 			<c:if test="${user_num == product.product_mem}">
-				<li>
-					<select name="product_status" id="product_status"> <%--change 이벤트 *id설정해서 선택한 밸류 0-판매중 / onchange--%>
-						<option value="0">판매중</option>
-						<option value="1">판매완료</option> 
-					</select>	
-				</li>
+				<form action="updateStatus.do" id="update_form" method="post" style="border:0 solid black;">
+				<input type="hidden" name="product_num" value="${product.product_num}">
+				<select name="product_status" onchange="this.form.submit()">
+					<option value="0" <c:if test="${product.product_status==0}">selected</c:if>>판매중</option>
+					<option value="1" <c:if test="${product.product_status==1}">selected</c:if>>판매완료</option> 
+				</select>
+				</form>
 			</c:if>
 			<li>
 				<input type="button" value="채팅하기">
