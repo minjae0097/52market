@@ -44,7 +44,7 @@
 				<table>
 					<tr>
 						<th>제목</th>
-						<th>작성자</th>
+						<th>닉네임</th>
 						<th>등록일</th>
 					</tr>
 					<c:forEach var="board" items="${boardFavList}">
@@ -55,22 +55,23 @@
 					</tr>
 					</c:forEach>
 				</table>
-				<hr size="1" width="100%" noshade="noshade">
-				<h3>[댓글단 글 목록]</h3>
+				<br>
+				<h3>[작성한 댓글 목록]</h3>
 				<table>
 					<tr>
-						<th>작성자</th>
-						<th>내용</th>
-						<th>등록일</th>
+						<th>글번호</th>
+						<th>댓글내용</th>
+						<th>댓글등록일</th>
 					</tr>
 					<c:forEach var="board" items="${boardReplyList}">
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/board/detail.do?board_num=${board.board_num}" target="_blank">${board.mem_nickname}</a></td> 
+						<td><a href="${pageContext.request.contextPath}/board/detail.do?board_num=${board.board_num}" target="_blank">${board.board_num}</a></td> 
 						<td>${board.re_content}</td>
 						<td>${board.re_regdate}</td>
 					</tr>
 					</c:forEach>
 				</table>
+				<br>
 			</div>
 			</div>
 		</div>
