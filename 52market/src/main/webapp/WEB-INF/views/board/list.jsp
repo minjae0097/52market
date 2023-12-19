@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BoardList</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
 <script type="text/javascript">
 	window.onload = function(){
 		let myForm = document.getElementById('search_form');
@@ -48,9 +48,6 @@
 					</li>
 				</ul>
 			</form>
-			<div>
-				<input type="button" value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
-			</div>
 			<c:if test="${count==0}">
 				<div class="result-display">
 					표시할 게시물이 없습니다.
@@ -80,7 +77,6 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<hr size="1" width="100%">
 				<div class="align-center">${page}</div>
 			</c:if>
 			<div class="list-space align-right">

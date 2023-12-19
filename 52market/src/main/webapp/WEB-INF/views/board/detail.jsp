@@ -29,6 +29,7 @@
 					조회 ${board.board_hit}
 				</li>
 			</ul>
+			<br>
 			<h2>${board.board_title}</h2>
 			<hr size="1" noshade="noshade" width="100%">
 			<c:if test="${!empty board.board_filename}">
@@ -40,6 +41,7 @@
 				${board.board_content}
 			</p>
 			<hr size="1" noshade="noshade" width="100%">
+			<br>
 			<ul class="detail-sub">
 				<li>
 					<%-- 좋아요 --%>
@@ -83,6 +85,7 @@
 					</c:if>
 				</li>
 			</ul>
+			<br>
 			<!-- 댓글 시작 -->
 			<div id="reply_div">
 				<span class="re_title">댓글 달기</span>

@@ -34,6 +34,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<h2>동네생활 글쓰기</h2>
+			<br>
 			<form id="write_form" action="write.do" method="post" enctype="multipart/form-data">
 				<ul>
 					<li>
@@ -51,7 +52,7 @@
 					</li>
 					<li>
 						<label for="board_content">내용</label>
-						<textarea rows="5" cols="30" name="board_content" id="board_content" placeholder="동네에 관련된 질문이나 이야기를 해보세요"></textarea>
+						<textarea rows="8" cols="45" name="board_content" id="board_content" placeholder="동네에 관련된 질문이나 이야기를 해보세요"></textarea>
 					</li>
 					<li>
 						<label for="board_filename">파일</label>
