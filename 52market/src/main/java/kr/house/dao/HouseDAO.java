@@ -244,6 +244,8 @@ public class HouseDAO {
 				detail.setHouse_type(rs.getInt("house_type"));
 				detail.setHouse_deal_type(rs.getInt("house_deal_type"));
 				detail.setHouse_move_in(rs.getInt("house_move_in"));
+				detail.setHouse_status(rs.getInt("house_status"));
+				
 				
 				list.add(detail);
 			}

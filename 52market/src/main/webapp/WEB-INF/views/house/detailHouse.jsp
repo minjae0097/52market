@@ -171,6 +171,9 @@ $(function(){
 			</select>
 			</form>
 			</c:if>
+			<div class="align-right">
+			<input type="button" value="목록" onclick="location.href='list.do'">
+			</div>
 		</div>
 	</div>
 </div>

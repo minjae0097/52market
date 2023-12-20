@@ -213,6 +213,8 @@ window.onload=function(){
 								<span>${house.house_title}</span>
 								<br>
 								<b>${house.mem_nickname}
+								<c:if test="${house.house_status == 0}"><span style="color:#f7b165"><b>판매중</b></span></c:if>
+								<c:if test="${house.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if>  
 								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber value="${house.house_price/10000}"/>만원</c:if>
 								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber value="${house.house_price}"/>원</c:if></b><br>
 							</a>

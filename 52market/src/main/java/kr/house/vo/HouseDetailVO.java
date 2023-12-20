@@ -25,6 +25,7 @@ public class HouseDetailVO {
 	
 	private String mem_nickname;		//닉네임
 	private Date house_modify_date;		//수정일
+	private int house_status;			//판매여부
 	
 	public int getHouse_num() {
 		return house_num;
@@ -151,6 +152,12 @@ public class HouseDetailVO {
 	}
 	public void setHouse_modify_date(Date house_modify_date) {
 		this.house_modify_date = house_modify_date;
+	}
+	public int getHouse_status() {
+		return house_status;
+	}
+	public void setHouse_status(int house_status) {
+		this.house_status = house_status;
 	}
 	
 	
