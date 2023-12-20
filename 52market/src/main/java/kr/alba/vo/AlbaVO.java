@@ -19,6 +19,7 @@ public class AlbaVO {
 	private String mem_nickname;	//회원닉네임
 	private int alba_fav;			//관심수
 	private int alba_hit;			//조회수
+	private String alba_filename;	//지원서파일첨부
 	
 	private AlbaVO albaVO;
 
@@ -117,6 +118,12 @@ public class AlbaVO {
 	}
 	public void setAlba_hit(int alba_hit) {
 		this.alba_hit = alba_hit;
+	}
+	public String getAlba_filename() {
+		return alba_filename;
+	}
+	public void setAlba_filename(String alba_filename) {
+		this.alba_filename = alba_filename;
 	}
 	public AlbaVO getAlbaVO() {
 		return albaVO;

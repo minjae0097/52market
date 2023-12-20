@@ -85,7 +85,7 @@ window.onload=function(){
     }
     function initLayerPosition(){
         var width = 300; //우편번호서비스가 들어갈 element의 width
-        var height = 100; //우편번호서비스가 들어갈 element의 height
+        var height = 70; //우편번호서비스가 들어갈 element의 height
         var borderWidth = 3; //샘플에서 사용하는 border의 두께
 
         // 위에서 선언한 값들을 실제 element에 넣는다.
@@ -121,7 +121,7 @@ window.onload=function(){
     }
     function initLayerPosition2(){
         var width = 300; //우편번호서비스가 들어갈 element의 width
-        var height = 130; //우편번호서비스가 들어갈 element의 height
+        var height = 100; //우편번호서비스가 들어갈 element의 height
         var borderWidth = 3; //샘플에서 사용하는 border의 두께
 
         // 위에서 선언한 값들을 실제 element에 넣는다.
@@ -231,7 +231,7 @@ window.onload=function(){
 	</li>
 </ul>
 	<div class="align-center">
-	<button id="apply_btn2" onclick="location.href='applyList.do'">등록</button>
+	<input type="button" value="등록" onclick="location.href='apList.do?alba_num=${alba.alba_num}'">
 	<button id="close_btn2">취소</button>
 	</div>
 </div>

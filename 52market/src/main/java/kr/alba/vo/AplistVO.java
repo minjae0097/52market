@@ -6,10 +6,12 @@ public class AplistVO {
 	private int aplist_num;
 	private int alba_num;
 	private int mem_num;
-	private String aplist_title;
 	private Date aplist_reg_date;
 	private String alba_filename;
-
+	private String alba_title;
+	private String mem_nickname;
+	
+	
 	private AplistVO aplistVO;
 
 	public int getAplist_num() {
@@ -30,12 +32,6 @@ public class AplistVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	public String getAplist_title() {
-		return aplist_title;
-	}
-	public void setAplist_title(String aplist_title) {
-		this.aplist_title = aplist_title;
-	}
 	public Date getAplist_reg_date() {
 		return aplist_reg_date;
 	}
@@ -47,6 +43,18 @@ public class AplistVO {
 	}
 	public void setAlba_filename(String alba_filename) {
 		this.alba_filename = alba_filename;
+	}
+	public String getAlba_title() {
+		return alba_title;
+	}
+	public void setAlba_title(String alba_title) {
+		this.alba_title = alba_title;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 	public AplistVO getAplistVO() {
 		return aplistVO;

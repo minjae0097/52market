@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.alba.vo.Alba_FavVO;
+import kr.alba.vo.AplistVO;
 import kr.alba.vo.AlbaVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
@@ -391,4 +392,80 @@ public class AlbaDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	
+	//지원서 등록
+	public void insertAlbaAp(AlbaVO albaAp)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "INSERT INTO aplist (aplist_num,alba_num,alba_title,mem_num,aplist_reg_date=SYSDATE,alba_filename,mem_nickname) VALUES (aplist_seq.nextval,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, albaAp.getAlba_num());
+			pstmt.setString(2, albaAp.getAlba_title());
+			pstmt.setInt(3, albaAp.getMem_num());
+			pstmt.setString(4, albaAp.getAlba_filename());
+			pstmt.setString(5, albaAp.getMem_nickname());
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
+	
+	
+	//지원서 리스트
+	public List<AplistVO> ApList(int start, int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<AplistVO> list = null;
+		String sub_sql = "";
+		int cnt = 0;
+		String sql = null;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			if(keyword != null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += " WHERE alba_title LIKE ?";
+			}
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
+					+ "(SELECT * FROM aplist JOIN member USING(mem_num) " + sub_sql
+					+ "ORDER BY aplist_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<AplistVO>();
+			while(rs.next()) {
+				AplistVO aplist = new AplistVO();
+				aplist.setAplist_num(rs.getInt("aplist_num"));
+				aplist.setAlba_title(StringUtil.useBrNoHtml(rs.getString("alba_title")));
+				aplist.setMem_nickname(rs.getString("mem_nickname"));
+				aplist.setAplist_reg_date(rs.getDate("aplist_reg_date"));
+
+				list.add(aplist);
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+	
 }

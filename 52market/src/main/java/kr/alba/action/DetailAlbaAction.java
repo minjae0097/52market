@@ -1,7 +1,9 @@
 package kr.alba.action;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import kr.alba.dao.AlbaDAO;
 import kr.alba.vo.AlbaVO;
@@ -18,7 +20,6 @@ public class DetailAlbaAction implements Action{
 		int alba_num = Integer.parseInt(request.getParameter("alba_num")); 
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
-		
 		
 		dao.updateReadcount(alba_num);
 		
