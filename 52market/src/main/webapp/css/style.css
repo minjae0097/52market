@@ -57,6 +57,7 @@ a:hover{
 }*/
 #main_nav{
 	width:1000px;
+	height:60px;
 	padding:0px;
 	/*height:20px;*/
 	/*background-color:#C1BFBF;*/
@@ -194,7 +195,7 @@ input[type="button"]:hover, input[type="submit"]:hover{
     padding: 12px 13px;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 20px;
     line-height: 16px;
 }
 #board_category:focus{
