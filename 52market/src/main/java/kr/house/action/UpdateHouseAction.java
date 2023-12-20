@@ -25,7 +25,7 @@ public class UpdateHouseAction implements Action {
 		
 		MultipartRequest multi = FileUtil.createFile(request);
 		int house_num = Integer.parseInt(multi.getParameter("house_num"));
-		System.out.println("house_num : " + house_num);
+		//System.out.println("house_num : " + house_num);
 		String house_photo1 = multi.getFilesystemName("house_photo1");
 		String house_photo2 = multi.getFilesystemName("house_photo2");
 		

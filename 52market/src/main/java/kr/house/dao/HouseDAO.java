@@ -237,7 +237,7 @@ public class HouseDAO {
 				detail.setHouse_title(StringUtil.useNoHtml(rs.getString("house_title")));
 				detail.setHouse_photo1(rs.getString("house_photo1"));
 				detail.setHouse_photo2(rs.getString("house_photo2"));
-				detail.setHouse_price(rs.getInt("house_price"));
+				detail.setHouse_price(rs.getLong("house_price"));
 				detail.setMem_num(rs.getInt("mem_num"));
 				detail.setMem_nickname(rs.getString("mem_nickname"));
 				detail.setHouse_seller_type(rs.getInt("house_seller_type"));
@@ -288,8 +288,8 @@ public class HouseDAO {
 				detail.setHouse_seller_type(rs.getInt("house_seller_type"));
 				detail.setHouse_type(rs.getInt("house_type"));
 				detail.setHouse_deal_type(rs.getInt("house_deal_type"));
-				detail.setHouse_diposit(rs.getInt("house_diposit"));
-				detail.setHouse_price(rs.getInt("house_price"));
+				detail.setHouse_diposit(rs.getLong("house_diposit"));
+				detail.setHouse_price(rs.getLong("house_price"));
 				detail.setHouse_cost(rs.getInt("house_cost"));
 				detail.setZipcode(rs.getString("zipcode"));
 				detail.setHouse_address1(rs.getString("house_address1"));
@@ -435,7 +435,7 @@ public class HouseDAO {
 			
 			sql = "UPDATE house_detail SET house_title=?,house_seller_type=?,house_type=?,zipcode=?,"
 					+ "house_address1=?,house_address2=?,house_deal_type=?,house_price=?,house_space=?,"
-					+ "house_floor=?,house_photo1=?,house_photo2=?,house_move_in=? WHERE house_num=?";
+					+ "house_floor=?,house_photo1=?,house_photo2=?,house_move_in=?,house_diposit=? WHERE house_num=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, detail.getHouse_title());
@@ -451,7 +451,8 @@ public class HouseDAO {
 			pstmt.setString(11, detail.getHouse_photo1());
 			pstmt.setString(12, detail.getHouse_photo2());
 			pstmt.setInt(13, detail.getHouse_move_in());
-			pstmt.setInt(14, detail.getHouse_num());
+			pstmt.setLong(14, detail.getHouse_diposit());
+			pstmt.setInt(15, detail.getHouse_num());
 			pstmt.executeUpdate();
 
 			sql = "UPDATE houselist SET house_content=? WHERE house_num=?";
@@ -705,8 +706,8 @@ public class HouseDAO {
 					detail.setHouse_seller_type(rs.getInt("house_seller_type"));
 					detail.setHouse_type(rs.getInt("house_type"));
 					detail.setHouse_deal_type(rs.getInt("house_deal_type"));
-					detail.setHouse_diposit(rs.getInt("house_diposit"));
-					detail.setHouse_price(rs.getInt("house_price"));
+					detail.setHouse_diposit(rs.getLong("house_diposit"));
+					detail.setHouse_price(rs.getLong("house_price"));
 					detail.setHouse_cost(rs.getInt("house_cost"));
 					detail.setZipcode(rs.getString("zipcode"));
 					detail.setHouse_address1(rs.getString("house_address1"));
@@ -772,4 +773,36 @@ public class HouseDAO {
 			
 			return count;
 		}
+		
+		//부동산 판매여부 변경
+		public void updateHouseStatus(int house_status,int house_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당 1,2단계
+				conn = DBUtil.getConnection();
+				
+				//SQL문 작성
+				sql = "UPDATE houselist SET house_status=? WHERE house_num=?";
+				
+				//PreparedStatement 객체 생성 3단계
+				pstmt = conn.prepareStatement(sql);
+				
+				//?에 데이터 바인딩
+				pstmt.setInt(1, house_status);
+				pstmt.setInt(2, house_num);
+				
+				//SQL문 실행 4단계
+				pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+			
+		}
+		
 }

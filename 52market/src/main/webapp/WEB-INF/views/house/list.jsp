@@ -213,7 +213,9 @@ window.onload=function(){
 								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
 								<span>${house.house_title}</span>
 								<br>
-								<b>${house.mem_nickname}<fmt:formatNumber value="${house.house_price}"/>원</b><br>
+								<b>${house.mem_nickname}
+								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber value="${house.house_price/10000}"/>만원</c:if>
+								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber value="${house.house_price}"/>원</c:if></b><br>
 							</a>
 						</div>
 					</c:forEach>

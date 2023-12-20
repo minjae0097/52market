@@ -46,7 +46,7 @@ public class ListAction implements Action{
 			
 		HouseDAO houseDao = HouseDAO.getInstance();
 		int count = houseDao.getHouseCount(keyfield, keyword, house_status,house_seller_type,house_type,house_deal_type,house_move_in);
-		System.out.println("count : " + count);
+		//System.out.println("count : " + count);
 		
 		//페이지 처리
 		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),
