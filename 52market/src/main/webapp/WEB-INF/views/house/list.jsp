@@ -136,7 +136,7 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/house_title.png" width="960">
+	<img src="${pageContext.request.contextPath}/images/house_title.png" width="900">
 	<div class="content-main">
 		<h4>부동산 직거래 게시물</h4>
 		<form id="search_form" action="list.do" method="get">		

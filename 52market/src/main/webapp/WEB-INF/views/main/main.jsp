@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="page-main">
+<div class="container">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<div class="align-center">
@@ -20,12 +21,12 @@
 		</div>
 		<div class="align-center">
 			<a href="${pageContext.request.contextPath}/board/list.do">
-				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900" onclick="location.href='${pageContext.request.contextPath}/board/list.do'">
+				<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900">
 			</a>
 		</div>
 		<div class="align-center">
 			<a href="${pageContext.request.contextPath}/alba/list.do">
-				<img src="${pageContext.request.contextPath}/images/알바배너.jpg" width="900">
+				<img src="${pageContext.request.contextPath}/images/알바배너.png" width="900">
 			</a>
 		</div>
 		<div class="align-center">
@@ -39,6 +40,7 @@
 			</a>
 		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>

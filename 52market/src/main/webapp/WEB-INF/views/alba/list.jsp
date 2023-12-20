@@ -49,7 +49,7 @@ $(function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/알바배너.jpg" width="960">
+	<img src="${pageContext.request.contextPath}/images/알바배너.png" width="900">
 	<div class="content-main">
 		<h2>알바 최신글</h2>
 		<form id="search_form" action="list.do" method="get">

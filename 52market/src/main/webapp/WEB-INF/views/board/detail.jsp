@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>동네생활 게시글 상세</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.fav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.reply.js"></script>
