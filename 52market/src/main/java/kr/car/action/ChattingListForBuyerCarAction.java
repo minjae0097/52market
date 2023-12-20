@@ -10,7 +10,6 @@ import kr.car.dao.CarDAO;
 import kr.car.dao.ChatCarDAO;
 import kr.car.vo.CarList_DetailVO;
 import kr.car.vo.Car_ChatroomVO;
-import kr.car.vo.CarlistVO;
 import kr.controller.Action;
 
 public class ChattingListForBuyerCarAction implements Action{
@@ -37,12 +36,11 @@ public class ChattingListForBuyerCarAction implements Action{
 				//채팅룸을 생성한 후 채팅룸 번호를 반환 받음
 				chatroom_num = chat.insertChatRoomCar(chatRoom);
 			}
-			return "redirect:/chatting/chatDetail.do?chatroom_num="+chatroom_num;
+			return "redirect:/chatting/chatDetailCar.do?chatroom_num="+chatroom_num;
 		}
-		List<Car_ChatroomVO> list = chat.getChattingListForBuyer(user_num);
+		List<Car_ChatroomVO> list = chat.getChattingListForBuyerCar(user_num);
 		request.setAttribute("list", list);
-		return "/WEB-INF/views/chatting/chattingListForBuyer.jsp";
-	}
+		return "/WEB-INF/views/chatting/chattingListForBuyerCar.jsp";
 	}
 
 }
