@@ -193,7 +193,7 @@ input[type="button"]:hover, input[type="submit"]:hover{
     padding: 12px 13px;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 20px;
     line-height: 16px;
 }
 #board_category:focus{
@@ -302,6 +302,37 @@ table tr:hover{
 ------------------------------*/
 ul.detail-info li{
 	display:inline-block;
+	border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.content-main > h2{
+	width: 100%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.content-main > p{
+	/*width: 80%;
+	height:400px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;*/
 }
 .detail-img{
 	max-width:500px;
@@ -372,6 +403,25 @@ div#output{
 form#mre_form{
 	border:none;
 	margin:5px;
+}
+#re_content{
+	width: 80%;
+	height:100px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#output{
+	margin:30px;
+	margin-bottom:20px;
+}
+#output > hr{
+	margin:20px 20px;
 }
 /* 상품
 ------------------------------*/

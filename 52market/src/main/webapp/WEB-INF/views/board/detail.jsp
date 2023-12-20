@@ -31,7 +31,6 @@
 			</ul>
 			<br>
 			<h2>${board.board_title}</h2>
-			<hr size="1" noshade="noshade" width="100%">
 			<c:if test="${!empty board.board_filename}">
 				<div class="align-center">
 					<img src="${pageContext.request.contextPath}/upload/${board.board_filename}" class="detail-img">
@@ -40,7 +39,6 @@
 			<p>
 				${board.board_content}
 			</p>
-			<hr size="1" noshade="noshade" width="100%">
 			<br>
 			<ul class="detail-sub">
 				<li>
@@ -88,7 +86,7 @@
 			<br>
 			<!-- 댓글 시작 -->
 			<div id="reply_div">
-				<span class="re_title">댓글 달기</span>
+				<span class="re_title"></span>
 				<form id="re_form">
 					<input type="hidden" name="board_num" value="${board.board_num}" id="board_num">
 					<textarea rows="3" cols="50" name="re_content" id="re_content" class="rep-content" <c:if test="${empty user_num}">disabled="disabled"</c:if>><c:if test="${empty user_num}">로그인해야 작성할 수 있습니다</c:if></textarea>
