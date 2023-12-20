@@ -47,8 +47,14 @@
 ------------------------------*/
 
 .wrap {
+    margin: 5px;
     padding: 40px 0;
     background-color: #A8C0D6;
+    overflow: auto;
+    width: 650px; 
+    height:800px;
+    position:relative;
+    left:135px;
 }
 
 .wrap .chat {

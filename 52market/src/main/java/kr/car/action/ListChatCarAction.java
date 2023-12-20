@@ -1,6 +1,5 @@
 package kr.car.action;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import kr.car.dao.ChatCarDAO;
 import kr.car.vo.Car_ChatVO;
 import kr.controller.Action;
-import kr.util.PageUtil;
 
 public class ListChatCarAction implements Action{
 
@@ -34,7 +32,6 @@ public class ListChatCarAction implements Action{
 		request.setAttribute("list", list);
 		
 		Map<String,Object> mapAjax = new HashMap<String,Object>();
-		mapAjax.put("count", count);
 		mapAjax.put("list", list);
 		//로그인한 사람이 작성자인지 체크하기 위해서 전송
 		mapAjax.put("user_num",user_num);
