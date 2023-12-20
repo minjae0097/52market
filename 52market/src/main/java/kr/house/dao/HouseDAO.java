@@ -804,5 +804,121 @@ public class HouseDAO {
 			}
 			
 		}
-		
+		//부동산 판매리스트
+		public List<HouseDetailVO> getSellList(int mem_num,int start,int end,String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<HouseDetailVO> list = null;
+			String sub_sql = "";
+			int cnt = 0;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당 1,2단계
+				conn = DBUtil.getConnection();
+				
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN "
+						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) "
+						+ " ) b on f.mem_num=b.mem_num WHERE mem_num=? " + sub_sql 
+						+ " ORDER BY house_modify_date DESC)a) WHERE rnum >=? AND rnum <=?";
+				
+				//PreparedStatement 객체 생성 3단계
+				pstmt = conn.prepareStatement(sql);
+				
+				//?에 데이터 바인딩
+				pstmt.setInt(++cnt, mem_num);
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
+				
+				//SQL문 실행 4단계
+				rs = pstmt.executeQuery();
+				list = new ArrayList<HouseDetailVO>();
+				while(rs.next()) {
+					HouseDetailVO detail = new HouseDetailVO();
+					detail.setHouse_num(rs.getInt("house_num"));
+					detail.setHouse_title(rs.getString("house_title"));
+					detail.setHouse_seller_type(rs.getInt("house_seller_type"));
+					detail.setHouse_type(rs.getInt("house_type"));
+					detail.setHouse_deal_type(rs.getInt("house_deal_type"));
+					detail.setHouse_diposit(rs.getLong("house_diposit"));
+					detail.setHouse_price(rs.getLong("house_price"));
+					detail.setHouse_cost(rs.getInt("house_cost"));
+					detail.setZipcode(rs.getString("zipcode"));
+					detail.setHouse_address1(rs.getString("house_address1"));
+					detail.setHouse_address2(rs.getString("house_address2"));
+					detail.setHouse_space(rs.getInt("house_space"));
+					detail.setHouse_floor(rs.getInt("house_floor"));
+					detail.setHouse_move_in(rs.getInt("house_move_in"));
+					detail.setHouse_photo1(rs.getString("house_photo1"));
+					detail.setHouse_photo2(rs.getString("house_photo2"));
+					detail.setHouse_trade_date(rs.getDate("house_trade_date"));
+					detail.setHouse_buyer(rs.getInt("house_buyer"));
+					detail.setMem_num(rs.getInt("mem_num"));
+					detail.setHouse_modify_date(rs.getDate("house_modify_date"));
+					
+					list.add(detail);
+				}
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return list;
+		}
+		//중고차 판매리스트 개수
+		public int getSellListCount(int mem_num, String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			String sub_sql = "";
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당 1,2단계
+				conn = DBUtil.getConnection();
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND house_content LIKE ?";
+				}
+				
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM (SELECT * FROM member f INNER JOIN "
+						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) "
+						+ " ) b on f.mem_num=b.mem_num WHERE mem_num=? "+sub_sql+" )";
+				
+				//PreparedStatement 객체 생성 3단계
+				pstmt = conn.prepareStatement(sql);
+				
+				//?에 데이터 바인딩
+				pstmt.setInt(1, mem_num);
+				
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(2, "%"+keyword+"%");
+				}
+				
+				//SQL문 실행 4단계
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+
+			return count;
+		}
 }

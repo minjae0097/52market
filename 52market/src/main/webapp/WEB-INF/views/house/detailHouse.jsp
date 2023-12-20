@@ -10,21 +10,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.fav.js"></script> --%>
 <script type="text/javascript">
 $(function(){
 	//좋아요 선택 여부와 선택한 총 개수 읽기
-	$.ajax({
-		url:'getHouseFav.do',
-		type:'post',
-		data:{house_num:$('#output_fav').attr('data-num')},
-		dataType:'json',
-		success:function(param){
-			displayFav(param);
-		},
-		error:function(){
-			alert('네트워크 오류 발생');
-		}
-	});
+	function selectFav(){
+		$.ajax({
+			url:'getHouseFav.do',
+			type:'post',
+			data:{house_num:$('#output_fav').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayFav(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	}
 	//좋아요 등록(및 삭제) 이벤트 연결
 	$('#output_fav').click(function(){
 		$.ajax({
@@ -60,9 +63,7 @@ $(function(){
 		$('#output_fcount').text(param.count);
 	}
 	//초기 데이터 호출
-	if(user_num!=${detail.mem_num})	{
-		selectFav();
-	}
+	<c:if test="${user_num!=detail.mem_num}">selectFav();</c:if>
 });
 </script>
 </head>
@@ -153,13 +154,14 @@ $(function(){
 		</div>
 		<hr width="100%" size="1">
 		<div>
+			<c:if test="${user_num != detail.mem_num}">
 			<%-- 좋아요 시작 --%>
-			<c:if test="${user_num == detail.mem_num}">
 				<img id="output_fav" data-num="${list.house_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-				좋아요
+				관심글 등록
 				<span id="output_fcount"></span>
-			</c:if>
 			<%-- 좋아요 끝 --%>
+			</c:if>
+			<%-- 판매 변경 --%>
 			<c:if test="${user_num==detail.mem_num}">
 			<form action="updateStatus.do" id="update_form" method="post">
 			<input type="hidden" name="house_num" value="${detail.house_num}">

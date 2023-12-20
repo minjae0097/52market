@@ -7,6 +7,7 @@
 <title>부동산 글쓰기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript">
 window.onload=function(){
 	let myForm = document.getElementById("insertHouseForm");
@@ -93,7 +94,7 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3><label for="house_diposit">보증금</label></h3>
-					<input type="number" name="house_diposit" id="house_diposit" min="1" max="999999999999">원
+					<input type="number" name="house_diposit" id="house_diposit" min="0" max="999999999999">원
 				</li>
 				<li>
 					<h3><label for="house_cost">관리비</label></h3>

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>부동산 직거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript">
 window.onload=function(){
 	/* let myForm = document.getElementById('search_form');
@@ -136,7 +135,7 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/house_title.png" width="900">
+	<img src="${pageContext.request.contextPath}/images/부동산배너.png" width="900">
 	<div class="content-main">
 		<h4>부동산 직거래 게시물</h4>
 		<form id="search_form" action="list.do" method="get">		
