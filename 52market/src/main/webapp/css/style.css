@@ -105,6 +105,12 @@ a:hover{
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
+#write_form{
+	width:800px;
+	height:700px;
+	border:1px solid lightgray;
+	padding:10px 10px 10px 30px;
+}
 form{
 	width:600px;
 	margin:0 auto;
@@ -113,6 +119,7 @@ form{
 }
 form ul li{
 	clear:both;
+	margin:20px 0px;
 }
 form ul li label{
 	width:130px;
@@ -124,8 +131,9 @@ ul{
 input{
 	margin-top:4px;
 }
-input[type="text"],input[type="password"],input[type="email"]{
-	width:310px;
+input[type="text"],input[type="password"],input[type="email"],textarea{
+	width:80%;
+	border-radius:0.5rem;
 }
 #register_form input[id="id"]{
 	width:223px;
@@ -138,6 +146,62 @@ input[type="number"]{
 }
 .form-notice{
 	margin-left:130px;
+}
+input[type="button"],input[type="submit"]{
+	padding: 7px 12px;
+    font-weight: 300;
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    display:inline-block;
+    background-color:#9ED6C0;
+    color:white;
+}
+input[type="button"]:hover, input[type="submit"]:hover{
+	background:lightgray;
+}
+#board_category{
+	width: 200px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_title{
+	width: 80%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_content{
+	width: 80%;
+	height:400px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_category:focus{
+	border: 1px solid #9ED6C0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border-radius: 10px;
 }
 /* 로그인
 ------------------------------*/

@@ -32,7 +32,7 @@
 					<img src="${pageContext.request.contextPath}/images/동네생활.png" width="900" onclick="location.href='${pageContext.request.contextPath}/board/list.do'">
 				</a>
 			</div>
-			<form class="align-right" id="search_form" action="list.do" method="get">
+			<form class="align-center" id="search_form" action="list.do" method="get">
 				<ul>
 					<li>
 						<select name="board_category">
@@ -77,6 +77,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<hr size="1" width="100%" noshade="noshade">
 				<div class="align-center">${page}</div>
 			</c:if>
 			<div class="list-space align-right">

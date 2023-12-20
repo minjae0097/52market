@@ -5,7 +5,7 @@
 body{
 	width:960px;
 	margin:0 auto;
-	background:#FFFFFF;
+	/*background:#E6E6E6;*/
 }
 a:link{
 	text-decoration:none;
@@ -24,13 +24,13 @@ a:hover{
 .page-main{
 	background:#FFFFFF;
 	margin:40px 0;
-	border-radius:5px;
+	/*border-radius:5px;*/
+	/*box-shadow:0 2px 6px rgba(100,100,100,0.3);*/
 	min-height:650px;
 }
 .content-main{
 	padding:10px 20px;
 }
-
 /* 공통 메시지
 ------------------------------*/
 .result-display{
@@ -52,15 +52,13 @@ a:hover{
 }
 /* 메뉴
 ------------------------------*/
-#main_logo{
+/*#main_logo{
 	padding-top:20px;
-}
+}*/
 #main_nav{
-	font:bold 12px "malgun gothic";
-	color:#4a4a4a;
-	line-height:10px; 
-	margin:0 auto;
-	text-align:center;
+	width:1000px;
+	padding:0px;
+	height:60px;
 }
 #main_nav ul{
 	list-style:none;
@@ -68,35 +66,23 @@ a:hover{
 	padding:0;
 }
 #main_nav ul li{
-	float:left;
+	display:inline-block;
+	text-align:center;
+	vertical-align:middle;
+	padding-top:0px;
 	width:100px;
-	position:relative;
-	line-height:30px;
-}
-#main_nav > ul > li > ul {
-	width:100px;
-	display:none;
-	position: absolute;
-	background: white;
-}
-#main_nav > ul > li:hover > ul {
-	display:block;
-}
-#main_nav > ul > li > ul > li:hover {
-	background:#9ED6C0;
-	color:white;
-	transition: ease 1s;
 }
 #main_nav ul li img.my-photo{
 	vertical-align:middle;
 }
 #main_nav ul li.menu-profile{
-	padding-top:5px;
+	padding-top:0px;
 	width:25px;
+	vertical-align:middle;
 }
 #main_nav ul li.menu-logout{
 	width:150px;
-	text-align:left;
+	text-align:right;
 }
 /* 메인
 ------------------------------*/
@@ -118,6 +104,12 @@ a:hover{
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
+#write_form{
+	width:800px;
+	height:700px;
+	border:1px solid lightgray;
+	padding:10px 10px 10px 30px;
+}
 form{
 	width:600px;
 	margin:0 auto;
@@ -126,6 +118,7 @@ form{
 }
 form ul li{
 	clear:both;
+	margin:20px 0px;
 }
 form ul li label{
 	width:130px;
@@ -137,8 +130,9 @@ ul{
 input{
 	margin-top:4px;
 }
-input[type="text"],input[type="password"],input[type="email"]{
-	width:310px;
+input[type="text"],input[type="password"],input[type="email"],textarea{
+	width:80%;
+	border-radius:0.5rem;
 }
 #register_form input[id="id"]{
 	width:223px;
@@ -151,6 +145,62 @@ input[type="number"]{
 }
 .form-notice{
 	margin-left:130px;
+}
+input[type="button"],input[type="submit"]{
+	padding: 7px 12px;
+    font-weight: 300;
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    display:inline-block;
+    background-color:#9ED6C0;
+    color:white;
+}
+input[type="button"]:hover, input[type="submit"]:hover{
+	background:lightgray;
+}
+#board_category{
+	width: 200px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_title{
+	width: 80%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_content{
+	width: 80%;
+	height:400px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#board_category:focus{
+	border: 1px solid #9ED6C0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border-radius: 10px;
 }
 /* 로그인
 ------------------------------*/
@@ -251,8 +301,7 @@ table tr:hover{
 /* 게시판 글 상세
 ------------------------------*/
 ul.detail-info li{
-	display:inline;
-	
+	display:inline-block;
 }
 .detail-img{
 	max-width:500px;
@@ -266,8 +315,7 @@ ul.detail-sub li{
 	width:49%;
 	height:50px;
 	vertical-align:middle;
-}	
-
+}
 ul.detail-sub li:first-child img{
 	vertical-align:middle;
 }
@@ -377,13 +425,4 @@ input[type="number"].quantity-width{
 form[id="cart_order"]{
 	border:none;
 }
-
-
-
-
-
-
-
-
-
 

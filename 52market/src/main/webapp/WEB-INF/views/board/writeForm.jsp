@@ -5,24 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>동네생활 글쓰기</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
 <script type="text/javascript">
 	window.onload = function(){
 		let myForm = document.getElementById('write_form');
 		//이벤트 연결
 		myForm.onsubmit = function(){
-			let title = document.getElementById('title');
-			if(title.value.trim()==''){
+			let title = document.getElementById('board_title');
+			if(board_title.value.trim()==''){
 				alert('제목을 입력하세요');
-				title.value='';
-				title.focus();
+				board_title.value='';
+				board_title.focus();
 				return false;
 			}
-			let content = document.getElementById('content');
-			if(content.value.trim()==''){
+			let content = document.getElementById('board_content');
+			if(board_content.value.trim()==''){
 				alert('내용을 입력하세요');
-				content.value='';
-				content.focus();
+				board_content.value='';
+				board_content.focus();
 				return false;
 			}
 		};
@@ -33,7 +33,6 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2>동네생활 글쓰기</h2>
 			<br>
 			<form id="write_form" action="write.do" method="post" enctype="multipart/form-data">
 				<ul>
@@ -52,7 +51,7 @@
 					</li>
 					<li>
 						<label for="board_content">내용</label>
-						<textarea rows="8" cols="45" name="board_content" id="board_content" placeholder="동네에 관련된 질문이나 이야기를 해보세요"></textarea>
+						<textarea rows="8" cols="45" name="board_content" id="board_content" placeholder="  동네에 관련된 질문이나 이야기를 해보세요"></textarea>
 					</li>
 					<li>
 						<label for="board_filename">파일</label>
