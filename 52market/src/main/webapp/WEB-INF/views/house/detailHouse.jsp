@@ -162,7 +162,7 @@ $(function(){
 			<%-- 좋아요 끝 --%>
 			<c:if test="${user_num==detail.mem_num}">
 			<form action="updateStatus.do" id="update_form" method="post">
-			<input type="hidden" name="mem_num" value="${detail.mem_num}">
+			<input type="hidden" name="house_num" value="${detail.house_num}">
 			<select name="house_status" onchange="this.form.submit()">
 				<option value="0" <c:if test="${list.house_status==0}">selected</c:if>>판매중</option>
 				<option value="1" <c:if test="${list.house_status==1}">selected</c:if>>판매완료</option>
