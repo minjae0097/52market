@@ -41,6 +41,7 @@ public class ChattingListForBuyerCarAction implements Action{
 		List<Car_ChatroomVO> list = chat.getChattingListForBuyerCar(user_num);
 		request.setAttribute("list", list);
 		return "/WEB-INF/views/chatting/chattingListForBuyerCar.jsp";
+		
 	}
 
 }

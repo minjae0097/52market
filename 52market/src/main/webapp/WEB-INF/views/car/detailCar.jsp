@@ -133,6 +133,7 @@ $(function(){
 				<span id="output_fcount"></span>
 				
 			<%-- 좋아요 끝 --%>
+			<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${list.carlist_num}'">채팅하기</button>
 			</c:if>
 			<c:if test="${user_num==detail.car_seller}">
 				<form action="updateStatus.do" id="update_form" method="post">

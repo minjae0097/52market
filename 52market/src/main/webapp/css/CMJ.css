@@ -28,3 +28,74 @@
 	overflow:hidden;
 	text-align:center;
 }
+.horizontal8{
+	margin:2px;
+	padding:3px;
+	float:left;
+	width:78%;
+	height:30px;
+}
+.horizontal2{
+	margin:2px;
+	padding:3px;
+	float:left;
+	width:18%;
+	height:30px;
+}
+
+/* 채팅
+------------------------------*/
+
+.wrap {
+    padding: 40px 0;
+    background-color: #A8C0D6;
+}
+
+.wrap .chat {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.wrap .chat .textbox {
+    position: relative;
+    display: inline-block;
+    max-width: calc(100% - 70px);
+    padding: 10px;
+    margin-top: 7px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.wrap .chat .textbox::before {
+    position: absolute;
+    display: block;
+    top: 0;
+    font-size: 1.5rem;
+}
+
+.wrap .ch1 .textbox {
+    margin-left: 20px;
+    background-color: #ddd;
+}
+
+.wrap .ch1 .textbox::before {
+    left: -15px;
+    content: "◀";
+    color: #ddd;
+}
+
+.wrap .ch2 {
+    flex-direction: row-reverse;
+}
+
+.wrap .ch2 .textbox {
+    margin-right: 20px;
+    background-color: #F9EB54;
+}
+
+.wrap .ch2 .textbox::before {
+    right: -15px;
+    content: "▶";
+    color: #F9EB54;
+}

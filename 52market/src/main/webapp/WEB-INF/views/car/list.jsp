@@ -77,6 +77,7 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900">
 	<div class="content-main">
 		<h2>등록 매물</h2>
 			<form id="search_form" action="list.do" method="get">

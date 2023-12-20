@@ -157,6 +157,12 @@ $(function(){
 			<li><a>동네생활 활동</a></li>
 		</ul>
 		</div>
+		<div>
+		<h3>동네 생활</h3>
+		<ul>
+			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do'>채팅 목록</a></li>
+		</ul>
+		</div>
 	</div>
 </div>
 </body>

@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관심목록</title>
+<title>판매목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>관심목록</h2>
+		<h2>판매목록</h2>
 		<div>
 			<h3>중고거래</h3>
 		</div>
@@ -20,7 +20,7 @@
 		<div>
 			<h3>중고차</h3>
 			<div class="align-right">
-				<a href="favCarList.do">상세보기</a>
+				<a href="sellCarList.do">상세보기</a>
 			</div>
 			<c:if test="${empty carList}">
 			<div>
