@@ -468,6 +468,7 @@ public class AlbaDAO {
 				AplistVO aplist = new AplistVO();
 				aplist.setAplist_num(rs.getInt("aplist_num"));
 				aplist.setAlba_title(StringUtil.useBrNoHtml(rs.getString("alba_title")));
+				aplist.setAlba_filename(rs.getString("alba_filename"));
 				aplist.setMem_nickname(rs.getString("mem_nickname"));
 				aplist.setAplist_reg_date(rs.getDate("aplist_reg_date"));
 
@@ -482,5 +483,96 @@ public class AlbaDAO {
 		
 		return list;
 	}
+	
+	//사업자가 확인하는 알바 지원서 목록
+	public List<AplistVO> BApDetail(int start,int end, String keyfield, String keyword,int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<AplistVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword != null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += "AND alba_title LIKE ?";
+			}
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
+					+ "(SELECT * FROM aplist JOIN member USING(mem_num) WHERE mem_num=? " + sub_sql
+					+ "ORDER BY aplist_num DESC)a) WHERE rnum >= ? AND rnum <= ?  ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<AplistVO>();
+			while(rs.next()) {
+				AplistVO aplist = new AplistVO();
+				aplist.setAplist_num(rs.getInt("aplist_num"));
+				aplist.setAlba_title(StringUtil.useBrNoHtml(rs.getString("alba_title")));
+				aplist.setAlba_filename(rs.getString("alba_filename"));
+				aplist.setMem_nickname(rs.getString("mem_nickname"));
+				aplist.setAplist_reg_date(rs.getDate("aplist_reg_date"));
+
+				list.add(aplist);
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+	
+	public int getBApListCount(String keyfield,String keyword,int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		int cnt = 0;
+		
+		try {
+			//커넥션풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				//검색 처리
+				if(keyfield.equals("1")) sub_sql += "AND alba_title LIKE ?";
+			}
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM aplist JOIN member USING(mem_num) WHERE mem_num=? " + sub_sql
+					+ "ORDER BY aplist_num DESC";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+				pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			//SQL문 실행
+			rs = pstmt.executeQuery();;
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return count;
+	}
+	//일반회원이 확인하는 알바 지원서 목록
 	
 }

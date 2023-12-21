@@ -167,8 +167,8 @@ $(function(){
 		<div>
 		<h3>알바 지원</h3>
 		<ul>
-			<c:if test="${param.user_auth!=3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForU.do'>지원 목록</a></li></c:if>
-			<c:if test="${param.user_auth==3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForB.do'>지원서 목록</a></li></c:if>
+			<c:if test="${user_auth!=3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForU.do'>지원 목록</a></li></c:if>
+			<c:if test="${user_auth==3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForB.do'>지원서 목록</a></li></c:if>
 		</ul>
 		</div>
 	</div>
