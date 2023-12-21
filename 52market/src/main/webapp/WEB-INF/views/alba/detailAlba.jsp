@@ -121,7 +121,7 @@ window.onload=function(){
     }
     function initLayerPosition2(){
         var width = 300; //우편번호서비스가 들어갈 element의 width
-        var height = 100; //우편번호서비스가 들어갈 element의 height
+        var height = 150; //우편번호서비스가 들어갈 element의 height
         var borderWidth = 3; //샘플에서 사용하는 border의 두께
 
         // 위에서 선언한 값들을 실제 element에 넣는다.
@@ -223,7 +223,7 @@ window.onload=function(){
 	</div>
 </div>
 
-<div id="layer2" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
+<form method="post" id="layer2" enctype="multipart/form-data" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
 <ul>
 	<li>
 		<label for="filename">지원서 파일 등록</label>
@@ -231,10 +231,10 @@ window.onload=function(){
 	</li>
 </ul>
 	<div class="align-center">
-	<input type="button" value="등록" onclick="location.href='apList.do?alba_num=${alba.alba_num}'">
+	<input type="button" value="등록" onclick="location.href='apList.do?alba_num=${alba.alba_num}'">   
 	<button id="close_btn2">취소</button>
 	</div>
-</div>
+</form>
 </body>
 </html>
 

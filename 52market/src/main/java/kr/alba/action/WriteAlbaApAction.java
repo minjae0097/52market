@@ -34,7 +34,11 @@ public class WriteAlbaApAction implements Action{
 		AlbaDAO dao = AlbaDAO.getInstance();
 		dao.insertAlbaAp(alba);
 		
-		return "/WEB-INF/views/alba/apList.jsp";
+		request.setAttribute("notice_msg", "지원서 등록이 되었습니다");
+		request.setAttribute("notice_url", request.getContextPath()+"/alba/detailAlba.do");
+		
+		
+		return "/WEB-INF/views/common/alert_singleView.jsp";
 	}
 
 }
