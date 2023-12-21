@@ -158,9 +158,16 @@ $(function(){
 		</ul>
 		</div>
 		<div>
-		<h3>동네 생활</h3>
+		<h3>구매 채팅</h3>
 		<ul>
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do'>채팅 목록</a></li>
+		</ul>
+		</div>
+		<div>
+		<h3>알바 지원</h3>
+		<ul>
+			<c:if test="${param.user_auth!=3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForU.do'>지원 목록</a></li></c:if>
+			<c:if test="${param.user_auth==3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForB.do'>지원서 목록</a></li></c:if>
 		</ul>
 		</div>
 	</div>

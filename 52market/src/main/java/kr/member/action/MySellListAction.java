@@ -26,14 +26,12 @@ public class MySellListAction implements Action{
 		List<CarList_DetailVO> carList = null;
 		carList = car.getSellList(user_num, 1, 2, null, null);
 		
-		HouseDAO house = HouseDAO.getInstance();
-		List<HouseDetailVO> houseList = null;
-		houseList = house.getSellList(user_num, 1, 2, null, null);
+		
 		
 		
 		
 		request.setAttribute("carList", carList);
-		request.setAttribute("houseList", houseList);
+		
 		
 		return "/WEB-INF/views/member/mySellList.jsp";
 	}

@@ -121,19 +121,29 @@ public class ChatCarDAO {
 			return list;
 		}
 		//채팅 내용 불러오기
-		public List<Car_ChatVO> getChatListCar(int chatroom_num)throws Exception{
+		public List<Car_ChatVO> getChatListCar(int chatroom_num, int mem_num)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
+			PreparedStatement pstmt2 = null;
 			String sql = null;
 			ResultSet rs = null;
 			List<Car_ChatVO> list = null;
 			
 			try {
 				conn = DBUtil.getConnection();
-				sql = "SELECT * FROM car_chat WHERE chatroom_num=? ORDER BY reg_date ASC";
+				
+				conn.setAutoCommit(false);
+				
+				sql = "UPDATE car_chat SET read_check=0 WHERE chatroom_num=? AND mem_num!=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, chatroom_num);
-				rs = pstmt.executeQuery();
+				pstmt.setInt(2, mem_num);
+				pstmt.executeUpdate();
+				
+				sql = "SELECT * FROM car_chat WHERE chatroom_num=? ORDER BY reg_date ASC";
+				pstmt2 = conn.prepareStatement(sql);
+				pstmt2.setInt(1, chatroom_num);
+				rs = pstmt2.executeQuery();
 				
 				list = new ArrayList<Car_ChatVO>();
 				while(rs.next()) {
@@ -148,7 +158,10 @@ public class ChatCarDAO {
 					list.add(chat);
 				}
 				
+				conn.commit();
+				
 			}catch(Exception e) {
+				conn.rollback();
 				throw new Exception(e);
 			}finally {
 				DBUtil.executeClose(rs, pstmt, conn);
@@ -159,7 +172,7 @@ public class ChatCarDAO {
 		}
 		
 		//판매자 carlist_num 채팅방 받아오기
-		public List<Car_ChatroomVO> getChattingListForSellerCar(int carlist_num)throws Exception{
+		public List<Car_ChatroomVO> getChattingListForSellerCar(int carlist_num, int mem_num)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -168,9 +181,13 @@ public class ChatCarDAO {
 			
 			try {
 				conn = DBUtil.getConnection();
-				sql = "SELECT * FROM car_chatroom INNER JOIN carlist_detail USING(carlist_num) WHERE carlist_num=?";
+				sql = "SELECT * FROM car_chatroom c JOIN (SELECT chatroom_num FROM car_chat group by chatroom_num) "
+						+ " USING(chatroom_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, chatroom_num FROM car_chat WHERE read_check=1 AND mem_num!=? "
+						+ " GROUP BY chatroom_num) USING(chatroom_num) "
+						+ "JOIN member m ON c.buyer_num=m.mem_num WHERE carlist_num=? ORDER BY cnt DESC NULLS LAST";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, carlist_num);
+				pstmt.setInt(1, mem_num);
+				pstmt.setInt(2, carlist_num);
 				rs = pstmt.executeQuery();
 				
 				list = new ArrayList<Car_ChatroomVO>();
@@ -180,8 +197,8 @@ public class ChatCarDAO {
 					room.setCarlist_num(rs.getInt("carlist_num"));
 					room.setSeller_num(rs.getInt("seller_num"));
 					room.setBuyer_num(rs.getInt("buyer_num"));
-					room.setCar_title(rs.getString("car_title"));
-					
+					room.setCnt(rs.getInt("cnt"));
+					room.setMem_nickname(rs.getString("mem_nickname"));
 					list.add(room);
 				}
 			

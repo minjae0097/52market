@@ -22,7 +22,7 @@ public class ChattingListForSellerCarAction implements Action{
 		String carlist_num = request.getParameter("carlist_num");
 		ChatCarDAO chat = ChatCarDAO.getInstance();
 		
-		List<Car_ChatroomVO> list = chat.getChattingListForSellerCar(Integer.parseInt(carlist_num));
+		List<Car_ChatroomVO> list = chat.getChattingListForSellerCar(Integer.parseInt(carlist_num), user_num);
 		request.setAttribute("list", list);
 		
 		

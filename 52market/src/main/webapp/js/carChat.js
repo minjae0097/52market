@@ -21,10 +21,15 @@ $(function(){
 					}else{
 						chatList = '<div class="chat ch1">';
 					}
-					chatList += '<div class="textbox">'+item.message+'</div>';
+					if(item.read_check==1){
+						chatList += '<div class="read"><span>1</span></div>';
+					}
+					chatList += '<div class="textbox">'+item.message+'</div></div>';
 					
 					//문서 객체에 추가
 					$('#chatList').append(chatList);
+					//스크롤를 하단으로 위치시킴
+					$('#chatList').scrollTop($("#chatList")[0].scrollHeight);
 				});
 			},
 			error:function(){

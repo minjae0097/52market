@@ -28,7 +28,7 @@ public class ListChatCarAction implements Action{
 		ChatCarDAO chat = ChatCarDAO.getInstance();
 		
 		
-		List<Car_ChatVO > list = chat.getChatListCar(chatroom_num);
+		List<Car_ChatVO > list = chat.getChatListCar(chatroom_num, user_num);
 		request.setAttribute("list", list);
 		
 		Map<String,Object> mapAjax = new HashMap<String,Object>();
