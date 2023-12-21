@@ -17,7 +17,6 @@
 		<div>
 			<h3>중고거래</h3>
 		</div>
-		<hr size="1" width="100%">
 		<div>
 			<h3>중고차</h3>
 			<div class="align-right">
@@ -29,25 +28,61 @@
 			</div>
 			</c:if>
 			<c:if test="${!empty carList}">
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
 			<c:forEach var="car" items="${carList}">
-			<div>
-				<div class="horizontal8">
+			<tr>
+				<td>${car.carlist_num}</td>
+				<td>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">${car.car_title}</a></li>
 				</ul>
-				</div>
-				<div class="horizontal2">
+				</td>
+				<td>
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${car.carlist_num}'">채팅목록</button>
-				</div>
-			</div>
+				</td>
+			</tr>
 			</c:forEach>
+			</table>
 			</c:if>
 		</div>
-		<hr size="1" width="100%">
 		<div>
 			<h3>부동산 직거래</h3>
+			<div class="align-right">
+				<a href="sellCarList.do">상세보기</a>
+			</div>
+			<c:if test="${empty houseList}">
+			<div>
+			표시할 게시물이 없습니다.
+			</div>
+			</c:if>
+			<c:if test="${!empty houseList}">
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
+			<c:forEach var="house" items="${houseList}">
+			<tr>
+				<td>${house.house_num}</td>
+				<td>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${car.carlist_num}">${house.house_title}</a></li>
+				</ul>
+				</td>
+				<td>
+					<button>채팅목록</button>
+				</td>
+			</tr>
+			</c:forEach>
+			</table>
+			</c:if>
 		</div>
-		<hr size="1" width="100%">
 	</div>
 </div>
 </body>
