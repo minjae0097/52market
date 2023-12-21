@@ -131,17 +131,27 @@ public class ChatHouseDAO {
 	public List<House_ChatVO> getChatListHouse(int chatroom_num,int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		String sql = null;
 		ResultSet rs = null;
 		List<House_ChatVO> list = null;
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM house_chat WHERE chatroom_num=? ORDER BY reg_date ASC";
+			
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE house_chat SET read_check=0 WHERE chatroom_num=? AND mem_num!=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, chatroom_num);
+			pstmt.setInt(2, mem_num);
+			pstmt.executeUpdate();
 			
-			rs = pstmt.executeQuery();
+			sql = "SELECT * FROM house_chat WHERE chatroom_num=? ORDER BY reg_date ASC";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, chatroom_num);
+			
+			rs = pstmt2.executeQuery();
 			list = new ArrayList<House_ChatVO>();
 			while(rs.next()) {
 				House_ChatVO chat = new House_ChatVO();
@@ -158,6 +168,7 @@ public class ChatHouseDAO {
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		

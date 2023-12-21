@@ -24,9 +24,9 @@ public class ChatDetailHouseAction implements Action {
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
 		ChatHouseDAO chat = ChatHouseDAO.getInsttance();
 		
-		//List<House_ChatVO> list = chat.getChatListHouse(chatroom_num);
+		List<House_ChatVO> list = chat.getChatListHouse(chatroom_num,user_num);
 		
-		//request.setAttribute("list", list);
+		request.setAttribute("list", list);
 		request.setAttribute("chatroom_num", chatroom_num);
 		
 		//JSP 경로 반환
