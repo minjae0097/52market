@@ -22,18 +22,26 @@
 			</div>
 			</c:if>
 			<c:if test="${!empty carList}">
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
 			<c:forEach var="carList" items="${carList}">
-			<div>
-				<div class="horizontal8">
+			<tr>
+				<td>${carList.carlist_num}</td>
+				<td>
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${carList.carlist_num}">${carList.car_title}</a></li>
 					</ul>
-				</div>
-				<div class="horizontal2">
+				</td>
+				<td>
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${carList.carlist_num}'">채팅목록</button>
-				</div>
-			</div>
+				<td>
+			</tr>
 			</c:forEach>
+			</table>
 			<hr size="1" width="100%">
 			<div class="align-center">${page}</div>
 			</c:if>

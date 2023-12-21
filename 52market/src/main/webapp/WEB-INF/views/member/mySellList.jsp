@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>판매목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
 </head>
 <body>
 <div class="page-main">
@@ -30,9 +31,14 @@
 			<c:if test="${!empty carList}">
 			<c:forEach var="car" items="${carList}">
 			<div>
+				<div class="horizontal8">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">${car.car_title}</a></li>
 				</ul>
+				</div>
+				<div class="horizontal2">
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${car.carlist_num}'">채팅목록</button>
+				</div>
 			</div>
 			</c:forEach>
 			</c:if>

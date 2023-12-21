@@ -24,7 +24,7 @@ public class MySellListAction implements Action{
 		List<CarList_DetailVO> carList = null;
 		carList = car.getSellList(user_num, 1, 2, null, null);
 		
-
+		
 		
 		request.setAttribute("carList", carList);
 		
