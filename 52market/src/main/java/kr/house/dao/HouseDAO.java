@@ -819,11 +819,16 @@ public class HouseDAO {
 			try {
 				//커넥션풀로부터 커넥션 할당 1,2단계
 				conn = DBUtil.getConnection();
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND house_content LIKE ?";
+				}
 				
 				//SQL문 작성
 				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN "
-						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) "
-						+ " ) b on f.mem_num=b.mem_num WHERE mem_num=? " + sub_sql 
+						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) WHERE mem_num=?"
+						+ " ) b on f.mem_num=b.mem_num " + sub_sql 
 						+ " ORDER BY house_modify_date DESC)a) WHERE rnum >=? AND rnum <=?";
 				
 				//PreparedStatement 객체 생성 3단계
@@ -895,8 +900,8 @@ public class HouseDAO {
 				
 				//SQL문 작성
 				sql = "SELECT COUNT(*) FROM (SELECT * FROM member f INNER JOIN "
-						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) "
-						+ " ) b on f.mem_num=b.mem_num WHERE mem_num=? "+sub_sql+" )";
+						+ "(SELECT * FROM houselist INNER JOIN house_detail USING(house_num) WHERE mem_num=?"
+						+ " ) b on f.mem_num=b.mem_num "+sub_sql+" )";
 				
 				//PreparedStatement 객체 생성 3단계
 				pstmt = conn.prepareStatement(sql);
