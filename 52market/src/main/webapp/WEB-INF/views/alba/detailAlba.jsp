@@ -85,7 +85,7 @@ window.onload=function(){
     }
     function initLayerPosition(){
         var width = 300; //우편번호서비스가 들어갈 element의 width
-        var height = 70; //우편번호서비스가 들어갈 element의 height
+        var height = 100; //우편번호서비스가 들어갈 element의 height
         var borderWidth = 3; //샘플에서 사용하는 border의 두께
 
         // 위에서 선언한 값들을 실제 element에 넣는다.
@@ -188,8 +188,10 @@ window.onload=function(){
 		</c:if>
 		</li>
 		<li>
+		<c:if test="${user_auth != 3 && user_auth!=9}">
 		<input type="button" value="문의하기" id="call_btn">
 		<input type="button" value="지원하기" id="apply_btn">
+		</c:if>
 		</li>
 		<li>
 		<c:if test="${user_auth==3}">
@@ -214,25 +216,26 @@ window.onload=function(){
 		</div>
 	</div>
 </div>
-<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
+<form id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
 <ul>
 	<li>전화번호: ${db_member.mem_phone}</li>
 </ul>
 	<div class="align-center">
-	<button id="close_btn">닫기</button>
+	<input id="close_btn" type="button" value="닫기">
 	</div>
-</div>
-
+</form>
 <form action="apList.do?alba_num=${alba.alba_num}" method="post" enctype="multipart/form-data" id="layer2" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
 <ul>
 	<li>
 		<label for="filename">지원서 파일 등록</label>
-		<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg">
+		<input type="hidden" name="alba_title" value="${alba.alba_title}">
+		<input type="hidden" name="mem_num" value="${alba.mem_num}">
+		<input type="file" name="alba_filename" id="filename" accept="image/gif,image/png,image/jpeg">
 	</li>
 </ul>
 	<div class="align-center">
-	<input type="submit" value="등록" >   
-	<button id="close_btn2">취소</button>
+		<input type="submit" value="등록" >   
+		<input id="close_btn2" type="button" value="취소">
 	</div>
 </form>
 </body>

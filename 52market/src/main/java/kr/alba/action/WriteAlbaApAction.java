@@ -25,17 +25,20 @@ public class WriteAlbaApAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
+		int alba_num = Integer.parseInt(request.getParameter("alba_num"));
+		
 		MultipartRequest multi = FileUtil.createFile(request);
 		AlbaVO alba = new AlbaVO();
 		alba.setAlba_title(multi.getParameter("alba_title"));
+		alba.setMem_num(Integer.parseInt(multi.getParameter("mem_num")));
 		alba.setAlba_filename(multi.getFilesystemName("alba_filename"));
-		alba.setMem_nickname(multi.getParameter("mem_nickname"));
+		alba.setAlba_num(alba_num);
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
 		dao.insertAlbaAp(alba);
 		
 		request.setAttribute("notice_msg", "지원서 등록이 되었습니다");
-		request.setAttribute("notice_url", request.getContextPath()+"/alba/detailAlba.do");
+		request.setAttribute("notice_url", request.getContextPath()+"/alba/detailAlba.do?alba_num="+alba_num);
 		
 		
 		return "/WEB-INF/views/common/alert_singleView.jsp";

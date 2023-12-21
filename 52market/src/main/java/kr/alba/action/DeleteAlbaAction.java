@@ -26,7 +26,7 @@ public class DeleteAlbaAction implements Action{
 		AlbaDAO dao = AlbaDAO.getInstance();
 		AlbaVO alba = dao.getAlba(alba_num);
 		
-		if(user_num.equals(alba.getMem_num()) && user_auth!=9) {
+		if(!user_num.equals(alba.getMem_num()) && user_auth!=9) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		

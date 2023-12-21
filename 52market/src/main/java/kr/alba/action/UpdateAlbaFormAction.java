@@ -28,14 +28,8 @@ public class UpdateAlbaFormAction implements Action{
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
 		AlbaVO alba = dao.getAlba(alba_num);	
-		if(user_num.equals(alba.getMem_num())){
-			return "/WEB-INF/views/common/notice.jsp";
-		}
-		
-		AlbaVO vo = dao.getAlba(alba_num);
 		
 		request.setAttribute("alba", alba);
-		request.setAttribute("vo", vo);
 			
 		return "/WEB-INF/views/alba/updateAlbaForm.jsp";
 	}

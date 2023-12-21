@@ -278,22 +278,38 @@ public class AlbaDAO {
 	public void deleteAlba(int alba_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
+		
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
 			
-			sql = "DELETE FROM alba WHERE alba_num=?";
-			
+			sql = "DELETE FROM aplist WHERE alba_num=?";
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, alba_num);
-			
 			pstmt.executeUpdate();
 			
+			sql = "DELETE FROM alba_fav WHERE alba_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, alba_num);
+			pstmt2.executeUpdate();
+			
+			
+			sql = "DELETE FROM alba WHERE alba_num=?";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setInt(1, alba_num);
+			pstmt3.executeUpdate();
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt3, null);
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 		
@@ -401,13 +417,12 @@ public class AlbaDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "INSERT INTO aplist (aplist_num,alba_num,alba_title,mem_num,aplist_reg_date=SYSDATE,alba_filename,mem_nickname) VALUES (aplist_seq.nextval,?,?,?,?,?)";
+			sql = "INSERT INTO aplist (aplist_num, alba_num, alba_title, mem_num, alba_filename) VALUES (aplist_seq.nextval,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, albaAp.getAlba_num());
 			pstmt.setString(2, albaAp.getAlba_title());
 			pstmt.setInt(3, albaAp.getMem_num());
 			pstmt.setString(4, albaAp.getAlba_filename());
-			pstmt.setString(5, albaAp.getMem_nickname());
 			
 			pstmt.executeUpdate();
 			
