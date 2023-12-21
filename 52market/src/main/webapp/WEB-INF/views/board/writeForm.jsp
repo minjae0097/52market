@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>동네생활 글쓰기</title>
+<title>동네생활 글쓰기</title> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
