@@ -53,7 +53,36 @@
 		</div>
 		<div>
 			<h3>부동산 직거래</h3>
-			
+			<div class="align-right">
+				<a href="sellHouseList.do">상세보기</a>
+			</div>
+			<c:if test="${empty houseList}">
+			<div>
+			표시할 게시물이 없습니다.
+			</div>
+			</c:if>
+			<c:if test="${!empty houseList}">
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
+			<c:forEach var="house" items="${houseList}">
+			<tr>
+				<td>${house.house_num}</td>
+				<td>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${car.carlist_num}">${house.house_title}</a></li>
+				</ul>
+				</td>
+				<td>
+					<button>채팅목록</button>
+				</td>
+			</tr>
+			</c:forEach>
+			</table>
+			</c:if>
 		</div>
 	</div>
 </div>

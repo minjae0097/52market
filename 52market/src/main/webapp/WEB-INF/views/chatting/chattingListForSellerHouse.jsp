@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>중고차 채팅</title>
+<title>부동산 채팅</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>중고차 채팅</h2>
+		<h2>부동산 채팅</h2>
 		<hr size="1" width="100%">
 			<c:if test="${empty list}">
 			<div>
@@ -24,7 +24,7 @@
 			<c:forEach var="list" items="${list}">
 			<tr>
 				<td>${list.chatroom_num}</td>
-				<td><a href="chatDetailCar.do?chatroom_num=${list.chatroom_num}">${list.mem_nickname}님(${list.cnt})과 채팅하기</a></td>
+				<td><a href="chatDetailHouse.do?chatroom_num=${list.chatroom_num}">${list.chatroom_num}님(${list.cnt})과 채팅하기</a></td>
 			</tr>
 			</c:forEach>
 			</table>

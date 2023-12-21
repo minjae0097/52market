@@ -1,6 +1,22 @@
 $(function(){
+	let message_socket = new WebSocket("ws://localhost:8080/52market/webSocket");
+		message_socket.onopen = function(evt) {
+				message_socket.send("usg:");
+		};
+		//서버로부터 메시지를 받으면 호출되는 함수 지정
+		message_socket.onmessage = function(evt) {
+			//메시지 알림
+			let data = evt.data;
+			if (data.substring(0, 4) == "usg:") {
+				console.log('데이터 처리');
+				selectList();
+			}
+		};
+		message_socket.onclose = function(evt) {
+			//소켓이 종료된 후 부과적인 작업이 있을 경우 명시
+		};	
+				
 	//초기 데이터(목록) 호출
-	selectList();
 	function selectList(){
 		
 		let form_data = $('#chat_form').serialize();
@@ -13,6 +29,8 @@ $(function(){
 			success:function(param){
 				//로딩 이미지 감추기
 				$('#loading').hide();
+				
+				$('#chatList').empty();
 				
 				$(param.list).each(function(index,item){
 					let chatList = "";
@@ -36,6 +54,7 @@ $(function(){
 				//로딩 이미지 감추기
 				$('#loading').hide();
 				alert('네트워크 오류 발생');
+				message_socket.close();
 			}
 		});
 	}
@@ -64,13 +83,15 @@ $(function(){
 					//폼 초기화
 					initForm();
 					divClear();
-					selectList();
+					message_socket.send("usg:");
 				}else{
 					alert('채팅 오류 발생');
+					message_socket.close();
 				}
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
+				message_socket.close();
 			}
 		});
 		//기본 이벤트 제거
@@ -106,4 +127,9 @@ $(function(){
 		let chatList = document.getElementById('chatList');
 		chatList.innerText = '';
 	}
+	$('#message').keydown(function(event){
+			if(event.keyCode == 13 && !event.shiftKey) {
+				$('#chat_form').trigger('submit');
+			}
+	});
 });
