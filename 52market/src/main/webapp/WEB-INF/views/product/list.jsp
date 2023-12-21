@@ -96,7 +96,7 @@ window.onload=function(){
 		</div>	
 		</c:if>
 	</div>
-	<div class="align-right">
+	<div class="align-right">  
 		<input type="button" value="글쓰기" onclick="location.href='productWriteForm.do'">
 	</div>
 </div>
