@@ -49,6 +49,7 @@ public class ChatHouseDAO {
 		
 		return chatroom_num;
 	}
+	//채팅방 생성
 	public int insertChatRoomHouse(House_ChatroomVO chatroom)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -173,5 +174,71 @@ public class ChatHouseDAO {
 		}
 		
 		return list;
+	}
+	
+	//판매자 house_num 채팅방 받아오기
+	public List<House_ChatroomVO> getChattingListForSellerHouse(int house_num,int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		List<House_ChatroomVO> list = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "SELECT * FROM house_charoom c JOIN (SELECT chatroom_num FROM house_chat group by chatroom_num) "
+					+ " USING(chatroom_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, chatroom_num FROM house_chat WHERE read_check=1 AND mem_num!=? "
+					+ " GROUP BY chatroom_num) USING(chatroom_num) "
+					+ "JOIN member m ON c.buyer_num=m.mem_num WHERE house_num=? ORDER BY cnt DESC NULLS LAST";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			pstmt.setInt(2, house_num);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<House_ChatroomVO>();
+			while(rs.next()) {
+				House_ChatroomVO room = new House_ChatroomVO();
+				room.setChatroom_num(rs.getInt("chatroom_num"));
+				room.setHouse_num(rs.getInt("house_num"));
+				room.setSeller_num(rs.getInt("seller_num"));
+				room.setBuyer_num(rs.getInt("buyer_num"));
+				room.setCnt(rs.getInt("cnt"));
+				room.setMem_nickname(rs.getString("mem_nickname"));
+				list.add(room);
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	//채팅 내용 입력
+	public void insertChatHouse(House_ChatVO chat)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "INSERT INTO house_chat (chat_num,chatroom_num,mem_num,message) "
+					+ "VALUES(house_chat_seq.nextval,?,?,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, chat.getChatroom_num());
+			pstmt.setInt(2, chat.getMem_num());
+			pstmt.setString(3, chat.getMessage());
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		
 	}
 }
