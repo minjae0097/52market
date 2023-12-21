@@ -244,7 +244,7 @@ public class BoardDAO {
 				board.setBoard_num(rs.getInt("board_num"));
 				board.setBoard_category(rs.getInt("board_category"));
 				board.setBoard_title(StringUtil.useNoHtml(rs.getString("board_title")));
-				board.setBoard_content(rs.getString("board_content"));
+				board.setBoard_content(StringUtil.useNoHtml(rs.getString("board_content")));
 				board.setBoard_hit(rs.getInt("board_hit"));
 				board.setBoard_regdate(rs.getDate("board_regdate"));
 				board.setMem_id(rs.getString("mem_id"));

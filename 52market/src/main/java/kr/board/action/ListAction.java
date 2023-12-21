@@ -32,7 +32,7 @@ public class ListAction implements Action{
 		if(count > 0) {
 			list = dao.getListBoard(page.getStartRow(),page.getEndRow(),board_category,keyword);
 		}
-	
+		
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());

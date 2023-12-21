@@ -29,6 +29,7 @@
 					조회 ${board.board_hit}
 				</li>
 			</ul>
+			<hr size="1" width="100%">
 			<br>
 			<h2>${board.board_title}</h2>
 			<c:if test="${!empty board.board_filename}">
@@ -47,7 +48,7 @@
 					좋아요
 					<span id="output_fcount"></span>
 				</li>
-				<li>
+				<li class="date">
 					<c:if test="${!empty board.board_modifydate}">
 						최근 수정일 : ${board.board_modifydate}
 					</c:if>
@@ -67,6 +68,8 @@
 							};
 						</script>
 					</c:if>
+					</li>
+					<li>
 					<c:if test="${user_num == 3}">
 						<input type="button" value="삭제" id="delete_btn">
 						<script type="text/javascript">

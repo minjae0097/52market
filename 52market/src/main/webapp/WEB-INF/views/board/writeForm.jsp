@@ -51,7 +51,7 @@
 					</li>
 					<li>
 						<label for="board_content">내용</label>
-						<textarea rows="8" cols="45" name="board_content" id="board_content" placeholder="  동네에 관련된 질문이나 이야기를 해보세요"></textarea>
+						<textarea rows="8" cols="45" name="board_content" id="board_content" wrap="hard" placeholder="  동네에 관련된 질문이나 이야기를 해보세요"></textarea>
 					</li>
 					<li>
 						<label for="board_filename">파일</label>
