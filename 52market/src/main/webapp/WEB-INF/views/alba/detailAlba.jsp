@@ -223,7 +223,7 @@ window.onload=function(){
 	</div>
 </div>
 
-<form method="post" id="layer2" enctype="multipart/form-data" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
+<form action="apList.do?alba_num=${alba.alba_num}" method="post" enctype="multipart/form-data" id="layer2" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
 <ul>
 	<li>
 		<label for="filename">지원서 파일 등록</label>
@@ -231,7 +231,7 @@ window.onload=function(){
 	</li>
 </ul>
 	<div class="align-center">
-	<input type="button" value="등록" onclick="location.href='apList.do?alba_num=${alba.alba_num}'">   
+	<input type="submit" value="등록" >   
 	<button id="close_btn2">취소</button>
 	</div>
 </form>
