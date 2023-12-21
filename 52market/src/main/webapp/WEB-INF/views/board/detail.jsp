@@ -113,5 +113,6 @@
 			<!-- 댓글 끝 -->
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
