@@ -160,6 +160,8 @@ $(function(){
 				관심글 등록
 				<span id="output_fcount"></span>
 			<%-- 좋아요 끝 --%>
+			
+			<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${list.carlist_num}'">채팅하기</button>
 			</c:if>
 			<%-- 판매 변경 --%>
 			<c:if test="${user_num==detail.mem_num}">

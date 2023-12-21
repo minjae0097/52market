@@ -47,3 +47,25 @@ constraint house_fav_fk1 foreign key (house_num) references houselist (house_num
 constraint house_fav_fk2 foreign key (mem_num) references member(mem_num)
 );
 
+--채팅
+create table house_chatroom(
+	chatroom_num number primary key,
+	house_num number references houselist (house_num) not null,
+	seller_num number references member (mem_num) not null,
+	buyer_num number references member (mem_num) not null
+);
+
+create table house_chat(
+	chat_num number primary key,
+	chatroom_num number references house_chatroom (chatroom_num) not null,
+	mem_num number references member (mem_num) not null,
+	message varchar2(900) not null,
+	reg_date date default SYSDATE,
+	read_check number(1) default 1 not null
+);
+
+create sequence house_chatroom_seq;
+create sequence house_chat_seq;
+
+
+
