@@ -7,22 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>동네생활 MY페이지</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2 class="align-center">[동네생활 회원정보]</h2>
-			<hr size="1" width="90%" noshade="noshade">
-				<ul class="align-center">
+				<ul class="align-center" id="background">
 					<li>
 						<c:if test="${empty member.mem_photo}">
 							<img src="${pageContext.request.contextPath}/images/face.png" width="150" height="150" class="my-photo align-center">
 						</c:if>
 						<c:if test="${!empty member.mem_photo}">
-							<img src="${pageContext.request.contextPath}/upload/${board.mem_photo}" width="150" height="150" class="my-photo align-center">
+							<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="150" height="150" class="my-photo align-center">
 						</c:if>
 					</li>
 					<li>
@@ -32,14 +33,14 @@
 							<input type="button" value="취소" id="photo_reset"> 
 						</div>
 					</li>
+					<li>
+					<span id="mypage_nickname">${member.mem_nickname} 님</span><br>
+					<span>주소 ${member.mem_address1}</span><br>
+					<span>가입일 ${member.mem_regdate}</span>
+					</li>
 				</ul>
-				<ul class="align-center">
-					<li><h3>${member.mem_nickname}님</h3></li>
-					<li>주소 ${member.mem_address1}</li>
-					<li>가입일 ${member.mem_regdate}</li>
-				</ul>
-				<hr size="1" width="100%" noshade="noshade">
-				<div class="align-center">
+			</div>
+				<div class="align-center" id="myPage_list">
 				<h3>[관심 게시물 목록]</h3>
 				<table>
 					<tr>
@@ -74,7 +75,6 @@
 				<br>
 			</div>
 			</div>
-		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

@@ -64,6 +64,7 @@ public class BoardMyPageAction implements Action{
 		List<BoardReplyVO> boardReplyList = boardDao.getListBoardReply(1, 10, user_num);
 
 		request.setAttribute("member", member);
+		request.setAttribute("boardDao", boardDao);
 		request.setAttribute("boardFavList", boardFavList);
 		request.setAttribute("boardReplyList", boardReplyList);
 		

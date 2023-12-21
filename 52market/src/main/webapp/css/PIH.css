@@ -2,10 +2,14 @@
 
 /* 전체 레이아웃
 ------------------------------*/
+*{
+	font-family: "Gowun Dodum";
+}
 body{
 	width:960px;
 	margin:0 auto;
 	/*background:#E6E6E6;*/
+	font-family: "Gowun Dodum";
 }
 a:link{
 	text-decoration:none;
@@ -281,6 +285,26 @@ input[type="search"]{
 	/*사각형의 모서리 둥근 정도를 지정하는 속성인데 50%를 지정하면
 	완전한 원이 됨*/
 	border-radius:50%;
+}
+#background{
+  height: 200px;
+  background-color: #9ED6C0;    
+  font-size:18pt;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+#background >span{
+	float:left;
+	align-content:center;
+}
+#myPage_list{
+	margin:10px;
+	padding:10px;
+}
+#mypage_nickname{
+	font-size:18pt;
+	font-weight:700;
 }
 /* 공통 목록
 ------------------------------*/

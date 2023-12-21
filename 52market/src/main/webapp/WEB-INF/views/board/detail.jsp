@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>동네생활 게시글 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.fav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.reply.js"></script>
@@ -17,10 +20,10 @@
 		<div class="content-main">
 			<ul class="detail-info">
 				<li>
-					<c:if test="${!empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
+					<c:if test="${!empty board.mem_photo}">
+						<img src="${pageContext.request.contextPath}/upload/${board.mem_photo}" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
-					<c:if test="${empty member.mem_photo}">
+					<c:if test="${empty board.mem_photo}">
 						<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo" onclick="location.href='${pageContext.request.contextPath}/board/board_myPage.do'">
 					</c:if>
 				</li>
