@@ -96,7 +96,7 @@ public class ChatCarDAO {
 			try {
 				conn = DBUtil.getConnection();
 				
-				sql = "SELECT * FROM car_chatroom INNER JOIN carlist_detail USING(carlist_num) WHERE buyer_num=?";
+				sql = "SELECT * FROM member JOIN car_chatroom INNER JOIN carlist_detail USING(carlist_num) ON mem_num=car_seller WHERE buyer_num=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, mem_num);
 				
@@ -108,7 +108,7 @@ public class ChatCarDAO {
 					room.setCarlist_num(rs.getInt("carlist_num"));
 					room.setSeller_num(rs.getInt("seller_num"));
 					room.setBuyer_num(rs.getInt("buyer_num"));
-					room.setCar_title(rs.getString("car_title"));
+					room.setMem_nickname(rs.getString("mem_nickname"));
 					list.add(room);
 				}
 				
@@ -164,6 +164,7 @@ public class ChatCarDAO {
 				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt2, null);
 				DBUtil.executeClose(rs, pstmt, conn);
 			}
 			

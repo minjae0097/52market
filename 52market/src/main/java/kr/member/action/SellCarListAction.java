@@ -24,7 +24,7 @@ public class SellCarListAction implements Action{
 		if(pageNum==null) pageNum = "1";
 		
 		CarDAO car = CarDAO.getInstance();
-		int count = car.getCarFavListCount(user_num,null,null);
+		int count = car.getSellListCount(user_num,null,null);
 		PageUtil page = new PageUtil(Integer.parseInt(pageNum), count, 10, 5, "sellCarList.do");
 		List<CarList_DetailVO> carList = null;
 		if(count>0) {

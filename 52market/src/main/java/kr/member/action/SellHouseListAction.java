@@ -6,13 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.car.dao.CarDAO;
-import kr.car.vo.CarList_DetailVO;
 import kr.controller.Action;
 import kr.house.dao.HouseDAO;
 import kr.house.vo.HouseDetailVO;
+import kr.util.PageUtil;
 
-public class MySellListAction implements Action{
+public class SellHouseListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -21,22 +20,22 @@ public class MySellListAction implements Action{
 		if(user_num == null) {//로그인이 되지 않은 경우
 			return "redirect:/member/loginForm.do";
 		}
-		
-		CarDAO car = CarDAO.getInstance();
-		List<CarList_DetailVO> carList = null;
-		carList = car.getSellList(user_num, 1, 2, null, null);
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) pageNum = "1";
 		
 		HouseDAO house = HouseDAO.getInstance();
+		int count = house.getSellListCount(user_num,null,null);
+		PageUtil page = new PageUtil(Integer.parseInt(pageNum), count, 10, 5, "sellCarList.do");
 		List<HouseDetailVO> houseList = null;
-		houseList = house.getSellList(user_num, 1, 2, null, null);
-
+		if(count>0) {
+			houseList = house.getSellList(user_num, page.getStartRow(),page.getEndRow(), null, null);
+		}
 		
-		
-		
-		request.setAttribute("carList", carList);
 		request.setAttribute("houseList", houseList);
+		request.setAttribute("count", count);
+		request.setAttribute("page", page.getPage());
 		
-		return "/WEB-INF/views/member/mySellList.jsp";
+		return "/WEB-INF/views/member/sellHouseList.jsp";
 	}
 
 }

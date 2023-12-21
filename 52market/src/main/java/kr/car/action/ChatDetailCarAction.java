@@ -21,11 +21,7 @@ public class ChatDetailCarAction implements Action{
 		}
 		
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
-		ChatCarDAO chat = ChatCarDAO.getInstance();
 		
-		
-		List<Car_ChatVO > list = chat.getChatListCar(chatroom_num, user_num);
-		request.setAttribute("list", list);
 		request.setAttribute("chatroom_num", chatroom_num);
 		return "/WEB-INF/views/chatting/chatDetailCar.jsp";
 	}
