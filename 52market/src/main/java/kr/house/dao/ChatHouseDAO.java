@@ -187,7 +187,7 @@ public class ChatHouseDAO {
 		try {
 			conn = DBUtil.getConnection();
 			
-			sql = "SELECT * FROM house_charoom c JOIN (SELECT chatroom_num FROM house_chat group by chatroom_num) "
+			sql = "SELECT * FROM house_chatroom c JOIN (SELECT chatroom_num FROM house_chat group by chatroom_num) "
 					+ " USING(chatroom_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, chatroom_num FROM house_chat WHERE read_check=1 AND mem_num!=? "
 					+ " GROUP BY chatroom_num) USING(chatroom_num) "
 					+ "JOIN member m ON c.buyer_num=m.mem_num WHERE house_num=? ORDER BY cnt DESC NULLS LAST";

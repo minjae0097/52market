@@ -73,11 +73,11 @@
 				<td>${house.house_num}</td>
 				<td>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${car.carlist_num}">${house.house_title}</a></li>
+					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
 				</ul>
 				</td>
 				<td>
-					<button>채팅목록</button>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerHouse.do?house_num=${house.house_num}'">채팅목록</button>
 				</td>
 			</tr>
 			</c:forEach>
