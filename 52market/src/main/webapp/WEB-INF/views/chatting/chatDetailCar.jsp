@@ -28,7 +28,8 @@
 				<span class="letter-count">300/300</span>
 				</div>
 				<div  style="float: right;width: 110px; position:relative; bottom:45px;">
-				<input type="submit" value="입력">
+				<input type="button" value="판매하기" id="sell" data-sell="${chatroom_num}">
+				<input type="submit" value="입력" >
 				<input type="button" value="목록" onclick="${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do">
 				</div>
 			</form>

@@ -6,9 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.car.vo.CarList_DetailVO;
 import kr.car.vo.Car_ChatVO;
 import kr.car.vo.Car_ChatroomVO;
+import kr.car.vo.CarlistVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class ChatCarDAO {
 	private static ChatCarDAO instance = new ChatCarDAO();
@@ -151,7 +154,7 @@ public class ChatCarDAO {
 					chat.setChat_num(rs.getInt("chat_num"));
 					chat.setChatroom_num(rs.getInt("chatroom_num"));
 					chat.setMem_num(rs.getInt("mem_num"));
-					chat.setMessage(rs.getString("message"));
+					chat.setMessage(StringUtil.useBrHtml(rs.getString("message")));
 					chat.setReg_date(rs.getDate("reg_date"));
 					chat.setRead_check(rs.getInt("read_check"));
 					
@@ -235,6 +238,33 @@ public class ChatCarDAO {
 			}finally {
 				DBUtil.executeClose(null, pstmt, conn);
 			}
+		}
+		//채팅방번호로 carlist_num 불러오기
+		public CarList_DetailVO getCarlistByChatroom(int chatroom_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			CarList_DetailVO carlist = null;
+			try {
+				conn = DBUtil.getConnection();
+				sql = "SELECT * FROM carlist_detail INNER JOIN car_chatroom USING(carlist_num) WHERE chatroom_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, chatroom_num);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					carlist = new CarList_DetailVO();
+					carlist.setCar_buyer(rs.getInt("car_buyer"));
+					carlist.setCarlist_num(rs.getInt("carlist_num"));
+				}
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return carlist;
 		}
 }
 

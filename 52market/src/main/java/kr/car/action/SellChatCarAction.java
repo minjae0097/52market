@@ -12,9 +12,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import kr.car.dao.ChatCarDAO;
 import kr.car.vo.Car_ChatVO;
 import kr.controller.Action;
-import kr.util.StringUtil;
 
-public class WriteChatCarAction implements Action{
+public class SellChatCarAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -29,8 +28,11 @@ public class WriteChatCarAction implements Action{
 			request.setCharacterEncoding("utf-8");
 			Car_ChatVO chat = new Car_ChatVO();
 			chat.setChatroom_num(Integer.parseInt(request.getParameter("chatroom_num")));
-			chat.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
-			chat.setMessage(StringUtil.useBrNoHtml(request.getParameter("message")));
+			chat.setMem_num(user_num);
+			
+			String message = "구매확정하시겠습니까?<br>*확정되면 취소할 수 없습니다.<br>*거래후에 확정을 눌러주세요<br>"
+					+ "<button id='buy' onclick=\"location.href='buyChatCar.do?chatroom_num="+Integer.parseInt(request.getParameter("chatroom_num"))+"'\">구매확정</button>";
+			chat.setMessage(message);
 			
 			ChatCarDAO dao = ChatCarDAO.getInstance();
 			dao.insertChatCar(chat);

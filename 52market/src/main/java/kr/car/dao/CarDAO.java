@@ -825,6 +825,28 @@ public class CarDAO {
 		return count;
 	}
 	
+	//중고차 판매처리
+	public void sellCar(int carlist_num, int car_buyer)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE carlist_detail SET car_buyer=?, car_tradedate=sysdate WHERE carlist_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, car_buyer);
+			pstmt.setInt(2, carlist_num);
+			pstmt.executeUpdate();
+			
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 }
 
 
