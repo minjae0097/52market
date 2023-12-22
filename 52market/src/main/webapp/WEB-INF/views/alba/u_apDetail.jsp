@@ -29,11 +29,11 @@
 				<th>지원서 파일</th>
 				<th>지원일</th>
 			</tr>
-			<c:forEach var="alba" items="${apList}">
+			<c:forEach var="alba" items="${list}">
 			<tr>
-				<td>${alba.alba_title}</td>
-				<td>${alba.alba_filename}</td>
-				<td>${aplist.aplist_reg_date}</td>
+				<td><a href="detailAlba.do?alba_num=${alba.alba_num}">${alba.alba_title}</a></td>
+				<td><a href="${pageContext.request.contextPath}/upload/${alba.alba_filename}">${alba.alba_filename}</a></td>
+				<td>${alba.aplist_reg_date}</td>
 			</tr>
 			</c:forEach>
 		</table>

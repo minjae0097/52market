@@ -27,7 +27,7 @@ public class BApListAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		String pageNum = request.getParameter("pagenum");
+		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum="1";
 		
 		String keyfield = request.getParameter("keyfield");

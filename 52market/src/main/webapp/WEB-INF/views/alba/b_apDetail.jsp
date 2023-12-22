@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>지원서 목록(사업자)</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
 <script type="text/javascript">
    window.onload = function(){
       let myForm = document.getElementById('search_form');
@@ -30,7 +31,7 @@
 		<form action="aplistForB.do" method="get" id="search_form">
             <ul class="search">
                <li>
-                  <select name="keyfield" id="keyfield">
+                  <select id="keyfield1">
                      <option value="1" <c:if test="${param.keyfield ==1}">selected</c:if>>글 제목</option>
                   </select>
                </li>
@@ -60,7 +61,7 @@
 			</tr>
 			<c:forEach var="alba" items="${list}">
 			<tr>
-				<td>${alba.alba_title}</td>
+				<td><a href="detailAlba.do?alba_num=${alba.alba_num}">${alba.alba_title}</a></td>
 				<td>${alba.mem_nickname}</td>
 				<td><a href="${pageContext.request.contextPath}/upload/${alba.alba_filename}">${alba.alba_filename}</a></td>
 				<td>${alba.aplist_reg_date}</td>

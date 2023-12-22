@@ -2,6 +2,8 @@ package kr.alba.vo;
 
 import java.sql.Date;
 
+import kr.member.vo.MemberVO;
+
 public class AplistVO {
 	private int aplist_num;
 	private int alba_num;
@@ -11,6 +13,7 @@ public class AplistVO {
 	private String alba_title;
 	private String mem_nickname;
 	
+	private MemberVO membervo;
 	
 	private AplistVO aplistVO;
 
@@ -61,5 +64,11 @@ public class AplistVO {
 	}
 	public void setAplistVO(AplistVO aplistVO) {
 		this.aplistVO = aplistVO;
+	}
+	public MemberVO getMembervo() {
+		return membervo;
+	}
+	public void setMembervo(MemberVO membervo) {
+		this.membervo = membervo;
 	}
 }

@@ -9,6 +9,8 @@ import com.oreilly.servlet.MultipartRequest;
 import kr.alba.dao.AlbaDAO;
 import kr.alba.vo.AlbaVO;
 import kr.controller.Action;
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.util.FileUtil;
 
 public class InsertAlbaAction implements Action{
@@ -20,6 +22,8 @@ public class InsertAlbaAction implements Action{
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
+		MemberDAO memberdao = MemberDAO.getInstance();
+		MemberVO member = memberdao.getMember(user_num); 
 		
 		MultipartRequest multi = FileUtil.createFile(request);
 		AlbaVO alba = new AlbaVO();
@@ -32,6 +36,7 @@ public class InsertAlbaAction implements Action{
 		alba.setAlba_zipcode(multi.getParameter("alba_zipcode"));
 		alba.setAlba_address1(multi.getParameter("alba_address1"));
 		alba.setAlba_address2(multi.getParameter("alba_address2"));
+		alba.setMem_nickname(member.getMem_nickname());
 		alba.setMem_num(user_num);
 		
 		AlbaDAO dao = AlbaDAO.getInstance();

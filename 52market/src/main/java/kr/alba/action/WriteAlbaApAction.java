@@ -9,6 +9,8 @@ import com.oreilly.servlet.MultipartRequest;
 import kr.alba.dao.AlbaDAO;
 import kr.alba.vo.AlbaVO;
 import kr.controller.Action;
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.util.FileUtil;
 
 public class WriteAlbaApAction implements Action{
@@ -26,12 +28,15 @@ public class WriteAlbaApAction implements Action{
 		}
 		
 		int alba_num = Integer.parseInt(request.getParameter("alba_num"));
+		MemberDAO memberdao = MemberDAO.getInstance();
+		MemberVO member = memberdao.getMember(user_num); 
 		
 		MultipartRequest multi = FileUtil.createFile(request);
 		AlbaVO alba = new AlbaVO();
 		alba.setAlba_title(multi.getParameter("alba_title"));
-		alba.setMem_num(Integer.parseInt(multi.getParameter("mem_num")));
+		alba.setMem_num(user_num);
 		alba.setAlba_filename(multi.getFilesystemName("alba_filename"));
+		alba.setMem_nickname(member.getMem_nickname());
 		alba.setAlba_num(alba_num);
 		
 		AlbaDAO dao = AlbaDAO.getInstance();

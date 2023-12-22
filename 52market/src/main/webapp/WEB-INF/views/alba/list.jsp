@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>알바</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -23,31 +22,15 @@ $(function(){
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
-			}
+			}	
 		});
 	}
-	//좋아요 표시
-	function displayFav(param){
-		let output;
-		if(param.status=='yesFav'){//좋아요 선택
-			output = '../images/fav02.gif';
-		}else{//좋아요 미선택
-			output = '../images/fav01.gif';
-		}
-		
-		//문서 객체에 설정
-		$('#output_fav').attr('src',output);
-		$('#output_fcount').text(param.count);
-	}
-	//초기 데이터 호출
-	
-	<c:if test="${user_auth == 1 && user_auth==2}">selectFav();</c:if>
 	
 });
 </script>
 </head>
 <body>
-<div class="page-main">
+<div class="page-main1">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<img src="${pageContext.request.contextPath}/images/알바배너.png" width="960">
 	<div class="content-main1">
@@ -55,22 +38,22 @@ $(function(){
 		<form id="search_form" action="list.do" method="get" class="align-right">
 			<ul>
 				<li>
-			<ul class="search">
-				<li>
-					<select id="keyfield1">
-						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
-						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>제목+내용</option>
-					</select>
+					<ul class="search">
+						<li>
+							<select id="keyfield1">
+								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
+							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>제목+내용</option>
+							</select>
+						</li>
+						<li>
+							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+							<input type="submit" value="검색">
+						</li>
+					</ul>		
 				</li>
-				<li>
-					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-					<input type="submit" value="검색">
-				</li>
-			</ul>		
-			</li>
-		</ul>
-		<div class="image-space">
+			</ul>
+		<div class="image-space1">
 			<c:forEach var="alba" items="${albaList}">
 				<div class="horizontal-area99">
 					<a href="${pageContext.request.contextPath}/alba/detailAlba.do?alba_num=${alba.alba_num}">
@@ -78,8 +61,9 @@ $(function(){
 					<span>${alba.alba_title}</span>
 					<span>${alba.alba_address1}</span>
 					<br>
-					<span>조회 ${alba.alba_hit}</span>
-					<span>관심 ${alba.alba_fav}</span>
+					조회 ${alba.alba_hit}
+					관심 ${alba.alba_fav}
+					지원자수 ${alba.apcount}
 					</a>
 				</div>
 			</c:forEach>

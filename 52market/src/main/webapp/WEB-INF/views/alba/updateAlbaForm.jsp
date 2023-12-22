@@ -55,12 +55,12 @@ window.onload=function(){
 				</li>
 				<li>
 					<label for="zipcode">우편번호</label>
-					<input type="text" name="alba_zipcode" id="zipcode" maxlength="5">
+					<input type="text" name="alba_zipcode" id="zipcode" value="${alba.alba_zipcode}" maxlength="5">
 					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</li>
 				<li>
 					<label for="address1">주소</label>
-					<input type="text" name="alba_address1" id="address1" maxlength="30">
+					<input type="text" name="alba_address1" id="address1" value="${alba.alba_address1}" maxlength="30">
 				</li>
 				<li>
 					<label for="address2">나머지 주소</label>

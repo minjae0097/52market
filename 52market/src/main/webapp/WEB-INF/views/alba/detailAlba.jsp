@@ -61,11 +61,11 @@ window.onload=function(){
 		
 		//문서 객체에 설정
 		$('#output_fav').attr('src',output);
-		$('#output_fcount').text(param.count);
+		$('.output_fcount').text(param.count);
 	}
 	//초기 데이터 호출
 	
-	<c:if test="${user_auth == 1 || user_auth==2}">selectFav();</c:if>
+	<c:if test="${user_auth == 1 || user_auth==2}">selectFav();
 	
 	let call_btn = document.getElementById('call_btn');
 	//이벤트 연결
@@ -136,6 +136,7 @@ window.onload=function(){
 	close_btn2.onclick=function(){
 		closelayer2();
 	}
+	</c:if>
 	
 };
 </script>
@@ -151,8 +152,10 @@ window.onload=function(){
 		</c:if>
 		<c:if test="${empty mem.mem_photo}">
 			<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
-		<span>${alba.mem_nickname}</span>
-		<span>${alba.alba_hit}</span>
+		<span>${alba.mem_nickname}</span><br>
+		조회수 ${alba.alba_hit}
+		관심<span id="output_fcount" class="output_fcount"></span>
+		지원자수 ${alba.apcount} 
 		</c:if>
 	</div>
 	<div class="float-clear">
@@ -174,6 +177,7 @@ window.onload=function(){
 		<ul>
 			<li><img src="${pageContext.request.contextPath}/upload/${alba.alba_location}" width="500" height="250"></li>
 			<li>${alba.alba_address1}</li>
+			<li>${alba.alba_address2}</li>
 		</ul>
 		<div class="float-clear">
 		<hr width="100%" size="1" noshade="noshade">
@@ -183,7 +187,7 @@ window.onload=function(){
 		<c:if test="${user_auth != 3 && user_auth!=9}">
 			<img id="output_fav" data-num="${alba.alba_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 					관심
-			<span id="output_fcount"></span>
+			<span  class="output_fcount"></span>
 		<%-- 좋아요 끝 --%>
 		</c:if>
 		</li>
@@ -193,6 +197,10 @@ window.onload=function(){
 		<input type="button" value="지원하기" id="apply_btn">
 		</c:if>
 		</li>
+		</ul>
+		</div>
+		<div class="align-right">
+		<ul>
 		<li>
 		<c:if test="${user_auth==3}">
 		<input type="button" value="수정" onclick="location.href='updateAlbaForm.do?alba_num=${alba.alba_num}'">
@@ -214,8 +222,9 @@ window.onload=function(){
 		</ul>
 		</div>
 		</div>
+		</div>
 	</div>
-</div>
+
 <form id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;background-color:#BDBDBD;">
 <ul>
 	<li>전화번호: ${db_member.mem_phone}</li>
@@ -229,7 +238,6 @@ window.onload=function(){
 	<li>
 		<label for="filename">지원서 파일 등록</label>
 		<input type="hidden" name="alba_title" value="${alba.alba_title}">
-		<input type="hidden" name="mem_num" value="${alba.mem_num}">
 		<input type="file" name="alba_filename" id="filename" accept="image/gif,image/png,image/jpeg">
 	</li>
 </ul>

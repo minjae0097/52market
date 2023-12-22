@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.alba.dao.AlbaDAO;
-import kr.alba.vo.AlbaVO;
+import kr.alba.vo.AplistVO;
 import kr.controller.Action;
 import kr.util.PageUtil;
 
@@ -27,18 +27,21 @@ public class UApListAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		String pageNum = request.getParameter("pagenum");
+		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum="1";
 		
+		String keyfield = request.getParameter("keyfield");
+		String keyword = request.getParameter("keyword");
 		
 		AlbaDAO dao = AlbaDAO.getInstance();
-		int count = dao.getAlbaCount(null, null);
+		int count = dao.getUApListCount(keyfield, keyword, user_num);
 		
-		PageUtil page = new PageUtil(null, null, Integer.parseInt(pageNum),count,20,10,"b_apDetail.do");
+		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum),count,20,10,"u_apDetail.do");
 		
-		List<AlbaVO> list = null;
+		List<AplistVO> list = null;
+		
 		if(count > 0) {
-			list = dao.getListAlba(page.getStartRow(), page.getEndRow(),null, null);
+			list = dao.UApDetail(page.getStartRow(), page.getEndRow(), keyfield, keyword, user_num);
 		}
 		
 		request.setAttribute("count", count);
