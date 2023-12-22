@@ -88,14 +88,40 @@
 
 /* 부동산 입력폼
 ------------------------------*/
-#house_title {
+
+input[type="text"],input[id="zipcode"],input[type="number"],#house_content {
 	width: 80%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 8px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.radio-check{
+	line-height: 2.2;
+}
+input[type="search"]{
+	width: 30%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
     padding: 12px 13px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
     font-size: 14px;
     line-height: 16px;
+}
+#board_category_list{
+	width: 20%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 7px;
 }

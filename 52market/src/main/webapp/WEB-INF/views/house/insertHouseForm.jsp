@@ -82,7 +82,7 @@ window.onload=function(){
 					<input type="text" name="house_address2" id="address2" maxlength="30" class="input-check">
 				</li>
 				<li>
-					<h3 class="radio-check" id="house_deal_type"><label>거래방식</label></h3>
+					<h3 class="radio-check" id="house_deal_type">거래방식</h3>
 					<input type="radio" name="house_deal_type" value="1">전세
 					<input type="radio" name="house_deal_type" value="2">매매
 					<input type="radio" name="house_deal_type" value="3">월세

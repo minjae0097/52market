@@ -145,14 +145,14 @@ window.onload=function(){
 					<ul class="search">		
 						<li>
 							<input type="button" value="필터" id="show_filter">
-							<select name="keyfield">
+							<select name="keyfield" id="board_category_list">
 								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
 								<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
 							</select>
 						</li>
 						<li>
-							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" placeholder="제목을 입력하세요">
 						</li>
 						<li>
 							<input type="submit" value="검색"><br>
@@ -205,7 +205,6 @@ window.onload=function(){
 			</div>
 			</c:if>
 			<c:if test="${count>0}">	
-			<!-- <div class="content-main"> -->
 				<div class="image-space">
 					<c:forEach var="house" items="${houseList}">
 						<div class="horizontal-area">
@@ -215,7 +214,11 @@ window.onload=function(){
 								<br>
 								<b>${house.mem_nickname}
 								<c:if test="${house.house_status == 0}"><span style="color:#f7b165"><b>판매중</b></span></c:if>
-								<c:if test="${house.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if>  
+								<c:if test="${house.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if> 
+								<c:if test="${house.house_deal_type == 1}">전세</c:if>
+								<c:if test="${house.house_deal_type == 2}">매매</c:if>
+								<c:if test="${house.house_deal_type == 3}">월세</c:if>
+								<c:if test="${house.house_deal_type == 4}">단기</c:if>
 								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber value="${house.house_price/10000}"/>만원</c:if>
 								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber value="${house.house_price}"/>원</c:if></b><br>
 							</a>
@@ -226,7 +229,6 @@ window.onload=function(){
 					</div>
 					<div class="align-center">${page}</div>
 				</div>
-			<!-- </div> -->
 			</c:if>	
 	</div>
 	<div class="align-right">
