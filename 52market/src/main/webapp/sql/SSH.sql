@@ -67,3 +67,22 @@ create table product_map(
  address_name varchar2(100) not null,
  constraint product_map_fk foreign key (product_num) references product (product_num)
 );
+
+--채팅
+create table product_chatroom(
+ chatroom_num number primary key,
+ product_num number references product (product_num) not null,
+ seller_num number references member (mem_num) not null,
+ buyer_num number references member (mem_num) not null
+);
+create sequence product_chatroom_seq;
+
+create table product_chat(
+ chat_num number primary key,
+ chatroom_num number references product_chatroom (chatroom_num) not null,
+ mem_num number references member (mem_num) not null,
+ message varchar2(900) not null,
+ reg_date date default SYSDATE,
+ read_check number(1) default 1 not null
+);
+create sequence product_chat_seq;

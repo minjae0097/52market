@@ -148,6 +148,9 @@ $(function(){
 					관심글 등록
 					<span id="output_fcount"></span>                                               
 				</li>
+				<li>
+				<input type="button" value="채팅하기" onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do?product_num=${product.product_num}'">
+				</li>
 			</c:if>
 			<%-- 좋아요 끝 --%>
 			
@@ -162,7 +165,6 @@ $(function(){
 				</form>
 			</c:if>
 			<li>
-				<input type="button" value="채팅하기">
 				<input type="button" value="목록" onclick="location.href='list.do'"> 
 			</li>
 		</ul>
