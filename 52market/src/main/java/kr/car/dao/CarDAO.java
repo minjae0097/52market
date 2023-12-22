@@ -219,6 +219,7 @@ public class CarDAO {
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
+			CarDAO car = CarDAO.getInstance();
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {
 				CarList_DetailVO detail = new CarList_DetailVO();
@@ -233,7 +234,9 @@ public class CarDAO {
 				detail.setCar_transmission(rs.getString("car_transmission"));
 				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
-
+				detail.setFavcount(car.selectFavCount(rs.getInt("carlist_num")));
+				detail.setCarlist_hit(rs.getInt("carlist_hit"));
+				
 				list.add(detail);
 			}
 
@@ -308,6 +311,7 @@ public class CarDAO {
 				list.setCarlist_reg_date(rs.getDate("carlist_reg_date"));
 				list.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
 				list.setCarlist_status(rs.getInt("carlist_status"));
+				list.setCarlist_hit(rs.getInt("carlist_hit"));
 			}
 
 		}catch(Exception e) {
@@ -406,7 +410,7 @@ public class CarDAO {
 			pstmt.setInt(10, carlist_num);
 			pstmt.executeUpdate();
 
-			sql = "UPDATE carlist SET carlist_content=? WHERE carlist_num=?";
+			sql = "UPDATE carlist SET carlist_content=?, carlist_modify_date=sysdate WHERE carlist_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setString(1, list.getCarlist_content());
 			pstmt2.setInt(2, carlist_num);
@@ -746,7 +750,7 @@ public class CarDAO {
 			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
-					+ " ) b on f.mem_num=b.car_seller WHERE car_seller=? "+sub_sql+" ORDER BY carlist_modify_date DESC)a) WHERE rnum >=? AND rnum <=?";
+					+ " ) b on f.mem_num=b.car_seller WHERE car_seller=? "+sub_sql+" ORDER BY NVL(carlist_modify_date, carlist_reg_date) DESC, carlist_reg_date DESC, carlist_num DESC)a) WHERE rnum >=? AND rnum <=?";
 			//PreparedStatrment 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -846,7 +850,123 @@ public class CarDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	//조회수 증가
+	public void updateReadcount(int carlist_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE carlist SET carlist_hit=carlist_hit+1 WHERE carlist_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carlist_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	
+	//중고차 구매리스트
+		public List<CarList_DetailVO> getBuyList(int mem_num,int start, int end ,String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<CarList_DetailVO> list = null;
+			String sub_sql = "";
+			int cnt = 0;
+			String sql = null;
+
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+				}
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+						+ " ) b on f.mem_num=b.car_buyer WHERE car_buyer=? "+sub_sql+" ORDER BY NVL(carlist_modify_date, carlist_reg_date) DESC, carlist_reg_date DESC, carlist_num DESC)a) WHERE rnum >=? AND rnum <=?";
+				//PreparedStatrment 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(++cnt, mem_num);
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%"+keyword+"%");
+				}
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
+				rs = pstmt.executeQuery();
+				list = new ArrayList<CarList_DetailVO>();
+				while(rs.next()) {
+					CarList_DetailVO detail = new CarList_DetailVO();
+					detail.setCarlist_num(rs.getInt("carlist_num"));
+					detail.setCar_title(rs.getString("car_title"));
+					detail.setCar_buyer(rs.getInt("car_buyer"));
+					detail.setCar_type(rs.getString("car_type"));
+					detail.setCar_fuel(rs.getString("car_fuel"));
+					detail.setCar_price(rs.getInt("car_price"));
+					detail.setCar_model_year(rs.getInt("car_model_year"));
+					detail.setCar_distance(rs.getInt("car_distance"));
+					detail.setCar_transmission(rs.getString("car_transmission"));
+					detail.setCar_origin(rs.getString("car_origin"));
+					detail.setCar_image(rs.getString("car_image"));
+					detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
+
+					list.add(detail);
+				}
+
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+
+
+			return list;
+		}
+		//중고차 구매리스트 개수
+		public int getBuyListCount(int mem_num, String keyfield,String keyword)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			String sub_sql = "";
+			int count = 0;
+
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				if(keyword!=null && !"".equals(keyword)) {
+					//검색 처리
+					if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND carlist_content LIKE ?";
+				}
+				//SQL문 작성
+				sql = "SELECT count(*) FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
+						+ " ) b on f.mem_num=b.car_buyer WHERE car_buyer=? "+sub_sql+" )";
+				//PreparedStatement 객체
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_num);
+				if(keyword != null && !"".equals(keyword)) {
+					pstmt.setString(2, "%"+keyword+"%");
+				}
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
+		}
 }
 
 

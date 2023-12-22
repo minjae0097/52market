@@ -154,11 +154,21 @@ window.onload=function(){
 		<div class="image-space">
 			<c:forEach var="car" items="${carList}">
 				<div class="horizontal-area24">
+					<div class="horizontal-area">
 					<a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">
 						<img src="${pageContext.request.contextPath}/upload/${car.car_image}">
-						<span>${car.car_title}</span>
-						<b><fmt:formatNumber value="${car.car_price}"/>원</b>
 					</a>
+					</div>
+					<div class="list-horizontal">
+					<a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">
+							<span>${car.car_title}</span><br>
+						<b>
+						<c:if test="${car.car_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원</c:if>
+						<c:if test="${car.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원+</c:if>
+						</b><br>
+						관심 ${car.favcount} 조회수 ${car.carlist_hit}
+					</a>
+					</div>
 				</div>
 			</c:forEach>
 			<div class="float-clear">

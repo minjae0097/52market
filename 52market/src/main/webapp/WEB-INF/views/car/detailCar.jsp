@@ -99,12 +99,13 @@ $(function(){
 		<c:if test="${list.carlist_status==0}"><span style=" border: 3px solid;"><b>판매중</b></span> . </c:if>
 		<c:if test="${list.carlist_status==1}"><span style=" border: 3px solid;"><b>판매완료</b></span> . </c:if>
 		<span>${detail.car_title} . 
-		<c:if test="${detail.car_price%10000==0}"><fmt:formatNumber value="${detail.car_price/10000}"/>만원</c:if>
-		<c:if test="${detail.car_price%10000!=0}"><fmt:formatNumber value="${detail.car_price}"/>원</c:if> . 
+		<c:if test="${detail.car_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.car_price/10000}"/>만원</c:if>
+		<c:if test="${detail.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.car_price/10000}"/>만원+</c:if> . 
 		<c:if test="${detail.car_distance>=10000}">  <fmt:formatNumber value="${detail.car_distance/10000}" pattern="#.#" />만km</c:if>
 		<c:if test="${detail.car_distance<10000 }"><fmt:formatNumber value="${detail.car_distance}"/>km</c:if>
 		
 		</span>
+		조회수 ${list.carlist_hit}
 	</div>
 	<div>
 	<h1>정보</h1>

@@ -31,7 +31,7 @@ public class SellChatCarAction implements Action{
 			chat.setMem_num(user_num);
 			
 			String message = "구매확정하시겠습니까?<br>*확정되면 취소할 수 없습니다.<br>*거래후에 확정을 눌러주세요<br>"
-					+ "<button id='buy' onclick=\"location.href='buyChatCar.do?chatroom_num="+Integer.parseInt(request.getParameter("chatroom_num"))+"'\">구매확정</button>";
+					+ "<button id='buy' onclick=\"location.href='buyChatCar.do?chatroom_num="+Integer.parseInt(request.getParameter("chatroom_num"))+"' \">구매확정</button>";
 			chat.setMessage(message);
 			
 			ChatCarDAO dao = ChatCarDAO.getInstance();
