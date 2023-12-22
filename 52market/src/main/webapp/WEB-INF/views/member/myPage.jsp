@@ -146,7 +146,7 @@ $(function(){
 		<h3>나의 거래</h3>
 		<ul>
 			<li><a href="favList.do">관심목록</a></li>
-			<li><a>구매내역</a></li>
+			<li><a href="myBuyList.do">구매내역</a></li>
 			<li><a href="mySellList.do">판매내역</a></li>
 		</ul>
 		</div>

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.car.dao.ChatCarDAO;
-import kr.car.vo.Car_ChatroomVO;
+import kr.car.vo.CarList_DetailVO;
 import kr.controller.Action;
 
 public class ChatDetailCarAction implements Action{
@@ -21,9 +21,9 @@ public class ChatDetailCarAction implements Action{
 		
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
 		ChatCarDAO chat = ChatCarDAO.getInstance();
-		Car_ChatroomVO chatroom = chat.getCarlistByChatroom(chatroom_num);
+		CarList_DetailVO detail = chat.getCarlistByChatroom(chatroom_num);
 		
-		request.setAttribute("seller_num", chatroom.getSeller_num());
+		request.setAttribute("seller_num", detail.getCar_seller());
 		request.setAttribute("chatroom_num", chatroom_num);
 		return "/WEB-INF/views/chatting/chatDetailCar.jsp";
 	}

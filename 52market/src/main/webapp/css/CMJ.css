@@ -10,7 +10,7 @@
 	height:240px;
 	float:left;
 	overflow:hidden;
-	text-align:center;
+	vertical-align: middle;
 }
 .image-space .horizontal-area24 img{
 	width:215px;
@@ -42,7 +42,14 @@
 	width:18%;
 	height:30px;
 }
-
+.float-clear{
+	float:none;
+}
+.list-horizontal{
+	float:left;
+	position:relative;
+	top:10px;
+}
 /* 채팅
 ------------------------------*/
 

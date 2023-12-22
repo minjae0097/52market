@@ -9,7 +9,16 @@ public class CarlistVO {
 	private Date carlist_reg_date;  	//작성일
 	private Date carlist_modify_date;	//수정일
 	private int carlist_status;			//판매여부 default 0
+	private int carlist_hit;
 	
+
+	public int getCarlist_hit() {
+		return carlist_hit;
+	}
+
+	public void setCarlist_hit(int carlist_hit) {
+		this.carlist_hit = carlist_hit;
+	}
 
 	public int getCarlist_num() {
 		return carlist_num;

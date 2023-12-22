@@ -18,6 +18,26 @@ public class CarList_DetailVO {
 	private Date car_tradedate;		//판매 완료일
 	private String mem_nickname;		//닉네임
 	private Date carlist_modify_date; //수정일
+	
+	private int favcount;
+	private int carlist_hit;
+	
+	public int getCarlist_hit() {
+		return carlist_hit;
+	}
+
+	public void setCarlist_hit(int carlist_hit) {
+		this.carlist_hit = carlist_hit;
+	}
+
+	public int getFavcount() {
+		return favcount;
+	}
+
+	public void setFavcount(int favcount) {
+		this.favcount = favcount;
+	}
+
 	public Date getCarlist_modify_date() {
 		return carlist_modify_date;
 	}

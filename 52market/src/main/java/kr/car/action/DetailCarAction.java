@@ -18,7 +18,10 @@ public class DetailCarAction implements Action{
 		
 		int carlist_num = Integer.parseInt(request.getParameter("carlist_num"));
 		
+		
+		
 		CarDAO car = CarDAO.getInstance();
+		car.updateReadcount(carlist_num);
 		CarList_DetailVO detail = car.getCarList_Detail(carlist_num);
 		CarlistVO list = car.getCarList(carlist_num);
 		Car_MapVO map = car.getCarMap(carlist_num);
