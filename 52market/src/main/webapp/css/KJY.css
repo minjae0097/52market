@@ -62,3 +62,33 @@ input[type="search"]{
     font-size: 14px;
     line-height: 7px;
 }
+/* 게시판 글 상세
+------------------------------*/
+ul.detail-info li{
+	display:inline-block;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.content-main1 > h2{
+	width: 100%;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 16px;
+}
+.content-main1 > p{
+	width: 80%;
+	height:auto;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
