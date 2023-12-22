@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>부동산 직거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript">
 window.onload=function(){
 	/* let myForm = document.getElementById('search_form');
@@ -204,7 +205,7 @@ window.onload=function(){
 			</div>
 			</c:if>
 			<c:if test="${count>0}">	
-			<div class="content-main">
+			<!-- <div class="content-main"> -->
 				<div class="image-space">
 					<c:forEach var="house" items="${houseList}">
 						<div class="horizontal-area">
@@ -223,16 +224,13 @@ window.onload=function(){
 					<div class="float-clear">
 						<hr width="100%" size="1" noshade="noshade">
 					</div>
+					<div class="align-center">${page}</div>
 				</div>
-			</div>
-			</c:if>
-			<div class="align-center">${page}</div>
-			<div class="align-right">
-			<input type="button" value="글쓰기" onclick="location.href='insertHouseForm.do'"
-					<c:if test="${empty user_num}">disabled="disabled"</c:if>
-				><!-- 로그인이 되어있지 않은면 비활성화 됨(disabled="disabled") -->
-			</div>
-		
+			<!-- </div> -->
+			</c:if>	
+	</div>
+	<div class="align-right">
+		<input type="button" value="글쓰기" onclick="location.href='insertHouseForm.do'">			
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

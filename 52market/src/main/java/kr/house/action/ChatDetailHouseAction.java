@@ -1,14 +1,12 @@
 package kr.house.action;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.house.dao.ChatHouseDAO;
-import kr.house.vo.House_ChatVO;
+import kr.house.vo.House_ChatroomVO;
 
 public class ChatDetailHouseAction implements Action {
 
@@ -23,10 +21,11 @@ public class ChatDetailHouseAction implements Action {
 		
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
 		ChatHouseDAO chat = ChatHouseDAO.getInsttance();
+		House_ChatroomVO chatroom = chat.getHouselistByChatroom(chatroom_num);
 		
-		List<House_ChatVO> list = chat.getChatListHouse(chatroom_num,user_num);
 		
-		request.setAttribute("list", list);
+		
+		request.setAttribute("seller_num", chatroom.getSeller_num());
 		request.setAttribute("chatroom_num", chatroom_num);
 		
 		//JSP 경로 반환

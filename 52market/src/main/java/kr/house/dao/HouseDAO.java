@@ -368,7 +368,7 @@ public class HouseDAO {
 			conn = DBUtil.getConnection();
 			
 			//SQL문 작성
-			sql = "SELECT * FROM member_detail WHERE mem_num=?";
+			sql = "SELECT * FROM member INNER JOIN member_detail USING(mem_num) WHERE mem_num=?";
 			
 			//PreparedStatement 객체 생성 
 			pstmt = conn.prepareStatement(sql);
@@ -682,23 +682,22 @@ public class HouseDAO {
 				if(keyword!=null && !"".equals(keyword)) {
 					//검색 처리
 					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND house_content LIKE ?";
 				}
 				//SQL문 작성
 				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT *FROM house_fav f "
 						+ "INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail "
-						+ "USING(house_num)) b on f.house_num=b.house_num WHERE mem_num=? " +sub_sql
+						+ "USING(house_num) WHERE mem_num=?) b on f.house_num=b.house_num " +sub_sql
 						+ " ORDER BY reg_date DESC)a) WHERE rnum >=? AND rnum <=?";
 				//PreparedStatrment 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
-				pstmt.setInt(1, mem_num);
+				pstmt.setInt(++cnt, mem_num);
 				if(keyword != null && !"".equals(keyword)) {
 					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
-				pstmt.setInt(2, start);
-				pstmt.setInt(3, end);
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
 				rs = pstmt.executeQuery();
 				list = new ArrayList<HouseDetailVO>();
 				while(rs.next()) {
@@ -741,7 +740,6 @@ public class HouseDAO {
 			String sql = null;
 			ResultSet rs = null;
 			String sub_sql = "";
-			int cnt = 0;
 			int count = 0;
 			
 			try {
@@ -750,19 +748,17 @@ public class HouseDAO {
 				if(keyword!=null && !"".equals(keyword)) {
 					//검색 처리
 					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
-					else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
-					else if(keyfield.equals("3")) sub_sql += " AND house_content LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " AND house_content LIKE ?";
 				}
 				//SQL문 작성
-				sql = "SELECT COUNT(*) FROM (SELECT house_fav f INNER JOIN (SELECT * FROM houselist "
-						+ "INNER JOIN house_detail USING(house_num)) b on f.house_num=b.house_num "
-						+ "WHERE mem_num=? "+sub_sql+" )";
+				sql = "SELECT COUNT(*) FROM (SELECT * FROM house_fav f INNER JOIN (SELECT * FROM houselist "
+						+ "INNER JOIN house_detail USING(house_num) WHERE mem_num=?) b on f.house_num=b.house_num" +sub_sql+" )";
 				//PreparedStatement 객체
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, mem_num);
 				rs = pstmt.executeQuery();
 				if(keyword != null && !"".equals(keyword)) {
-					pstmt.setString(++cnt, "%"+keyword+"%");
+					pstmt.setString(2, "%"+keyword+"%");
 				}
 				if(rs.next()) {
 					count = rs.getInt(1);
@@ -879,7 +875,7 @@ public class HouseDAO {
 			
 			return list;
 		}
-		//중고차 판매리스트 개수
+		//부동산 판매리스트 개수
 		public int getSellListCount(int mem_num, String keyfield,String keyword)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -927,5 +923,25 @@ public class HouseDAO {
 			}
 
 			return count;
+		}
+		//부동산 판매처리
+		public void sellHouse(int house_num,int house_buyer)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				conn = DBUtil.getConnection();
+				sql = "UPDATE house_detail SET house_buyer=?, house_trade_date=sysdate WHERE house_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, house_buyer);
+				pstmt.setInt(2, house_num);
+				pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
 		}
 }

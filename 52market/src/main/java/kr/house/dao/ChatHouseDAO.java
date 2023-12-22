@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.house.vo.HouseDetailVO;
 import kr.house.vo.House_ChatVO;
 import kr.house.vo.House_ChatroomVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class ChatHouseDAO {
 	private static ChatHouseDAO instance = new ChatHouseDAO();
@@ -159,7 +161,7 @@ public class ChatHouseDAO {
 				chat.setChat_num(rs.getInt("chat_num"));
 				chat.setChatroom_num(rs.getInt("chatroom_num"));
 				chat.setMem_num(rs.getInt("mem_num"));
-				chat.setMessage(rs.getString("message"));
+				chat.setMessage(StringUtil.useBrHtml(rs.getString("message")));
 				chat.setReg_date(rs.getDate("reg_date"));
 				chat.setRead_check(rs.getInt("read_check"));
 				
@@ -240,5 +242,35 @@ public class ChatHouseDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 		
+	}
+	
+	//채팅방번호로 house_num 불러오기
+	public House_ChatroomVO getHouselistByChatroom(int chatroom_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		House_ChatroomVO houselist = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM house_detail INNER JOIN house_chatroom USING(house_num) WHERE chatroom_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, chatroom_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				houselist = new House_ChatroomVO();
+				houselist.setBuyer_num(rs.getInt("buyer_num"));
+				houselist.setHouse_num(rs.getInt("house_num"));
+				houselist.setSeller_num(rs.getInt("seller_num"));
+			}
+		
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return houselist;
 	}
 }

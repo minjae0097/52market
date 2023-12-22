@@ -73,7 +73,7 @@
 				<td>${house.house_num}</td>
 				<td>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
+					<li><a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
 				</ul>
 				</td>
 				<td>

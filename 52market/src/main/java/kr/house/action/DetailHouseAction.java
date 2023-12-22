@@ -23,10 +23,10 @@ public class DetailHouseAction implements Action {
 		
 		HouseDetailVO detail = dao.getHouseDetail(house_num);
 		HouseListVO list = dao.getHouseList(house_num);
-		MemberVO seller = dao.getHouseMember(house_num);
+		MemberVO seller = dao.getHouseMember(detail.getMem_num());
 		
 		detail.setHouse_title(StringUtil.useNoHtml(detail.getHouse_title()));
-		list.setHouse_content(StringUtil.useBrHtml(list.getHouse_content()));
+		list.setHouse_content(StringUtil.useBrNoHtml(list.getHouse_content()));
 		
 		request.setAttribute("detail", detail);
 		request.setAttribute("list", list);
