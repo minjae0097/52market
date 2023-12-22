@@ -240,12 +240,12 @@ public class ChatCarDAO {
 			}
 		}
 		//채팅방번호로 carlist_num 불러오기
-		public CarList_DetailVO getCarlistByChatroom(int chatroom_num)throws Exception{
+		public Car_ChatroomVO getCarlistByChatroom(int chatroom_num)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
 			ResultSet rs = null;
-			CarList_DetailVO carlist = null;
+			Car_ChatroomVO carlist = null;
 			try {
 				conn = DBUtil.getConnection();
 				sql = "SELECT * FROM carlist_detail INNER JOIN car_chatroom USING(carlist_num) WHERE chatroom_num=?";
@@ -253,9 +253,10 @@ public class ChatCarDAO {
 				pstmt.setInt(1, chatroom_num);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					carlist = new CarList_DetailVO();
-					carlist.setCar_buyer(rs.getInt("car_buyer"));
+					carlist = new Car_ChatroomVO();
+					carlist.setBuyer_num(rs.getInt("buyer_num"));
 					carlist.setCarlist_num(rs.getInt("carlist_num"));
+					carlist.setSeller_num(rs.getInt("seller_num"));
 				}
 				
 			}catch(Exception e) {
