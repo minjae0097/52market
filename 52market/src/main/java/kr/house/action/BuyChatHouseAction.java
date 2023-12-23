@@ -8,7 +8,6 @@ import kr.controller.Action;
 import kr.house.dao.ChatHouseDAO;
 import kr.house.dao.HouseDAO;
 import kr.house.vo.HouseDetailVO;
-import kr.house.vo.House_ChatroomVO;
 
 public class BuyChatHouseAction implements Action {
 
@@ -23,19 +22,25 @@ public class BuyChatHouseAction implements Action {
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
 		
 		ChatHouseDAO chat = ChatHouseDAO.getInsttance();
-		House_ChatroomVO houselist = chat.getHouselistByChatroom(chatroom_num);
+		HouseDetailVO houselist = chat.getHouselistByChatroom(chatroom_num);
 		
-		if(houselist.getBuyer_num()>0) {
-			request.setAttribute("notice_msg", "이미 판매된 상품입니다");
+		if(user_num.equals(houselist.getMem_num())) {
+			request.setAttribute("notice_msg", "자신이 판매한 상품을 구매할 수 없습니다.");
 			request.setAttribute("notice_url", 
 					request.getContextPath()+"/chatting/chatDetailHouse.do?chatroom_num="+chatroom_num);
 		
 		}else {
+			if(houselist.getHouse_buyer()>0) {
+				request.setAttribute("notice_msg", "이미 판매된 상품입니다");
+				request.setAttribute("notice_url", 
+						request.getContextPath()+"/chatting/chatDetailHouse.do?chatroom_num="+chatroom_num);
+			}else {
 			HouseDAO house = HouseDAO.getInstance();
 			house.sellHouse(houselist.getHouse_num(), user_num);
 			request.setAttribute("notice_msg", "구매확정이 완료되었습니다.");
 			request.setAttribute("notice_url", 
 					request.getContextPath()+"/chatting/chatDetailHouse.do?chatroom_num="+chatroom_num);
+			}
 		}
 		
 		

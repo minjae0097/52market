@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.house.dao.ChatHouseDAO;
-import kr.house.vo.House_ChatroomVO;
+import kr.house.vo.HouseDetailVO;
 
 public class ChatDetailHouseAction implements Action {
 
@@ -21,11 +21,11 @@ public class ChatDetailHouseAction implements Action {
 		
 		int chatroom_num = Integer.parseInt(request.getParameter("chatroom_num"));
 		ChatHouseDAO chat = ChatHouseDAO.getInsttance();
-		House_ChatroomVO chatroom = chat.getHouselistByChatroom(chatroom_num);
+		HouseDetailVO detail = chat.getHouselistByChatroom(chatroom_num);
 		
 		
 		
-		request.setAttribute("seller_num", chatroom.getSeller_num());
+		request.setAttribute("seller_num", detail.getMem_num());
 		request.setAttribute("chatroom_num", chatroom_num);
 		
 		//JSP 경로 반환

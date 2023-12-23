@@ -56,6 +56,7 @@ public class ListAction implements Action{
 			houseList = houseDao.getListHouse(page.getStartRow(), page.getEndRow(), keyfield, keyword, house_status,house_seller_type,house_type,house_deal_type,house_move_in);
 		}
 		
+		
 		request.setAttribute("count", count);
 		request.setAttribute("houseList", houseList);
 		request.setAttribute("page", page.getPage());

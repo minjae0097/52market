@@ -207,9 +207,14 @@ window.onload=function(){
 			<c:if test="${count>0}">	
 				<div class="image-space">
 					<c:forEach var="house" items="${houseList}">
-						<div class="horizontal-area">
+						<div class="horizontal-area24">
+							<div class="horizontal-area">
 							<a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">
 								<img src="${pageContext.request.contextPath}/upload/${house.house_photo1}">
+							</a>
+							</div>
+							<div class="list-horizontal">
+							<a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">
 								<span>${house.house_title}</span>
 								<br>
 								<b>${house.mem_nickname}
@@ -219,9 +224,11 @@ window.onload=function(){
 								<c:if test="${house.house_deal_type == 2}">매매</c:if>
 								<c:if test="${house.house_deal_type == 3}">월세</c:if>
 								<c:if test="${house.house_deal_type == 4}">단기</c:if>
-								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber value="${house.house_price/10000}"/>만원</c:if>
-								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber value="${house.house_price}"/>원</c:if></b><br>
+								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원</c:if>
+								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원+</c:if></b><br>
+								
 							</a>
+							</div>
 						</div>
 					</c:forEach>
 					<div class="float-clear">

@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.fav.js"></script> --%>
 <script type="text/javascript">
 $(function(){
 	//좋아요 선택 여부와 선택한 총 개수 읽기
@@ -111,8 +110,8 @@ $(function(){
 			<c:if test="${detail.house_deal_type == 2}">매매</c:if>
 			<c:if test="${detail.house_deal_type == 3}">월세</c:if>
 			<c:if test="${detail.house_deal_type == 4}">단기</c:if>
-			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber value="${detail.house_price/10000}"/>만원</c:if>
-			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber value="${detail.house_price}"/>원</c:if><br>
+			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원</c:if>
+			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원+</c:if><br>
 			조회수 : ${list.hit}
 			</span>
 		</div>

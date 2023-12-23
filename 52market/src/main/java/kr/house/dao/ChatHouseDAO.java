@@ -245,12 +245,12 @@ public class ChatHouseDAO {
 	}
 	
 	//채팅방번호로 house_num 불러오기
-	public House_ChatroomVO getHouselistByChatroom(int chatroom_num)throws Exception{
+	public HouseDetailVO getHouselistByChatroom(int chatroom_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		ResultSet rs = null;
-		House_ChatroomVO houselist = null;
+		HouseDetailVO houselist = null;
 		
 		try {
 			conn = DBUtil.getConnection();
@@ -259,10 +259,10 @@ public class ChatHouseDAO {
 			pstmt.setInt(1, chatroom_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				houselist = new House_ChatroomVO();
-				houselist.setBuyer_num(rs.getInt("buyer_num"));
+				houselist = new HouseDetailVO();
+				houselist.setHouse_buyer(rs.getInt("house_buyer"));
 				houselist.setHouse_num(rs.getInt("house_num"));
-				houselist.setSeller_num(rs.getInt("seller_num"));
+				houselist.setMem_num(rs.getInt("mem_num"));
 			}
 		
 		}catch(Exception e) {
