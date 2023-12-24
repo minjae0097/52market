@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>거래글 상세 정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -73,6 +77,7 @@ $(function(){
 	<div class="align-center">
 			<img src="${pageContext.request.contextPath}/upload/${product.product_image1}" class="detail-img">
 	</div>
+	<br>
 		<ul class="detail-info">
 			<li>
 				<c:if test="${!empty product.mem_photo}">
@@ -97,13 +102,16 @@ $(function(){
 						}
 					};
 				</script>
-				</c:if>     
-			<hr size="1" noshade="noshade" width="100%">
-		</ul>
+				</c:if> 
+		</ul>    
+		<br>
+		<hr size="1" noshade="noshade" width="100%">
+		<br>
+		
 		<div>
 			<ul>
 				<li>
-				<c:if test="${product.product_status == 0}"><span><b>판매중</b></span></c:if> <%-- span, text로 값 바꾸기 --%>
+				<c:if test="${product.product_status == 0}"><span><b>판매중</b></span></c:if> 
 				<c:if test="${product.product_status == 1}"><span><b>판매완료</b></span></c:if>
 				${product.product_title}</li>
 				<li>
@@ -121,40 +129,45 @@ $(function(){
 					<span>${product.product_content}</span>
 				</li>
 			</ul>
+			<br>
+			<br>
+			<br>
 			<ul>
 				<h3>위치</h3>
 					<jsp:include page="/map/showMap.jsp"/>
 			</ul>	
 		</div>
+		<br>
+		<br>
 		<div class="etc">
-		<ul class="detail-sub">
+		<ul class="align-left">
 			<li>
 				조회 ${product.product_hit}
 				관심 <span id="output_fcount"></span>
 				채팅 <!-- 채팅 개수 추가 --><br>
-				<c:if test="${!empty product.product_modify_date}">
-					최근 수정일 : ${product.product_modify_date}
-				</c:if>
 				작성일 : ${product.product_reg_date}
+				<c:if test="${!empty product.product_modify_date}">
+					/ 최근 수정일 : ${product.product_modify_date}
+				</c:if>
 			</li>
-			
+		</ul>	
 			<hr size="1" noshade="noshade" width="100%">
 			
 			
-			<%-- 타인 로그인 시 관심물품 / 본인글이면 판매상태 변경 버튼 --%>
+		<%-- 타인 로그인 시 관심물품 / 본인글이면 판매상태 변경 버튼 --%>
+		<ul class="algin-left">
 			<c:if test="${user_num != product.product_mem}">
 				<li>
 					<img id="output_fav" data-num="${product.product_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 					관심글 등록
 					<span id="output_fcount"></span>                                               
 				</li>
-				<li>
-				<input type="button" value="채팅하기" onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do?product_num=${product.product_num}'">
-				</li>
 			</c:if>
-			<%-- 좋아요 끝 --%>
+		</ul>
+		<%-- 좋아요 끝 --%>
 			
-			<%-- 판매상태 변경 버튼 --%>
+		<%-- 판매상태 변경 버튼 --%>
+		<ul class="align-left">
 			<c:if test="${user_num == product.product_mem}">
 				<form action="updateStatus.do" id="update_form" method="post" style="border:0 solid black;">
 				<input type="hidden" name="product_num" value="${product.product_num}">
@@ -164,7 +177,16 @@ $(function(){
 				</select>
 				</form>
 			</c:if>
+		</ul>
+		
+		
+		<ul class="align-right">
+			<%-- 본인글 아닐때 채팅 --%>	
 			<li>
+			<c:if test="${user_num != product.product_mem}">
+				<input type="button" value="채팅하기" onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do?product_num=${product.product_num}'">
+			</c:if>
+			<%-- 채팅끝 --%>	
 				<input type="button" value="목록" onclick="location.href='list.do'"> 
 			</li>
 		</ul>

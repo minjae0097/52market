@@ -160,6 +160,7 @@ $(function(){
 		<div>
 		<h3>구매 채팅</h3>
 		<ul>
+			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do'>중고거래 채팅 목록</a></li>
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do'>중고차 채팅 목록</a></li>
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerHouse.do'>부동산 채팅 목록</a></li>
 		</ul>

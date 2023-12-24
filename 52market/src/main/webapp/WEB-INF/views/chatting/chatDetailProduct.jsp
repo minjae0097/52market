@@ -27,7 +27,7 @@
 				<div id="re_first" style="float: right;width: 80px;">
 				<span class="letter-count">300/300</span>
 				</div>
-				<div  style="float: right;width: 110px; position:relative; bottom:45px;">
+				<div  style="float:right; width:110px; position:relative; bottom:45px;">
 				<input type="submit" value="입력">
 				<input type="button" value="목록" onclick="${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do">
 				</div>

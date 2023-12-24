@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>중고거래</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript">
 window.onload=function(){
 	let myForm = document.getElementById('search_form');
@@ -46,6 +50,7 @@ window.onload=function(){
 			</a>
 		</div>
 		<div>
+		<br>
 		<h3>중고거래 게시물</h3>
 		<form id="search_form" action="list.do" method="get">
 			<ul class="search">

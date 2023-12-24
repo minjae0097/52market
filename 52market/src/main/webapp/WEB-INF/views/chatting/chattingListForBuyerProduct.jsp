@@ -18,8 +18,7 @@
 				<div>
 				채팅목록이 없습니다.
 				</div>
-				</c:if>
-				
+			</c:if>
 			<c:if test="${!empty list}">
 				<table>
 				<c:forEach var="list" items="${list}">

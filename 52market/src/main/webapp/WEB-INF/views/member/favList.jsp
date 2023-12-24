@@ -15,6 +15,23 @@
 		<h2>관심목록</h2>
 		<div>
 			<h3>중고거래</h3>
+			<div class="align-right">
+				<a href="favProductList.do">상세보기</a>
+			</div>
+			<c:if test="${empty productList}">
+			<div>
+			표시할 게시물이 없습니다.
+			</div>
+			</c:if>
+			<c:if test="${!empty productList}">
+			<c:forEach var="product" items="${productList}">
+			<div>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${product.product_num}">${product.product_name}</a></li>
+				</ul>
+			</div>
+			</c:forEach>
+			</c:if>
 		</div>
 		<hr size="1" width="100%">
 		<div>

@@ -11,6 +11,8 @@ import kr.car.vo.CarList_DetailVO;
 import kr.controller.Action;
 import kr.house.dao.HouseDAO;
 import kr.house.vo.HouseDetailVO;
+import kr.product.dao.ProductDAO;
+import kr.product.vo.Product_DetailVO;
 
 public class MySellListAction implements Action{
 
@@ -30,11 +32,13 @@ public class MySellListAction implements Action{
 		List<HouseDetailVO> houseList = null;
 		houseList = house.getSellList(user_num, 1, 2, null, null);
 
-		
-		
+		ProductDAO product = ProductDAO.getInstance();
+		List<Product_DetailVO> productList = null;
+		productList = product.getBuyList(user_num, 1, 2, null, null);
 		
 		request.setAttribute("carList", carList);
 		request.setAttribute("houseList", houseList);
+		request.setAttribute("productList", productList);
 		
 		return "/WEB-INF/views/member/mySellList.jsp";
 	}

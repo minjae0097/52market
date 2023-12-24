@@ -591,26 +591,38 @@ public class ProductDAO {
 	
 	
 	//중고물품 관심리스트
-	public List<Product_DetailVO> getFavList(int mem_num, int start, int end)throws Exception{
+	public List<Product_DetailVO> getFavList(int mem_num, int start, int end, String keyfield, String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Product_DetailVO> list = null;
+		String sub_sql = "";
+		int cnt = 0;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
 					+ "(SELECT * FROM product_fav f INNER JOIN "
 					+ "(SELECT * FROM product INNER JOIN product_detail "
 					+ "USING (product_num))b on f.product_num=b.product_num "
-					+ "WHERE mem_num=? ORDER BY regdate DESC)a) "
+					+ "WHERE mem_num=?" + sub_sql
+					+  " ORDER BY regdate DESC)a) "
 					+ "WHERE rnum>=? AND rnum<=?";
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			pstmt.setInt(1, mem_num);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
 			list = new ArrayList<Product_DetailVO>();
 			while(rs.next()) {
@@ -628,7 +640,6 @@ public class ProductDAO {
 				
 				list.add(detail);
 			}
-			
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -638,28 +649,34 @@ public class ProductDAO {
 	}
 	
 	
-	
-	
-	
-	//중고차 관심리스트 개수
+	//중고물품 관심리스트 개수
 	//전체 레코드수/검색 레코드수
-	public int getProductFavListCount(int mem_num)throws Exception{
+	public int getProductFavListCount(int mem_num, String keyfield, String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		ResultSet rs = null;
+		String sub_sql = "";
 		int count = 0;
 		
 		try {
 			conn = DBUtil.getConnection();
 			
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
 			sql = "SELECT COUNT(*) FROM (SELECT * FROM product_fav f INNER JOIN "
 					+ "(SELECT * FROM product INNER JOIN product_detail "
-					+ "USING(product_num) b on f.product_num = b.product_num "
-					+ "WHERE mem_num=?)";
+					+ "USING(product_num)) b on f.product_num = b.product_num "
+					+ "WHERE mem_num=? " + sub_sql + " )";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -671,4 +688,226 @@ public class ProductDAO {
 		}
 		return count;
 	}
+
+
+
+
+
+//판매리스트
+	public List<Product_DetailVO> getSellList(int mem_num, int start, int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Product_DetailVO> list = null;
+		String sub_sql = "";
+		int cnt = 0;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			//검색
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f "
+					+ "INNER JOIN (SELECT * FROM product INNER JOIN product_detail "
+					+ "USING(product_num))b on f.mem_num=b.product_seller "
+					+ "WHERE product_seller=?"
+					+sub_sql+" ORDER BY NVL(product_modify_date, product_reg_date)DESC, "
+					+ "product_reg_date DESC, product_num DESC)a) WHERE rnum >=? AND rnum <=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Product_DetailVO>();
+			while(rs.next()) {
+				Product_DetailVO detail = new Product_DetailVO();
+				detail.setProduct_num(rs.getInt("product_num"));
+				detail.setProduct_name(rs.getString("product_name"));
+				detail.setProduct_buyer(rs.getInt("product_buyer"));
+				detail.setProduct_category(rs.getInt("product_category"));
+				detail.setProduct_price(rs.getInt("product_price"));
+				detail.setProduct_image(rs.getString("product_image"));
+				detail.setProduct_modify_date(rs.getDate("product_modify_date"));
+				
+				list.add(detail);
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	
+	//판매리스트 개수
+	public int getSellListCount(int mem_num, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			//검색
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
+			sql = "SELECT COUNT(*) FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM product INNER JOIN product_detail USING (product_num))b on f.mem_num=b.product_seller "
+					+ "WHERE product_seller=? "+sub_sql+" )";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+	
+	
+	
+
+	//판매처리
+	public void sellProduct(int product_num, int product_buyer)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE product_detail SET product_buyer=?, product_tradedate=sysdate WHERE product_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_buyer);
+			pstmt.setInt(2, product_num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+
+	//구매리스트
+	public List<Product_DetailVO> getBuyList(int mem_num, int start, int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Product_DetailVO>list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			//검색
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f "
+				+ "INNER JOIN (SELECT * FROM product INNER JOIN product_detail USING(product_num)) b "
+				+ "on f.mem_num=b.product_buyer WHERE product_buyer=? "+sub_sql+" ORDER BY NVL(product_modify_date, product_reg_date) DESC, "
+				+ "product_reg_date DESC, product_num DESC)a) WHERE rnum >=? AND rnum <=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, "%"+keyword+"%");
+			}
+			
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<Product_DetailVO>();
+			
+			while(rs.next()) {
+				Product_DetailVO detail = new Product_DetailVO();
+				detail.setProduct_num(rs.getInt("product_num"));
+				detail.setProduct_name(rs.getString("product_name"));
+				detail.setProduct_buyer(rs.getInt("product_buyer"));
+				detail.setProduct_category(rs.getInt("product_category"));
+				detail.setProduct_price(rs.getInt("product_price"));
+				detail.setProduct_image(rs.getString("product_image"));
+				detail.setProduct_modify_date(rs.getDate("product_modify_date"));
+				
+				list.add(detail);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+
+	
+	
+	//구매리스트개수
+	public int getBuyListCount(int mem_num, String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += " AND product_name LIKE ?";
+				else if(keyfield.equals("2")) sub_sql += " AND product_content LIKE ?";
+			}	
+			
+			//SQL문 작성
+			sql = "SELECT count(*) FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM product INNER JOIN product_detail USING(product_num) "
+					+ " ) b on f.mem_num=b.product_buyer WHERE product_buyer=? "+sub_sql+" )";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				pstmt.setString(2, "%"+keyword+"%");
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+	
+	
 }
+

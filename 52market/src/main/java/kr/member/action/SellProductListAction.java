@@ -6,15 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.car.dao.CarDAO;
-import kr.car.vo.CarList_DetailVO;
 import kr.controller.Action;
-import kr.house.dao.HouseDAO;
-import kr.house.vo.HouseDetailVO;
 import kr.product.dao.ProductDAO;
 import kr.product.vo.Product_DetailVO;
+import kr.util.PageUtil;
 
-public class FavListAction implements Action{
+public class SellProductListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -23,24 +20,22 @@ public class FavListAction implements Action{
 		if(user_num == null) {//로그인이 되지 않은 경우
 			return "redirect:/member/loginForm.do";
 		}
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) pageNum = "1";
 		
 		ProductDAO product = ProductDAO.getInstance();
+		int count = product.getSellListCount(user_num,null,null);
+		PageUtil page = new PageUtil(Integer.parseInt(pageNum), count, 10, 5, "sellProductList.do");
 		List<Product_DetailVO> productList = null;
-		productList = product.getFavList(user_num, 1, 2, null, null);
+		if(count>0) {
+			productList = product.getSellList(user_num, page.getStartRow(),page.getEndRow(), null, null);
+		}
 		
-		CarDAO car = CarDAO.getInstance();
-		List<CarList_DetailVO> carList = null;
-		carList = car.getFavList(user_num,1,2,null,null);
-		
-		HouseDAO house = HouseDAO.getInstance();
-		List<HouseDetailVO> houseList = null;
-		houseList = house.getFavList(user_num, 1, 2, null, null);
-		
-		request.setAttribute("carList", carList);
-		request.setAttribute("houseList", houseList);
 		request.setAttribute("productList", productList);
+		request.setAttribute("count", count);
+		request.setAttribute("page", page.getPage());
 		
-		return "/WEB-INF/views/member/favList.jsp";
+		return "/WEB-INF/views/member/sellProductList.jsp";
 	}
 
 }

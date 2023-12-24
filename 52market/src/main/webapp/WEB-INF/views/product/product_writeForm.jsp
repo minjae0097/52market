@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>상품 등록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript">
 window.onload=function(){
 	let myForm = document.getElementById('write_form');
@@ -23,7 +27,9 @@ window.onload=function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
+		<br>
 		<h2>내 물건 팔기</h2>
+		<br>
 		<form action="productWrite.do" id="write_form" method="post" enctype="multipart/form-data">
 		<ul>
 			<li>

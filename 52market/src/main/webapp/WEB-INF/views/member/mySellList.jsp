@@ -16,7 +16,36 @@
 		<h2>판매목록</h2>
 		<div>
 			<h3>중고거래</h3>
-			
+			<div class="align-right">
+				<a href="sellProductList.do">상세보기</a>
+			</div>
+			<c:if test="${empty productList}">
+			<div>
+			표시할 게시물이 없습니다.
+			</div>
+			</c:if>
+			<c:if test="${!empty productList}">
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
+			<c:forEach var="product" items="${productList}">
+			<tr>
+				<td>${product.product_num}</td>
+				<td>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${product.product_num}">${product.product_name}</a></li>
+				</ul>
+				</td>
+				<td>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerProduct.do?product_num=${product.product_num}'">채팅목록</button>
+				</td>
+			</tr>
+			</c:forEach>
+			</table>
+			</c:if>
 		</div>
 		<div>
 			<h3>중고차</h3>
