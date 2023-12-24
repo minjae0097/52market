@@ -226,7 +226,7 @@ window.onload=function(){
 								<c:if test="${house.house_deal_type == 4}">단기</c:if>
 								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원</c:if>
 								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원+</c:if></b><br>
-								
+								관심 : ${house.favcount} 조회수 : ${house.hit}
 							</a>
 							</div>
 						</div>

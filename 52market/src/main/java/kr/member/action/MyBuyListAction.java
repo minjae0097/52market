@@ -30,7 +30,7 @@ public class MyBuyListAction implements Action{
 		
 		HouseDAO house = HouseDAO.getInstance();
 		List<HouseDetailVO> houseList = null;
-		houseList = house.getSellList(user_num, 1, 2, null, null);
+		houseList = house.getBuyList(user_num, 1, 2, null, null);
 
 		ProductDAO product = ProductDAO.getInstance();
 		List<Product_DetailVO> productList = null;

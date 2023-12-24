@@ -964,8 +964,8 @@ public class HouseDAO {
 					if(keyfield.equals("1")) sub_sql += " AND house_title LIKE ?";
 					else if(keyfield.equals("2")) sub_sql += " AND house_content LIKE ?";
 				}
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail USING(house_num) WHERE mem_num=? ) "
-						+ "b on f.mem_num=b.mem_num "+sub_sql+"ORDER BY NVL(house_modify_date, house_reg_date) DESC, house_reg_date DESC, house_num DESC)a) WHERE rnum >=? AND rnum <=?";
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member f INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail USING(house_num) ) "
+						+ "b on f.mem_num=b.house_buyer  WHERE house_buyer=? "+sub_sql+"ORDER BY NVL(house_modify_date, house_reg_date) DESC, house_reg_date DESC, house_num DESC)a) WHERE rnum >=? AND rnum <=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(++cnt, mem_num);
 				if(keyword != null && !"".equals(keyword)) {
