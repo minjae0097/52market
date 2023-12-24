@@ -27,6 +27,22 @@ public class HouseDetailVO {
 	private Date house_modify_date;		//수정일
 	private int house_status;			//판매여부
 	
+	private int favcount;
+	private int hit;
+	
+	public int getFavcount() {
+		return favcount;
+	}
+	public void setFavcount(int favcount) {
+		this.favcount = favcount;
+	}
+	
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 	public int getHouse_num() {
 		return house_num;
 	}
