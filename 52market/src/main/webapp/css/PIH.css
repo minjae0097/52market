@@ -108,7 +108,7 @@ a:hover{
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
-#write_form{
+#write_form, #update_form{
 	width:800px;
 	height:700px;
 	border:1px solid lightgray;
@@ -346,8 +346,8 @@ table tr:hover{
 }
 #content-over{
 	overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+	text-overflow: ellipsis;
+	height:10px;
 }
 /* 게시판 글 상세
 ------------------------------*/
@@ -376,8 +376,9 @@ ul.detail-info li{
     padding: 12px 13px;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 22px;
+    overflow:hidden;
 }
 .detail-img{
 	max-width:500px;

@@ -6,7 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>동네생활 게시판 글 수정</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PIH.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -29,7 +32,6 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<h2>동네생활 게시판 글 수정</h2>
 			<form id="update_form" action="update.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="board_num" value="${board.board_num}">
 				<ul>

@@ -40,7 +40,7 @@
 					<img src="${pageContext.request.contextPath}/upload/${board.board_filename}" class="detail-img">
 				</div>
 			</c:if>
-			<p>
+			<p id="board_content_1">
 				${board.board_content}
 			</p>
 			<br>
