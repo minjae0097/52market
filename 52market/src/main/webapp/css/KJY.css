@@ -9,39 +9,28 @@
 	display: block;
 }
 
-.image-space1 .horizontal-area99{
-	margin:2px;
+.image-space .horizontal-area99{
+ 	margin:2px;
 	padding:3px;
 	width:45%;
 	height:240px;
 	float:left;
 	overflow:hidden;
-	text-align:center;
-	
-/* 	box-sizing:border-box;
-	display:block;
-	overflow:hidden;
-	width:initial;
-	height:initial;
-	background:none;
-	opacity:1;
-	border:0;
-	margin:0;
-	padding:0;
-	position:absolute;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0 */
+	vertical-align: middle;
 }
 
-.image-space1 .horizontal-area99 img{
+.image-space .horizontal-area99 img{
 	width:108px;
 	height:116.44px;
-
 }
-
-.image-space1 .float-clear{
+.list-horizontal{
+	float:left;
+	position:relative;
+	top:1px;
+	line-height: 150%;
+	width:200px;
+}
+.image-space .float-clear{
 	clear:both;
 }
 #keyfield1{
@@ -115,4 +104,46 @@ ul.search li{
     font-weight: 700;
     font-size: 20px;
     line-height: 16px;
+}
+/* 공통 정렬
+------------------------------*/
+.align-center{
+	text-align:center;
+}
+.align-right{
+	text-align:right;
+}
+/* 메뉴
+------------------------------*/
+/*#main_logo{
+	padding-top:20px;
+}*/
+#main_nav{
+	width:1000px;
+	padding:0px;
+	height:60px;
+}
+#main_nav ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+#main_nav ul li{
+	display:inline-block;
+	text-align:center;
+	vertical-align:middle;
+	padding-top:0px;
+	width:100px;
+}
+#main_nav ul li img.my-photo{
+	vertical-align:middle;
+}
+#main_nav ul li.menu-profile{
+	padding-top:0px;
+	width:25px;
+	vertical-align:middle;
+}
+#main_nav ul li.menu-logout{
+	width:150px;
+	text-align:right;
 }

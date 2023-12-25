@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알바</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/KJY.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -32,9 +33,9 @@ $(function(){
 <body>
 <div class="page-main1">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/알바배너.png" width="960">
-	<div class="content-main1">
-		<h2>알바 최신글</h2>
+		<img src="${pageContext.request.contextPath}/images/알바배너.png" width="960">
+		<div class="content">
+			<h2>알바 최신글</h2>
 		<form id="search_form" action="list.do" method="get" class="align-right">
 			<ul>
 				<li>
@@ -53,18 +54,28 @@ $(function(){
 					</ul>		
 				</li>
 			</ul>
-		<div class="image-space1">
+		</form>
+		<div class="image-space">
 			<c:forEach var="alba" items="${albaList}">
 				<div class="horizontal-area99">
-					<a href="${pageContext.request.contextPath}/alba/detailAlba.do?alba_num=${alba.alba_num}">
-					<img src="${pageContext.request.contextPath}/upload/${alba.alba_photo}">
-					<span>${alba.alba_title}</span>
-					<span>${alba.alba_address1}</span>
-					<br>
-					조회 ${alba.alba_hit}
-					관심 ${alba.alba_fav}
-					지원자수 ${alba.apcount}
-					</a>
+					<span class="horizontal-area">
+						<a href="${pageContext.request.contextPath}/alba/detailAlba.do?alba_num=${alba.alba_num}">
+							<img src="${pageContext.request.contextPath}/upload/${alba.alba_photo}">
+						</a>
+					</span>
+					<div class="list-horizontal">
+						<a href="${pageContext.request.contextPath}/alba/detailAlba.do?alba_num=${alba.alba_num}">
+							<span style="font-size: 20pt;"><br>
+							${alba.alba_title}</span><br>
+							<span>${alba.alba_address1}</span>
+							<br>
+							<span style="font-size: 10pt;">
+							조회 ${alba.alba_hit}
+							관심 ${alba.alba_fav}
+							지원자수 ${alba.apcount}
+							</span>
+						</a>
+					</div>
 				</div>
 			</c:forEach>
 			<div class="float-clear">
@@ -72,13 +83,13 @@ $(function(){
 			</div>
 			<div class="align-center">${page}</div>
 		</div>
-		</form>
 	</div>
 	<div class="align-right">
 		<c:if test="${user_auth==3}">
 		<input type="button" value="글쓰기" onclick="location.href='insertAlbaForm.do'">
 		</c:if>
 	</div>
-</div>
+	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
