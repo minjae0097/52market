@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<style type="text/css">
+.content-list ul{
+	margin: 7px;
+}
+.content-list ul li{
+	margin: 2px;
+}
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -119,7 +127,7 @@ $(function(){
 				<input type="button" value="취소" id="photo_reset">
 			</div>
 			</div>
-		<div class="mypage-div">
+		<div class="mypage-div" style="position: relative;top:120px;">
 			<span><b>${member.mem_nickname}</b>님</span>
 			<button onclick="location.href='modifyNicknameForm.do'">닉네임 변경</button>
 			<ul>
@@ -142,7 +150,7 @@ $(function(){
 			</div>
 		</div>
 		<hr size="1" width="100%">
-		<div>
+		<div class="content-list">
 		<h3>나의 거래</h3>
 		<ul>
 			<li><a href="favList.do">관심목록</a></li>
@@ -151,13 +159,13 @@ $(function(){
 		</ul>
 		</div>
 		<hr size="1" width="100%">
-		<div>
+		<div class="content-list">
 		<h3>동네 생활</h3>
 		<ul>
 			<li><a>동네생활 활동</a></li>
 		</ul>
 		</div>
-		<div>
+		<div class="content-list">
 		<h3>구매 채팅</h3>
 		<ul>
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do'>중고거래 채팅 목록</a></li>
@@ -165,7 +173,7 @@ $(function(){
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerHouse.do'>부동산 채팅 목록</a></li>
 		</ul>
 		</div>
-		<div>
+		<div class="content-list">
 		<h3>알바 지원</h3>
 		<ul>
 			<c:if test="${user_auth!=3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForU.do'>지원 목록</a></li></c:if>

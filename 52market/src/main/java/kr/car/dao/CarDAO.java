@@ -196,7 +196,7 @@ public class CarDAO {
 			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member m INNER JOIN (SELECT * FROM carlist INNER JOIN carlist_detail USING(carlist_num) "
-					+ "WHERE carlist_status<=? "+ sub_sql + type + fuel + transmission + origin+" ORDER BY carlist_num DESC) b on m.mem_num=b.car_seller )a) WHERE rnum >=? AND rnum <=?";
+					+ "WHERE carlist_status<=? "+ sub_sql + type + fuel + transmission + origin+" ORDER BY NVL(carlist_modify_date, carlist_reg_date) DESC, carlist_reg_date DESC, carlist_num DESC) b on m.mem_num=b.car_seller )a) WHERE rnum >=? AND rnum <=?";
 			//PreparedStatrment 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -236,6 +236,7 @@ public class CarDAO {
 				detail.setCar_image(rs.getString("car_image"));
 				detail.setFavcount(car.selectFavCount(rs.getInt("carlist_num")));
 				detail.setCarlist_hit(rs.getInt("carlist_hit"));
+				detail.setCarlist_status(rs.getInt("carlist_status"));
 				
 				list.add(detail);
 			}

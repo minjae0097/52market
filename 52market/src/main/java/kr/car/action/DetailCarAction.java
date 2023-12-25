@@ -26,6 +26,7 @@ public class DetailCarAction implements Action{
 		CarlistVO list = car.getCarList(carlist_num);
 		Car_MapVO map = car.getCarMap(carlist_num);
 		MemberVO seller = car.getCarMember(detail.getCar_seller());
+		int favcount = car.selectFavCount(carlist_num);
 		
 		detail.setCar_title(StringUtil.useNoHtml(detail.getCar_title()));
 		list.setCarlist_content(StringUtil.useBrNoHtml(list.getCarlist_content()));
@@ -34,6 +35,7 @@ public class DetailCarAction implements Action{
 		request.setAttribute("list", list);
 		request.setAttribute("map", map);
 		request.setAttribute("seller", seller);
+		request.setAttribute("favcount", favcount);
 		
 		
 		return "/WEB-INF/views/car/detailCar.jsp";

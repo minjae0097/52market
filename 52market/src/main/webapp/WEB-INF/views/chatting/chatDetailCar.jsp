@@ -16,7 +16,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>CHAT</h2>
-		<div class="wrap" id="chatList">
+		<div class="wrap chatList" id="chatList">
 			
 		</div>
 		<div>

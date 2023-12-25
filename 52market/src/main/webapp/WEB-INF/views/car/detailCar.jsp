@@ -62,10 +62,9 @@ $(function(){
 		$('#output_fcount').text(param.count);
 	}
 	//초기 데이터 호출
-	
-	if(user_num!=${detail.car_seller})	{
+	<c:if test="${user_num==null||user_num!=detail.car_seller}">
 		selectFav();
-	}
+	</c:if>
 });
 </script>
 </head>
@@ -73,15 +72,16 @@ $(function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-detail">
-		<img src="${pageContext.request.contextPath}/upload/${detail.car_image}" width="600">
-	<div class="horizontal-area">
+		<img src="${pageContext.request.contextPath}/upload/${detail.car_image}" width="600px">
+	<div class="content-detail">
 		<c:if test="${!empty seller.mem_photo}">
-		<img src="${pageContext.request.contextPath}/upload/${seller.mem_photo}" width="30" height="30" class="my-photo">
+		<img src="${pageContext.request.contextPath}/upload/${seller.mem_photo}" width="30px" height="30px" class="my-photo">
 		</c:if>
 		<c:if test="${empty seller.mem_photo}">
-		<img src="${pageContext.request.contextPath}/images/face.png" width="30" height="30" class="my-photo">
+		<img src="${pageContext.request.contextPath}/images/face.png" width="30px" height="30px" class="my-photo">
 		</c:if>
 		<span>${seller.mem_nickname}</span>
+		<c:if test="${user_num==detail.car_seller||user_auth==9}">
 		<button onclick="location.href='updateCarForm.do?carlist_num=${list.carlist_num}'">수정</button>
 		<button id="delete_btn">삭제</button>
 		<script type="text/javascript">
@@ -93,21 +93,30 @@ $(function(){
 				}
 			}
 		</script>
-	</div>
+		</c:if>
 	<hr width="100%" size="1">
-	<div>
+	</div>
+	<div class="content-detail">
+		<span>
 		<c:if test="${list.carlist_status==0}"><span style=" border: 3px solid;"><b>판매중</b></span> . </c:if>
 		<c:if test="${list.carlist_status==1}"><span style=" border: 3px solid;"><b>판매완료</b></span> . </c:if>
-		<span>${detail.car_title} . 
+		${detail.car_title}<br>
+		</span>
+		<span style="font-size: 17pt;">
+		<b>
 		<c:if test="${detail.car_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.car_price/10000}"/>만원</c:if>
 		<c:if test="${detail.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.car_price/10000}"/>만원+</c:if> . 
 		<c:if test="${detail.car_distance>=10000}">  <fmt:formatNumber value="${detail.car_distance/10000}" pattern="#.#" />만km</c:if>
 		<c:if test="${detail.car_distance<10000 }"><fmt:formatNumber value="${detail.car_distance}"/>km</c:if>
-		
+		</b>
 		</span>
-		조회수 ${list.carlist_hit}
+		<br>
+		<br>
+		<span style="font-size: 11pt;color: gray; margin-top: 10px;">
+		관심 ${favcount} . 조회수 ${list.carlist_hit}
+		</span>
 	</div>
-	<div>
+	<div class="content-detail">
 	<h1>정보</h1>
 		<ul>
 			<li>차종 : ${detail.car_type}</li>
@@ -124,9 +133,9 @@ $(function(){
 		</ul>
 	<h1>위치</h1>
 	<jsp:include page="/map/showMap.jsp"/>
-	</div>
 	<hr width="100%" size="1">
-		<div>
+	</div>
+		<div  class="content-detail">
 			<c:if test="${user_num!=detail.car_seller}">
 			<%-- 좋아요 시작 --%>
 				<img id="output_fav" data-num="${list.carlist_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">

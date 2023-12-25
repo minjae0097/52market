@@ -11,17 +11,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
 <script type="text/javascript">
 window.onload=function(){
-	/* let myForm = document.getElementById('search_form');
-	//이벤트 연결
-	myForm.onsubmit=function(){
-		let keyword = document.getElementById('keyword');
-		if(keyword.value.trim()==''){
-			alert('검색어를 입력하세요!');
-			keyword.value = '';
-			keyword.focus();
-			return false;
-		}
-	}; */
 	let show_filter = document.getElementById('show_filter');
 	let filter = document.getElementById('filter');
 	//필터 보이게
@@ -161,12 +150,17 @@ window.onload=function(){
 					</div>
 					<div class="list-horizontal">
 					<a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">
-							<span>${car.car_title}</span><br>
+						<span style="font-size: 14pt;">${car.car_title}</span><br>
+						<c:if test="${car.car_distance>=10000}">  <fmt:formatNumber value="${car.car_distance/10000}" pattern="#.#" />만km . </c:if>
+						<c:if test="${car.car_distance<10000 }"><fmt:formatNumber value="${car.car_distance}"/>km . </c:if>
+						${car.car_model_year}년식
+						<br>
 						<b>
 						<c:if test="${car.car_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원</c:if>
 						<c:if test="${car.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원+</c:if>
 						</b><br>
-						관심 ${car.favcount} 조회수 ${car.carlist_hit}
+						관심 ${car.favcount} 조회수 ${car.carlist_hit}<br>
+						<c:if test="${car.carlist_status==1}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
 					</a>
 					</div>
 				</div>

@@ -39,13 +39,26 @@
 			</div>
 			</c:if>
 			<c:if test="${!empty detail}">
-			<c:forEach var="detail" items="${detail}">
-			<div>
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${detail.carlist_num}">${detail.car_title}</a></li>
-				</ul>
-			</div>
+			<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>채팅</th>
+			</tr>
+			<c:forEach var="carList" items="${detail}">
+			<tr>
+				<td>${carList.carlist_num}</td>
+				<td>
+					<ul>
+						<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${carList.carlist_num}">${carList.car_title}</a></li>
+					</ul>
+				</td>
+				<td>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${carList.carlist_num}'">채팅목록</button>
+				</td>
+			</tr>
 			</c:forEach>
+			</table>
 			<div class="align-center">${page}</div>
 			</c:if>
 	</div>

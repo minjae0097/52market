@@ -38,7 +38,7 @@
 				</td>
 				<td>
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerProduct.do?product_num=${product.product_num}'">채팅목록</button>
-				<td>
+				</td>
 			</tr>
 			</c:forEach>
 			</table>

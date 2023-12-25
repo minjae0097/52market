@@ -34,7 +34,7 @@ public class MySellListAction implements Action{
 
 		ProductDAO product = ProductDAO.getInstance();
 		List<Product_DetailVO> productList = null;
-		productList = product.getBuyList(user_num, 1, 2, null, null);
+		productList = product.getSellList(user_num, 1, 2, null, null);
 		
 		request.setAttribute("carList", carList);
 		request.setAttribute("houseList", houseList);

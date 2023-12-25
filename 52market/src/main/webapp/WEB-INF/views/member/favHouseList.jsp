@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>부동산 판매목록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/CMJ.css">
 </head>
 <body>
 <div class="page-main">

@@ -1,7 +1,20 @@
 @charset "UTF-8";
 
 .content-detail{
-	padding:10px 250px;
+	width:600px;
+	margin:20px;
+	position: relative;
+    left: 50px;
+}
+.content-detail ul{
+	margin-left: 20px;
+}	
+.content-detail ul li{
+	margin-bottom: 10px;
+	font-size: 15pt;
+}
+.content-detail h1{
+	margin-bottom: 10px;
 }
 .image-space .horizontal-area24{
 	margin:2px;
@@ -17,7 +30,14 @@
 	height:195px;
 }
 .filter{
-	background-color: gray;
+	background-color: white;
+	width:830px;
+    padding: inherit;
+    position: relative;
+    right: 160px;
+    border-style: solid;
+    border-color: #9ED6C0;
+    border-radius: 20px;
 }
 .mypage-horizontal{
 	margin:2px;
@@ -49,7 +69,14 @@
 	float:left;
 	position:relative;
 	top:10px;
+	line-height: 170%;
+	width:160px;
 }
+/* h2간 거리 */
+.content-main h3{
+	padding-top: 40px;
+}
+
 /* 채팅
 ------------------------------*/
 

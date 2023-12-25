@@ -6,6 +6,40 @@
 <meta charset="UTF-8">
 <title>수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<style type="text/css">
+.li-move input{
+	margin-left: 10px;
+	margin-top: 7px;
+}
+h3 label{
+	margin-bottom: 10px;
+}
+h3{
+	margin-bottom: 10px;
+}
+input[type="text"], textarea{
+    width: 80%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 8px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+input[type="number"]{
+	width: 20%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+}
+form{
+	border-color: #C4C4C4;
+}
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 window.onload=function(){
@@ -75,10 +109,10 @@ window.onload=function(){
 			<input type="hidden" name="carlist_num" value="${list.carlist_num}">
 			<ul>
 				<li>
-					<label for="car_title">모델명</label>
+					<h3><label for="car_title">모델명</label></h3>
 					<input type="text" id="car_title" name="car_title" maxlength="50" value="${detail.car_title}">
 				</li>
-				<li>
+				<li class="li-move">
 					<h3 class="radio-check" id="car_type">차종</h3>
 					<input type="radio" name="car_type" value="경차/소형차" >경차/소형차
 					<input type="radio" name="car_type" value="준/중형차" >준/중형차
@@ -87,7 +121,7 @@ window.onload=function(){
 					<input type="radio" name="car_type" value="승합/화물차" >승합/화물차
 					<input type="radio" name="car_type" value="그외" >그외
 				</li>
-				<li>
+				<li class="li-move">
 					<h3 class="radio-check" id="car_fuel">연료</h3>
 					<input type="radio" name="car_fuel" value="가솔린(휘발유)" >가솔린(휘발유)
 					<input type="radio" name="car_fuel" value="디젤(경유)" >디젤(경유)
@@ -100,15 +134,15 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3><label for="car_price">가격</label></h3>
-					<input type="number" id="car_price" name="car_price" min="1" max="999999999999" value="${detail.car_price}">원
+					<input type="number" id="car_price" name="car_price" min="1" max="999999999999" value="${detail.car_price}"> 원
 				</li>
 				<li>
 					<h3><label for="car_model_year">연식</label></h3>
-					<input type="number" id="car_model_year" name="car_model_year" min="1000" max="9999" value="${detail.car_model_year}">년
+					<input type="number" id="car_model_year" name="car_model_year" min="1000" max="9999" value="${detail.car_model_year}"> 년 <span style="font-size: 10px;color: gray">ex)2023년</span>
 				</li>
 				<li>
 					<h3><label for="car_distance">주행거리</label></h3>
-					<input type="number" id="car_distance" name="car_distance" min="0" max="9999999" value="${detail.car_distance}">km
+					<input type="number" id="car_distance" name="car_distance" min="0" max="9999999" value="${detail.car_distance}"> km
 				</li>
 				<li>
 					<h3 class="radio-check" id="car_transmission"><label>변속기</label></h3>
@@ -121,17 +155,15 @@ window.onload=function(){
 					<input type="radio" name="car_origin" value="수입" >수입
 				</li>
 				<li>
-					<h3>소개</h3>
-					<label for="carlist_content">내용</label>
+					<h3><label for="carlist_content">소개</label></h3>
 					<textarea rows="4" cols="40" placeholder="내용을 입력해주세요" id="carlist_content" name="carlist_content">${list.carlist_content}</textarea>
 				</li>
 				<li>
-					<label for="car_image">이미지</label>
+					<h3><label for="car_image">이미지</label></h3>
 					<input type="file" name="car_image" id="car_image" accept="image/gif,image/png,image/jpeg">
 				</li>
 				<li>
-					<h3>거래장소</h3>
-					<label for="location">위치</label>
+					<h3><label for="location">거래장소</label></h3>
 					<input type="text" id="location" name="location" value="${map.location}" readonly>
 					<input type="button" name="mapopen" id="mapopen"  value="장소 선택">
 					<input type="hidden" name="location_x" id="location_x" value="${map.location_x}">

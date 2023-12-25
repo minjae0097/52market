@@ -13,7 +13,7 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>판매목록</h2>
+		<h2>최근 판매목록</h2>
 		<div>
 			<h3>중고거래</h3>
 			<div class="align-right">
