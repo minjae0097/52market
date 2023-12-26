@@ -152,7 +152,7 @@ body {
 .chat_btn{
 	padding: 7px 12px;
     font-weight: 300;
-    border-radius: 24px;
+    border-radius: 24px; 
     display: block;
     outline: none;
     appearance: none;
