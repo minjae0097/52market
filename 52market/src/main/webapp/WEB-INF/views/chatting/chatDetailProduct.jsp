@@ -25,11 +25,20 @@
 				<textarea rows="8" cols="100" placeholder="내용을 입력해주세요" name="message" id="message"></textarea>
 				<div id="re_first" style="float: right;width: 80px;">
 				<span class="letter-count">300/300</span>
-				</div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 				<div style="float:right; width:110px; position:relative; bottom:45px;">
 				<c:if test="${user_num==seller_num}"><input type="button" value="판매하기" id="sell" data-sell="${chatroom_num}"></c:if>
 				<input type="submit" value="입력">
 				<input type="button" value="목록" onclick="${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do">
+				</div>
 				</div>
 			</form>
 		</div>
