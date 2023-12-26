@@ -52,7 +52,7 @@ window.onload=function(){
 		<div>
 		<br>
 		<h2>중고거래 게시물</h2>
-		<form id="search_form" action="list.do" method="get">
+		<form class="align-center" id="search_form" action="list.do" method="get">
 			<ul class="search">
 				<li>
 					<select name="keyfield" id="keyfield">

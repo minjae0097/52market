@@ -150,12 +150,8 @@ window.onload=function(){
 								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
 								<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
 							</select>
-						</li>
-						<li>
 							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" placeholder="제목을 입력하세요">
-						</li>
-						<li>
-							<input type="submit" value="검색"><br>
+							<input type="submit" value="검색">
 						</li>
 					</ul>
 				</li>
