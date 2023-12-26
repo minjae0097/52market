@@ -30,6 +30,14 @@ public class HouseDetailVO {
 	private int favcount;
 	private int hit;
 	
+	private int chatcnt;
+	
+	public int getChatcnt() {
+		return chatcnt;
+	}
+	public void setChatcnt(int chatcnt) {
+		this.chatcnt = chatcnt;
+	}
 	public int getFavcount() {
 		return favcount;
 	}

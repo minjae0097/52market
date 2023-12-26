@@ -108,6 +108,7 @@
 				</td>
 				<td style="width: 20%">
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerHouse.do?house_num=${house.house_num}'">채팅목록</button>
+					<c:if test="${house.chatcnt>0}"><span>(NEW)</span></c:if>
 				</td>
 			</tr>
 			</c:forEach>

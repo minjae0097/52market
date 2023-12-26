@@ -840,6 +840,7 @@ public class HouseDAO {
 				
 				//SQL문 실행 4단계
 				rs = pstmt.executeQuery();
+				ChatHouseDAO dao = ChatHouseDAO.getInsttance();
 				list = new ArrayList<HouseDetailVO>();
 				while(rs.next()) {
 					HouseDetailVO detail = new HouseDetailVO();
@@ -863,6 +864,7 @@ public class HouseDAO {
 					detail.setHouse_buyer(rs.getInt("house_buyer"));
 					detail.setMem_num(rs.getInt("mem_num"));
 					detail.setHouse_modify_date(rs.getDate("house_modify_date"));
+					detail.setChatcnt(dao.getreadcountSeller(mem_num, detail.getHouse_num()));
 					
 					list.add(detail);
 				}
