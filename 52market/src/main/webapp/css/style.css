@@ -169,17 +169,6 @@ input[type="button"],input[type="submit"]{
 input[type="button"]:hover, input[type="submit"]:hover{
 	background:lightgray;
 }
-#board_category{
-	width: 200px;
-    border: 1px solid #C4C4C4;
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 12px 13px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-}
 #board_category_list,select[name="keyfield"],#keyfield1{
 	width: 20%;
     border: 1px solid #C4C4C4;
@@ -203,7 +192,7 @@ input[type="button"]:hover, input[type="submit"]:hover{
     line-height: 16px;
 }
 input[type="search"]{
-	width: 30%;
+	width: 50%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
