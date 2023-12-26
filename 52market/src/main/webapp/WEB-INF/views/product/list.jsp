@@ -49,7 +49,6 @@ window.onload=function(){
 			<img src="${pageContext.request.contextPath}/images/중고거래배너.png" width="900">
 			</a>
 		</div>
-		<div>
 		<br>
 		<h2>중고거래 게시물</h2>
 		<form class="align-center" id="search_form" action="list.do" method="get">
@@ -88,7 +87,6 @@ window.onload=function(){
 						<img src="${pageContext.request.contextPath}/upload/${product.product_image}">
 						<br>
 						<span>${product.product_name}  
-						<c:if test="${product.product_status==0}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매중</b></span></c:if>
 						<c:if test="${product.product_status==1}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
 						</span>
 						<br>
