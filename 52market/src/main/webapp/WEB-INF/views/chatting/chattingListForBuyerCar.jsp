@@ -24,6 +24,7 @@
 			<c:forEach var="list" items="${list}">
 			<tr>
 				<td>${list.chatroom_num}</td>
+				<td>${list.car_title}</td>
 				<td><a href="chatDetailCar.do?chatroom_num=${list.chatroom_num}">${list.mem_nickname}님(${list.cnt})과 채팅하기</a></td>
 			</tr>
 			</c:forEach>

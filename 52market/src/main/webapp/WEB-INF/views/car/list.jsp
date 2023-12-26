@@ -67,7 +67,7 @@ window.onload=function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-	 <a href="${pageContext.request.contextPath}/main/main.do"><img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900"></a>
+	 <a href="${pageContext.request.contextPath}/car/list.do"><img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900"></a>
 		<h2>등록 매물</h2>
 			<form id="search_form" action="list.do" method="get">
 			<ul>

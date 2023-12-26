@@ -113,6 +113,7 @@ public class ChatCarDAO {
 					room.setBuyer_num(rs.getInt("buyer_num"));
 					room.setMem_nickname(rs.getString("mem_nickname"));
 					room.setCnt(dao.getreadcount(mem_num, room.getChatroom_num()));
+					room.setCar_title(rs.getString("car_title"));
 					list.add(room);
 				}
 				
