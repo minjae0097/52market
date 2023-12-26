@@ -5,8 +5,14 @@
 	padding:10px 250px;
 }
 .filter{
-	background-color: #f3ffd6;
-	border: 1px solid ;
+	background-color: white;
+	width:830px;
+    padding: inherit;
+    position: relative;
+    right: 160px;
+    border-style: solid;
+    border-color: #9ED6C0;
+    border-radius: 20px;
 }
 .image-space .horizontal-area24 {
 	margin:2px;
@@ -130,4 +136,22 @@ input[type="search"]{
     font-weight: 400;
     font-size: 14px;
     line-height: 7px;
+}
+.chat-btn{
+    font-weight: 300;
+    border-radius: 24px; 
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    display:inline-block;
+    background-color:#9ED6C0;
+    color:white;
+    height: 50px;
+    width: 200px;
+    font-size: 30px;
+    position:relative;
+    left:70px;
+    cursor: pointer;
 }

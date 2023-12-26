@@ -11,17 +11,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SSY.css">
 <script type="text/javascript">
 window.onload=function(){
-	/* let myForm = document.getElementById('search_form');
-	//이벤트 연결
-	myForm.onsubmit=function(){
-		let keyword = document.getElementById('keyword');
-		if(keyword.value.trim()==''){
-			alert('검색어를 입력하세요!');
-			keyword.value = '';
-			keyword.focus();
-			return false;
-		}
-	}; */
 	let show_filter = document.getElementById('show_filter');
 	let filter = document.getElementById('filter');
 	//필터 보이게
@@ -39,9 +28,9 @@ window.onload=function(){
 	};
 	
 	//판매중만 보이게
-	let house_status = document.getElementById('save_btn');
+	let house_status = document.getElementById('house_status');
 	house_status.onclick=function(){
-		let myform = documenet.getElementById('search_form');
+		let myform = document.getElementById('search_form');
 		myform.submit();
 	}
 	/*
