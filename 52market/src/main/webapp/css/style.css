@@ -136,7 +136,7 @@ ul{
 input{
    margin-top:4px;
 }
-input[type="text"],input[type="password"],input[type="email"],textarea,.input-check{
+input[type="text"],input[type="password"],input[type="email"],textarea{
    width:80%;
    height:30px;
    border-radius:10px;
@@ -154,7 +154,7 @@ input[type="number"]{
 .form-notice{
    margin-left:130px;
 }
-input[type="button"],input[type="submit"],button{
+input[type="button"],input[type="submit"],button,input[type="hidden"]{
    padding: 7px 12px;
     font-weight: 300;
     border-radius: 24px;
@@ -181,8 +181,9 @@ input[type="button"]:hover, input[type="submit"]:hover,button:hover{
     font-size: 14px;
     line-height: 7px;
 }
-#board_title{
-   width: 80%;
+#board_title, #mem_nickname,#mem_passwd,#mem_id,#origin_passwd,#mem_passwd,#cpasswd,#mem_name,#mem_phone,#mem_email,#mem_zipcode,#address1,#address2
+,#product_name,#product_title,#product_price,#product_content{
+    width: 80%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -203,9 +204,9 @@ input[type="search"]{
     font-size: 14px;
     line-height: 16px;
 }
-#board_content{
-   width: 80%;
-   height:400px;
+#board_content,textarea{
+    width: 80%;
+    height:250px;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -216,7 +217,7 @@ input[type="search"]{
     line-height: 20px;
 }
 #board_category:focus{
-   border: 1px solid #9ED6C0;
+    border: 1px solid #9ED6C0;
     box-sizing: border-box;
     border-radius: 10px;
     border-radius: 10px;
