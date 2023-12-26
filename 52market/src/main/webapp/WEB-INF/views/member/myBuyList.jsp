@@ -83,7 +83,7 @@
 		<div>
 			<h3>부동산 직거래</h3>
 			<div class="align-right">
-				<a href="sellHouseList.do">상세보기</a>
+				<a href="buyHouseList.do">상세보기</a>
 			</div>
 			<c:if test="${empty houseList}">
 			<div>
@@ -102,7 +102,7 @@
 				<td>${house.house_num}</td>
 				<td>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/house/detailhouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
+					<li><a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
 				</ul>
 				</td>
 				<td>
