@@ -70,7 +70,9 @@ $(function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-detail">
-		<img src="${pageContext.request.contextPath}/upload/${detail.house_photo2}" width="400">
+		<div align="center">
+			<img src="${pageContext.request.contextPath}/upload/${detail.house_photo2}" width="400">
+		</div>
 		<div class="horizontal-area">
 			<c:if test="${!empty seller.mem_photo}">
 			<img src="${pageContext.request.contextPath}/upload/${seller.mem_photo}" width="30" height="30" class="my-photo">
@@ -144,6 +146,7 @@ $(function(){
 					</li>
 					<li>주소 : ${detail.house_address1} ${detail.house_address2}</li>
 				</ul>
+				<hr style="margin: 10px;" width="100%" size="1">
 			<h2>소개</h2>
 				<ul>
 					<li>
