@@ -72,7 +72,7 @@ window.onload=function(){
 			<form id="search_form" action="list.do" method="get">
 			<ul>
 			<li>
-			<ul class="search" style="width:400px;">
+			<ul class="search" style="width:450px;">
 				<li>
 				<input type="button" value="필터"  id = "show_filter">
 					<select id="keyfield" name="keyfield">
@@ -89,7 +89,7 @@ window.onload=function(){
 				
 			</ul>
 			<li style="position:relative;left:250px;">
-				<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
+				<input type="checkbox" name="carlist_status" id="carlist_status" value="0" style="margin: 0;"><span>판매중인 것만 보기</span>
 			</li>
 			</ul>	
 			<div class="filter" id="filter" style="display:none;">

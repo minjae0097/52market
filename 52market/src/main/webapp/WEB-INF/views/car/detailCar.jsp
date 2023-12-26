@@ -72,7 +72,7 @@ $(function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-detail">
-		<img src="${pageContext.request.contextPath}/upload/${detail.car_image}" width="600px">
+		<img src="${pageContext.request.contextPath}/upload/${detail.car_image}" width="600px" style="margin-left: 40px;">
 	<div class="content-detail">
 		<c:if test="${!empty seller.mem_photo}">
 		<img src="${pageContext.request.contextPath}/upload/${seller.mem_photo}" width="30px" height="30px" class="my-photo">
@@ -94,7 +94,8 @@ $(function(){
 			}
 		</script>
 		</c:if>
-	<hr width="100%" size="1">
+		
+	<hr style="margin: 10px;" width="100%" size="1">
 	</div>
 	<div class="content-detail">
 		<span>
@@ -157,5 +158,6 @@ $(function(){
 		</div>
 	</div>
 </div>
+ <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
