@@ -105,11 +105,12 @@ public class ChatHouseDAO {
 		try {
 			conn = DBUtil.getConnection();
 			
-			sql = "SELECT * FROM house_chatroom INNER JOIN house_detail USING(house_num) WHERE buyer_num=?";
+			sql = "SELECT * FROM member b JOIN (select * FROM house_chatroom INNER JOIN house_detail USING(house_num))a ON a.mem_num=b.mem_num WHERE buyer_num=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			
+			ChatHouseDAO dao = ChatHouseDAO.getInsttance();
 			rs = pstmt.executeQuery();
 			list = new ArrayList<House_ChatroomVO>();
 			while(rs.next()) {
@@ -118,7 +119,9 @@ public class ChatHouseDAO {
 				room.setHouse_num(rs.getInt("house_num"));
 				room.setSeller_num(rs.getInt("seller_num"));
 				room.setBuyer_num(rs.getInt("buyer_num"));
+				room.setCnt(dao.getreadcountSeller(mem_num, room.getChatroom_num()));
 				room.setHouse_title(rs.getString("house_title"));
+				room.setMem_nickname(rs.getString("mem_nickname"));
 				
 				list.add(room);
 			}
