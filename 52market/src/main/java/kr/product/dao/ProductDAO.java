@@ -196,6 +196,7 @@ public class ProductDAO {
 					detail.setProduct_image(rs.getString("product_image"));
 					detail.setProduct_name(rs.getString("product_name"));
 					detail.setFavcount(product.selectFavCount(rs.getInt("product_num")));
+					detail.setProduct_status(rs.getInt("product_status"));
 					
 					list.add(detail);
 				}
