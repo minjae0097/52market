@@ -111,11 +111,10 @@ a:hover{
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
-#write_form, #update_form{
-	width:800px;
-	height:700px;
+#write_form, #update_form, #modify_form, #password_form{
 	border:1px solid lightgray;
 	padding:10px 10px 10px 30px;
+	display:relative;
 }
 form{ 
 	width:600px;
@@ -137,9 +136,11 @@ ul{
 input{
 	margin-top:4px;
 }
-input[type="text"],input[type="password"],input[type="email"],textarea{
+input[type="text"],input[type="password"],input[type="email"],textarea,.input-check{
 	width:80%;
-	border-radius:0.5rem;
+	height:30px;
+	border-radius:10px;
+	border:1px solid #C4C4C4;
 }
 #register_form input[id="id"]{
 	width:223px;
@@ -169,7 +170,7 @@ input[type="button"],input[type="submit"],button{
 input[type="button"]:hover, input[type="submit"]:hover,button:hover{
 	background:lightgray;
 }
-#board_category_list,#keyfield1,#keyfield{
+#board_category_list,#keyfield1,#keyfield,#board_category{
 	width: 20%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
