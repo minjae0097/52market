@@ -85,7 +85,7 @@ window.onload=function(){
 						<img src="${pageContext.request.contextPath}/upload/${product.product_image}">
 						<br>
 						<span>${product.product_name}  
-						<c:if test="${product.product_status==1}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
+						<c:if test="${product.product_status==1}"><span style="background-color:#f7b165;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
 						</span>
 						<br>
 						<span><fmt:formatNumber value="${product.product_price}"/>원</span><br>
