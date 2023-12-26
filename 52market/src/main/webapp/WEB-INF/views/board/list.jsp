@@ -61,7 +61,6 @@
                <tr>
                   <th>카테고리</th>
                   <th>제목</th>
-                  <th>내용</th>
                   <th>위치</th>
                   <th>조회수</th>
                </tr>
@@ -74,7 +73,6 @@
                          <c:if test="${board.board_category==4}">동네소식</c:if>
                      </td>
                      <td class="align-center"><a href="detail.do?board_num=${board.board_num}">${board.board_title}</a></td>
-                     <td class="align-center" id="content-over">${board.board_content}</td>
                      <td class="align-center">${board.short_address}</td>
                      <td class="align-center">${board.board_hit}</td>
                   </tr>

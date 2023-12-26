@@ -148,7 +148,7 @@ input[type="number"]{
 .form-notice{
 	margin-left:130px;
 }
-input[type="button"],input[type="submit"]{
+input[type="button"],input[type="submit"],button{
 	padding: 7px 12px;
     font-weight: 300;
     border-radius: 24px;
