@@ -149,8 +149,7 @@ body {
     color:yellow;
     float:left;
 }
-.chat_btn{
-	padding: 7px 12px;
+.chat-btn{
     font-weight: 300;
     border-radius: 24px; 
     display: block;
@@ -164,5 +163,7 @@ body {
     height: 50px;
     width: 200px;
     font-size: 30px;
-    vertical-align: middle;
+    position:relative;
+    left:70px;
+    cursor: pointer;
 }

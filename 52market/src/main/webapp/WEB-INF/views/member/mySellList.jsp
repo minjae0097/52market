@@ -39,7 +39,7 @@
 					<li><a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${product.product_num}">${product.product_name}</a></li>
 				</ul>
 				</td>
-				<td>
+				<td style="width: 20%">
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerProduct.do?product_num=${product.product_num}'">채팅목록</button>
 				</td>
 			</tr>
@@ -72,7 +72,7 @@
 					<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${car.carlist_num}">${car.car_title}</a></li>
 				</ul>
 				</td>
-				<td>
+				<td style="width: 20%">
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${car.carlist_num}'">채팅목록</button>
 					<c:if test="${car.chatcnt>0}"><span>(NEW)</span></c:if>
 				</td>
@@ -106,7 +106,7 @@
 					<li><a href="${pageContext.request.contextPath}/house/detailHouse.do?house_num=${house.house_num}">${house.house_title}</a></li>
 				</ul>
 				</td>
-				<td>
+				<td style="width: 20%">
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerHouse.do?house_num=${house.house_num}'">채팅목록</button>
 				</td>
 			</tr>
