@@ -30,7 +30,7 @@
 				<div  style="float: right;width: 110px; position:relative; bottom:80px;">
 				<c:if test="${user_num==seller_num}"><input type="button" value="판매하기" id="sell" data-sell="${chatroom_num}"></c:if>
 				<input type="submit" value="입력" >
-				<input type="button" value="목록" onclick="${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do">
+				<input type="button" value="뒤로" onclick="history.go(-1)">
 				</div>
 			</form>
 		</div>

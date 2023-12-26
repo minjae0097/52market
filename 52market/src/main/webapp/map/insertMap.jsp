@@ -42,6 +42,19 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+.click_btn{ border-radius: 24px;
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    display:inline-block;
+    background-color:#9ED6C0;
+    color:white;
+    font-size: 25px;
+    padding: 2px;
+    cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -61,14 +74,14 @@
         <ul id="placesList"></ul>
         <div id="pagination"></div>
     </div>
-    <div style="align-content: center;">
+    <div style="text-align:center;">
     		<input type="hidden" id="result_x" name="result_x">
     		<input type="hidden" id="result_y" name="result_y">
-    		<input type="text" id="result" name="result" readonly>
+    		<input type="text" id="result" name="result" readonly style="height: 40px; border:1px solid #C4C4C4;font-size: 30px;">
     		<input type="hidden" id="road_address_name" name="road_address_name">
     		<input type="hidden" id="address_name" name="address_name">
-    		<button id="select" onclick="throwMapData()">선택</button>
-    		<button id="cancel" onclick="window.close()">취소</button>
+    		<button id="select" onclick="throwMapData()" class="click_btn">선택</button>
+    		<button id="cancel" onclick="window.close()" class="click_btn">취소</button>
     </div>
 </div>
 
