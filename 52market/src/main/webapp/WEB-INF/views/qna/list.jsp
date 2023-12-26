@@ -78,16 +78,16 @@ window.onload=function(){
 					</tr>
 					</c:forEach>
 				</table>
-			<div class="list-space align-right">
-				<br>
-				<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
-			    	<c:if test="${empty user_num}">disabled="disabled"</c:if> 
-					>
-				<input type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
-			</div>
-				
-				<div class="align-center">${page}</div>
 		</c:if>
+		<div class="list-space align-right">
+			<br>
+			<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
+		    	<c:if test="${empty user_num}">disabled="disabled"</c:if> 
+				>
+			<input type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">                      
+		</div>
+			
+		<div class="align-center">${page}</div>
 	</div>
 </div>
 </body>
