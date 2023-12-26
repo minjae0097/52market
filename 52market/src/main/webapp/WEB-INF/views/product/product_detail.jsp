@@ -110,7 +110,7 @@ $(function(){
 		
 		<div>
 			<ul>
-				<li>
+				<li style="font-size:17pt;">
 				<c:if test="${product.product_status == 0}"><span><b>판매중</b></span></c:if> 
 				<c:if test="${product.product_status == 1}"><span><b>판매완료</b></span></c:if>
 				${product.product_title}</li>
@@ -121,8 +121,13 @@ $(function(){
 				<c:if test="${detail.product_category == 4}">의류/잡화</c:if>
 				<c:if test="${detail.product_category == 5}">티켓/교환권</c:if>
 				</li>
-				<!-- 끌올 시간 추가하기 -->
+				<li style="color: gray; font-size:9pt;">
+				조회 ${product.product_hit}
+				관심 ${favcount}
+				</li>
 			</ul>
+			<br>
+			<br>
 			<ul>
 				<li>
 					<span>가격 : <fmt:formatNumber value="${detail.product_price}"/>원</span><br>
@@ -142,9 +147,7 @@ $(function(){
 		<div class="etc">
 		<ul class="align-left">
 			<li>
-				조회 ${product.product_hit}
-				관심 <span id="output_fcount"></span>
-				채팅 <!-- 채팅 개수 추가 --><br>
+				<br>
 				작성일 : ${product.product_reg_date}
 				<c:if test="${!empty product.product_modify_date}">
 					/ 최근 수정일 : ${product.product_modify_date}

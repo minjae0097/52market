@@ -51,11 +51,11 @@ window.onload=function(){
 		</div>
 		<div>
 		<br>
-		<h3>중고거래 게시물</h3>
+		<h2>중고거래 게시물</h2>
 		<form id="search_form" action="list.do" method="get">
 			<ul class="search">
 				<li>
-					<select name="keyfield">
+					<select name="keyfield" id="keyfield">
 						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 						<option value="2" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
 					</select>
@@ -86,9 +86,13 @@ window.onload=function(){
 				<div class="horizontal-area">
 					<a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${product.product_num}">
 						<img src="${pageContext.request.contextPath}/upload/${product.product_image}">
-						<span>${product.product_name}</span>
 						<br>
-						<span><fmt:formatNumber value="${product.product_price}"/>원</span>
+						<span>${product.product_name}  
+						<c:if test="${product.product_status==0}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매중</b></span></c:if>
+						<c:if test="${product.product_status==1}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
+						</span>
+						<br>
+						<span><fmt:formatNumber value="${product.product_price}"/>원</span><br>
 						<br>
 					</a>
 				</div>

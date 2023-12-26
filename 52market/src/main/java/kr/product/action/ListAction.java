@@ -40,9 +40,6 @@ public class ListAction implements Action{
 			productList = dao.getListProduct(productpage.getStartRow(), productpage.getEndRow(), keyfield, keyword, product_status, product_category);
 		}
 		
-		
-	
-		
 		request.setAttribute("count", count);
 		request.setAttribute("productList", productList);
 		request.setAttribute("page", productpage.getPage());

@@ -44,7 +44,7 @@ window.onload=function(){
 			<form id="search_form" action="adminList.do" method="get">
 				<ul class="search">
 					<li>
-						<select name="keyfield">
+						<select name="keyfield" id="keyfield">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
 						</select>

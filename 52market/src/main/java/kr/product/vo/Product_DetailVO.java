@@ -17,6 +17,7 @@ public class Product_DetailVO {
 	private String mem_photo;		//member(프로필사진)
 	
 	private Date product_modify_date;//product(수정일)
+	private int favcount;
 	
 	public Date getProduct_modify_date() {
 		return product_modify_date;
@@ -89,5 +90,11 @@ public class Product_DetailVO {
 	}
 	public void setMem_photo(String mem_photo) {
 		this.mem_photo = mem_photo;
+	}
+	public int getFavcount() {
+		return favcount;
+	}
+	public void setFavcount(int favcount) {
+		this.favcount = favcount;
 	}
 }

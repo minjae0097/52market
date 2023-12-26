@@ -16,6 +16,8 @@ public class ProductVO {
 	private String mem_nickname;			//member(닉네임)
 	private String mem_photo;				//member(프로필사진)
 	
+	private int favcount;
+	
 	public int getProduct_num() {
 		return product_num;
 	}
@@ -81,6 +83,12 @@ public class ProductVO {
 	}
 	public void setProduct_hit(int product_hit) {
 		this.product_hit = product_hit;
+	}
+	public int getFavcount() {
+		return favcount;
+	}
+	public void setFavcount(int favcount) {
+		this.favcount = favcount;
 	}
 	
 }

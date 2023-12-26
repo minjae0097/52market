@@ -185,7 +185,7 @@ public class ProductDAO {
 				pstmt.setInt(++cnt, end);
 				
 				rs = pstmt.executeQuery();
-				
+				ProductDAO product = ProductDAO.getInstance();
 				list = new ArrayList<Product_DetailVO>();
 				while(rs.next()) {
 					Product_DetailVO detail = new Product_DetailVO();
@@ -195,6 +195,7 @@ public class ProductDAO {
 					detail.setProduct_price(rs.getInt("product_price"));
 					detail.setProduct_image(rs.getString("product_image"));
 					detail.setProduct_name(rs.getString("product_name"));
+					detail.setFavcount(product.selectFavCount(rs.getInt("product_num")));
 					
 					list.add(detail);
 				}
@@ -264,6 +265,7 @@ public class ProductDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product_num);
+			ProductDAO product = ProductDAO.getInstance();
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				detail = new Product_DetailVO();
@@ -277,6 +279,7 @@ public class ProductDAO {
 				detail.setProduct_tradedate(rs.getDate("product_tradedate"));
 				detail.setProduct_image(rs.getString("product_image"));
 				detail.setProduct_name(rs.getString("product_name"));
+				detail.setFavcount(product.selectFavCount(rs.getInt("product_num")));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -906,6 +909,26 @@ public class ProductDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}		
 		return count;
+	}
+	
+	//중고거래 판매여부 변경 (chat)
+	public void updateProductStatusChat(int chatroom_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE product SET product_status=1 WHERE product_num=?";
+			pstmt = conn.prepareStatement(sql);
+			ChatProductDAO chat = ChatProductDAO.getInstance();
+			pstmt.setInt(1, chat.getProductByChatroom(chatroom_num).getProduct_num());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
 	}
 	
 	

@@ -132,4 +132,33 @@ $(function(){
 				$('#chat_form').trigger('submit');
 			}
 	});
+	
+	//sell
+	$('#sell').click(function(){
+		let chatroom_num = $(this).attr('data-sell');
+			$.ajax({
+				url:'sellChatProduct.do',
+				type:'post',
+				data:{chatroom_num:chatroom_num},
+				dataType:'json',
+				success:function(param){
+					if(param.result == 'logout'){
+						alert('로그인해야 작성할 수 있습니다.');
+					}else if(param.result == 'success'){
+						//폼 초기화
+						initForm();
+						divClear();
+						message_socket.send("usg:");
+					}else{
+						alert('채팅 오류 발생');
+						message_socket.close();
+					}
+				},
+				error:function(){
+					alert('네트워크 오류 발생');
+					message_socket.close();
+				}
+			});
+	});
+	
 });

@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.product.vo.Product_ChatVO;
 import kr.product.vo.Product_ChatroomVO;
+import kr.product.vo.Product_DetailVO;
 import kr.util.DBUtil;
 
 public class ChatProductDAO {
@@ -180,11 +181,11 @@ public class ChatProductDAO {
 		try {
 			conn = DBUtil.getConnection();
 			
-			sql = "SELECT * FROM product_chatroom c JOIN (SELECT chatroom_num FROM product_chat "
-					+ "group by chatroom_num) OUTER JOIN (SELECT COUNT(*) cnt, "
-					+ "chatroom_num FROM product_chat WHERE read_check=1 AND mem_num!=? "
-					+ "GROUP BY chatroom_num) USING (chatroom_num) JOIN member m on c.buyer_num=m.mem_num "
-					+ "WHERE product_num=? ORDER BY cnt DESC NULLS LAST";
+			sql = "SELECT * FROM product_chatroom c JOIN "
+					+ "(SELECT chatroom_num FROM product_chat group by chatroom_num) "
+					+ "USING (chatroom_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, "
+					+ "chatroom_num FROM product_chat WHERE read_check=1 AND mem_num!=? GROUP BY chatroom_num) "
+					+ "USING (chatroom_num) JOIN member m on c.buyer_num=m.mem_num WHERE product_num=? ORDER BY cnt DESC NULLS LAST";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			pstmt.setInt(2, product_num);
@@ -232,4 +233,90 @@ public class ChatProductDAO {
 		}
 	}
 	
+	
+	//채팅방번호로 product_num 불러오기
+	public Product_DetailVO getProductByChatroom(int chatroom_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		Product_DetailVO product = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM product_detail INNER JOIN product_chatroom USING(product_num) WHERE chatroom_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, chatroom_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				product = new Product_DetailVO();
+				product.setProduct_buyer(rs.getInt("product_buyer"));
+				product.setProduct_num(rs.getInt("product_num"));
+				product.setProduct_seller(rs.getInt("product_seller"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return product;
+	}
+	
+	
+	//구매자 readcount 개수
+	public int getreadcount(int mem_num, int chatroom_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int cnt = 0;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM product_chat WHERE read_check=1 AND chatroom_num=? AND mem_num!=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, chatroom_num);
+			pstmt.setInt(2, mem_num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return cnt;
+	}
+	
+	
+	//판매자 readcount 개수
+	public int getreadcountSeller(int mem_num, int product_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int cnt = 0;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM product_chat INNER JOIN product_chatroom USING(chatroom_num)"
+					+ " WHERE read_check=1 AND product_num=? AND mem_num!=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			pstmt.setInt(2, mem_num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return cnt;
+	}
 }

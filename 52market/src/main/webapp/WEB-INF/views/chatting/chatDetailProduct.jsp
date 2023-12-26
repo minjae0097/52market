@@ -17,7 +17,6 @@
 	<div class="content-main">
 		<h2>CHAT</h2>
 		<div class="wrap" id="chatList">
-			
 		</div>
 		<div>
 			<form id="chat_form">
@@ -27,7 +26,8 @@
 				<div id="re_first" style="float: right;width: 80px;">
 				<span class="letter-count">300/300</span>
 				</div>
-				<div  style="float:right; width:110px; position:relative; bottom:45px;">
+				<div style="float:right; width:110px; position:relative; bottom:45px;">
+				<c:if test="${user_num==seller_num}"><input type="button" value="판매하기" id="sell" data-sell="${chatroom_num}"></c:if>
 				<input type="submit" value="입력">
 				<input type="button" value="목록" onclick="${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do">
 				</div>
