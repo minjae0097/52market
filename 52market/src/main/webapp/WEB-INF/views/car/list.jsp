@@ -72,7 +72,7 @@ window.onload=function(){
 			<form id="search_form" action="list.do" method="get">
 			<ul>
 			<li>
-			<ul class="search">
+			<ul class="search" style="width:400px;">
 				<li>
 				<input type="button" value="필터"  id = "show_filter">
 					<select id="keyfield" name="keyfield">
@@ -80,13 +80,14 @@ window.onload=function(){
 						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
 						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
 					</select>
+				</li>
+				<li>
 					<input type="search" size="16" name="keyword" id="keyword" 
 					                              value="${param.keyword}">
 					<input type="submit" value="검색">
 				</li>
 				
 			</ul>
-			</li> 
 			<li style="position:relative;left:250px;">
 				<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
 			</li>

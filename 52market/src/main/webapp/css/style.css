@@ -6,156 +6,156 @@
 /* 전체 레이아웃
 ------------------------------*/
 *{
-	font-family: "GowunDodum";
+   font-family: "GowunDodum";
 }
 body{
-	width:960px;
-	margin:0 auto;
-	/*background:#E6E6E6;*/
-	font-family: "GowunDodum";
+   width:960px;
+   margin:0 auto;
+   /*background:#E6E6E6;*/
+   font-family: "GowunDodum";
 }
 a:link{
-	text-decoration:none;
-	color:#000000;
+   text-decoration:none;
+   color:#000000;
 }
 a:visited{
-	text-decoration:none;
-	color:#000000;
+   text-decoration:none;
+   color:#000000;
 }
 a:hover{
-	text-decoration:none;
-	color:#6C6C6C;
+   text-decoration:none;
+   color:#6C6C6C;
 }
 /* 페이지 레이아웃
 ------------------------------*/
 .page-main{
-	background:#FFFFFF;
-	margin:40px 0;
-	/*border-radius:5px;*/
-	/*box-shadow:0 2px 6px rgba(100,100,100,0.3);*/
-	min-height:650px;
+   background:#FFFFFF;
+   margin:40px 0;
+   /*border-radius:5px;*/
+   /*box-shadow:0 2px 6px rgba(100,100,100,0.3);*/
+   min-height:650px;
 }
 .content-main{
-	padding:10px 20px;
+   padding:10px 20px;
 }
 /* 공통 메시지
 ------------------------------*/
 .result-display{
-	width:400px;
-	height:200px;
-	margin:50px auto;
-	border:1px solid #000;
-	display:flex;
-	align-items:center;
-	justify-content:center;
+   width:400px;
+   height:200px;
+   margin:50px auto;
+   border:1px solid #000;
+   display:flex;
+   align-items:center;
+   justify-content:center;
 }
 /* 공통 정렬
 ------------------------------*/
 .align-center{
-	text-align:center;
+   text-align:center;
 }
 .align-right{
-	text-align:right;
+   text-align:right;
 }
 /* 메뉴
 ------------------------------*/
 /*#main_logo{
-	padding-top:20px;
+   padding-top:20px;
 }*/
 #main_nav{
-	width:1000px;
-	padding:0px;
-	height:60px;
+   width:1000px;
+   padding:0px;
+   height:60px;
 }
 #main_nav ul{
-	list-style:none;
-	margin:0;
-	padding:0;
+   list-style:none;
+   margin:0;
+   padding:0;
 }
 #main_nav ul li{
-	display:inline-block;
-	text-align:center;
-	vertical-align:middle;
-	padding-top:0px;
-	width:100px;
+   display:inline-block;
+   text-align:center;
+   vertical-align:middle;
+   padding-top:0px;
+   width:100px;
 }
 #main_nav ul li img.my-photo{
-	vertical-align:middle;
+   vertical-align:middle;
 }
 #main_nav ul li.menu-profile{
-	padding-top:0px;
-	width:25px;
-	vertical-align:middle;
+   padding-top:0px;
+   width:25px;
+   vertical-align:middle;
 }
 #main_nav ul li.menu-logout{
-	width:150px;
-	text-align:right;
+   width:150px;
+   text-align:right;
 }
 /* 메인
 ------------------------------*/
 .image-space .horizontal-area{
-	margin:2px;
-	padding:3px;
-	width:220px;
-	height:240px;
-	float:left;
-	overflow:hidden;
-	text-align:center;
+   margin:2px;
+   padding:3px;
+   width:220px;
+   height:240px;
+   float:left;
+   overflow:hidden;
+   text-align:center;
 }
 .image-space .horizontal-area img{
-	width:215px;
-	height:195px;
+   width:215px;
+   height:195px;
 }
 .image-space .float-clear{
-	clear:both;
+   clear:both;
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
 #write_form, #update_form, #modify_form, #password_form{
-	border:1px solid lightgray;
-	padding:10px 10px 10px 30px;
-	display:relative;
+   border:1px solid lightgray;
+   padding:10px 10px 10px 30px;
+   display:relative;
 }
 form{ 
-	width:600px;
-	margin:0 auto;
-	border:1px solid #000;
-	padding:10px 10px 10px 30px;
+   width:600px;
+   margin:0 auto;
+   border:1px solid #000;
+   padding:10px 10px 10px 30px;
 }
 form ul li{
-	clear:both;
-	margin:20px 0px;
+   clear:both;
+   margin:20px 0px;
 }
 form ul li label{
-	width:130px;
-	float:left;
+   width:130px;
+   float:left;
 }
 ul{
-	list-style:none;
+   list-style:none;
 }
 input{
-	margin-top:4px;
+   margin-top:4px;
 }
 input[type="text"],input[type="password"],input[type="email"],textarea,.input-check{
-	width:80%;
-	height:30px;
-	border-radius:10px;
-	border:1px solid #C4C4C4;
+   width:80%;
+   height:30px;
+   border-radius:10px;
+   border:1px solid #C4C4C4;
 }
 #register_form input[id="id"]{
-	width:223px;
+   width:223px;
 }
 input[id="zipcode"]{
-	width:205px;
+   width:205px;
 }
 input[type="number"]{
-	width:100px;
+   width:100px;
 }
 .form-notice{
-	margin-left:130px;
+   margin-left:130px;
 }
 input[type="button"],input[type="submit"],button{
-	padding: 7px 12px;
+   padding: 7px 12px;
     font-weight: 300;
     border-radius: 24px;
     display: block;
@@ -168,10 +168,10 @@ input[type="button"],input[type="submit"],button{
     color:white;
 }
 input[type="button"]:hover, input[type="submit"]:hover,button:hover{
-	background:lightgray;
+   background:lightgray;
 }
 #board_category_list,#keyfield1,#keyfield,#board_category{
-	width: 30%;
+   width: 30%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -182,7 +182,7 @@ input[type="button"]:hover, input[type="submit"]:hover,button:hover{
     line-height: 7px;
 }
 #board_title{
-	width: 80%;
+   width: 80%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -193,7 +193,7 @@ input[type="button"]:hover, input[type="submit"]:hover,button:hover{
     line-height: 16px;
 }
 input[type="search"]{
-	width: 50%;
+   width: 50%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -204,8 +204,8 @@ input[type="search"]{
     line-height: 16px;
 }
 #board_content{
-	width: 80%;
-	height:400px;
+   width: 80%;
+   height:400px;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -216,7 +216,7 @@ input[type="search"]{
     line-height: 20px;
 }
 #board_category:focus{
-	border: 1px solid #9ED6C0;
+   border: 1px solid #9ED6C0;
     box-sizing: border-box;
     border-radius: 10px;
     border-radius: 10px;
@@ -224,71 +224,71 @@ input[type="search"]{
 /* 로그인
 ------------------------------*/
 #login_form{
-	width:300px;
-	margin:0 auto;
-	padding:0;
-	border:none;
+   width:300px;
+   margin:0 auto;
+   padding:0;
+   border:none;
 }
 #login_form ul{
-	padding:0;
+   padding:0;
 }
 .floating-label{/*floating label 설정*/
-	position:relative;
+   position:relative;
 }
 .floating-label > .form-input{
-	width:300px;
-	height:32px;
-	padding:0.55rem 0.55rem;
+   width:300px;
+   height:32px;
+   padding:0.55rem 0.55rem;
 }
 .floating-label > label{
-	position:absolute;
-	top:0;
-	left:0;
-	padding:1.05rem 0.75rem;
-	transition:all 0.25s;
+   position:absolute;
+   top:0;
+   left:0;
+   padding:1.05rem 0.75rem;
+   transition:all 0.25s;
 }
 .floating-label > .form-input::placeholder{
-	color:transparent;
+   color:transparent;
 }
 .floating-label > .form-input:focus, 
 .floating-label > .form-input:not(:placeholder-shown){
-	padding-top:1.125rem;
-	padding-bottom:0.125rem;
+   padding-top:1.125rem;
+   padding-bottom:0.125rem;
 }
 .floating-label > .form-input:focus + label,
 .floating-label > .form-input:not(:placeholder-shown) + label{
-	opacity:0.65;
-	transform:scale(0.85) translateY(-0.5rem) translateX(-0.5rem);
+   opacity:0.65;
+   transform:scale(0.85) translateY(-0.5rem) translateX(-0.5rem);
 }
 /* MY페이지
 ------------------------------*/
 .mypage-line{
-	display:fixed;
-	margin:10px 10px;
-	padding:10px;
+   display:fixed;
+   margin:10px 10px;
+   padding:10px;
 }
 .mypage-div > span{
-	font-size:20pt;
+   font-size:20pt;
 }
 .mypage-div > ul > li > label{
-	font-size:16pt;
+   font-size:16pt;
 }
 .mypage-div{
-	width:48%;
-	float:left;
-	padding:5px;
+   width:48%;
+   float:left;
+   padding:5px;
 }
 .mypage-end{
-	clear:both;
+   clear:both;
 }
 .my-photo{
-	object-fit:cover;
-	/*정사각형이 아니라 직사각형일 경우 원 안에 보여지게 할 중심 이미지의
-	위치를 지정*/
-	object-position:top;
-	/*사각형의 모서리 둥근 정도를 지정하는 속성인데 50%를 지정하면
-	완전한 원이 됨*/
-	border-radius:50%;
+   object-fit:cover;
+   /*정사각형이 아니라 직사각형일 경우 원 안에 보여지게 할 중심 이미지의
+   위치를 지정*/
+   object-position:top;
+   /*사각형의 모서리 둥근 정도를 지정하는 속성인데 50%를 지정하면
+   완전한 원이 됨*/
+   border-radius:50%;
 }
 #background{
   height: 200px;
@@ -299,49 +299,49 @@ input[type="search"]{
   padding: 16px;
 }
 #background >span{
-	float:left;
-	align-content:center;
+   float:left;
+   align-content:center;
 }
 #myPage_list{
-	margin:10px;
-	padding:10px;
+   margin:10px;
+   padding:10px;
 }
 #mypage_nickname{
-	font-size:18pt;
-	font-weight:700;
+   font-size:18pt;
+   font-weight:700;
 }
 .content-list{
-	line-height:40px;
+   line-height:40px;
 }
 /* 공통 목록
 ------------------------------*/
 form#search_form{
-	border:none;
+   border:none;
 }
 ul.search{
-	width:340px;
-	list-style:none;
-	padding:0;
-	margin:0 auto;
+   width:340px;
+   list-style:none;
+   padding:0;
+   margin:0 auto;
 }
 ul.search li{
-	margin:0 0 9px 0;
-	padding:0;
-	display:inline;
+   margin:0 0 9px 0;
+   padding:0;
+   display:inline;
 }
 .list-space{
-	margin-bottom:10px;
+   margin-bottom:10px;
 }
 table{
-	width:100%;
-	border:none;
-	border-collapse:collapse;
-	margin-top:5px;
+   width:100%;
+   border:none;
+   border-collapse:collapse;
+   margin-top:5px;
 }
 table td, table th{
-	padding: 8px;
-  	text-align: center;
-  	border-bottom: 1px solid #ddd;
+   padding: 8px;
+     text-align: center;
+     border-bottom: 1px solid #ddd;
 }
 table th {
   background-color: #9ED6C0;
@@ -349,17 +349,17 @@ table th {
 }
 
 table tr:hover{
-	background-color : #D3D3D3;
+   background-color : #D3D3D3;
 }
 #content-over{
-	overflow:hidden;
-	text-overflow: ellipsis;
-	height:10px;
+   overflow:hidden;
+   text-overflow: ellipsis;
+   height:10px;
 }
 /* 게시판 글 상세
 ------------------------------*/
 ul.detail-info li{
-	display:inline-block;
+   display:inline-block;
     border-radius: 10px;
     padding: 12px 13px;
     font-style: normal;
@@ -368,7 +368,7 @@ ul.detail-info li{
     line-height: 16px;
 }
 .content-main > h2{
-	width: 100%;
+   width: 100%;
     border-radius: 10px;
     padding: 12px 13px;
     font-style: normal;
@@ -377,8 +377,8 @@ ul.detail-info li{
     line-height: 16px;
 }
 .content-main > p{
-	width: 80%;
-	height:auto;
+   width: 80%;
+   height:auto;
     border-radius: 10px;
     padding: 12px 13px;
     font-style: normal;
@@ -388,78 +388,78 @@ ul.detail-info li{
     overflow:hidden;
 }
 .detail-img{
-	max-width:500px;
+   max-width:500px;
 }
 ul.detail-sub{
-	margin:0;
-	padding:0;
+   margin:0;
+   padding:0;
 }
 ul.detail-sub li{
-	display:inline-block;
-	width:49%;
-	height:50px;
-	vertical-align:middle;
+   display:inline-block;
+   width:49%;
+   height:50px;
+   vertical-align:middle;
 }
 ul.detail-sub li:first-child img{
-	vertical-align:middle;
+   vertical-align:middle;
 }
 ul.detail-sub li:last-child{
-	text-align:right;
-	line-height:250%;
+   text-align:right;
+   line-height:250%;
 }
 #output_fav{
-	cursor:pointer;
+   cursor:pointer;
 }
 div#reply_div{
-	padding:5px 10px 40px 10px;
-	margin-top:10px;
-	background-color:#EEEEEE;
+   padding:5px 10px 40px 10px;
+   margin-top:10px;
+   background-color:#EEEEEE;
 }
 form#re_form{
-	width:650px;
-	border:none;
+   width:650px;
+   border:none;
 }
 span.re-title{
-	color:#000;
-	font-size:12pt;
-	line-height:200%;
+   color:#000;
+   font-size:12pt;
+   line-height:200%;
 }
 span.letter-count{
-	font-size:10pt;
-	color:#999;
+   font-size:10pt;
+   color:#999;
 }
 textarea.rep-content{
-	width:90%;
-	height:50px;
-	margin:10px 10px;
+   width:90%;
+   height:50px;
+   margin:10px 10px;
 }
 div#re_first, div#mre_first{
-	float:left;
-	width:70%;
-	padding-left:15px;
-	margin-bottom:10px;
+   float:left;
+   width:70%;
+   padding-left:15px;
+   margin-bottom:10px;
 }
 div#re_second, div#mre_second{
-	float:left;
-	width:19%;
-	margin-bottom:10px;
+   float:left;
+   width:19%;
+   margin-bottom:10px;
 }
 div#loading{
-	text-align:center;
+   text-align:center;
 }
 div.paging-button{
-	text-align:right;
+   text-align:right;
 }
 div#output{
-	clear:both;
+   clear:both;
 }
 form#mre_form{
-	border:none;
-	margin:5px;
+   border:none;
+   margin:5px;
 }
 #re_content{
-	width: 80%;
-	height:100px;
+   width: 80%;
+   height:100px;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
@@ -470,109 +470,108 @@ form#mre_form{
     line-height: 16px;
 }
 #output{
-	margin:30px;
-	margin-bottom:20px;
+   margin:30px;
+   margin-bottom:20px;
 }
 #output > hr{
-	margin:20px 20px;
+   margin:20px 20px;
 }
 .date{
-	text-align:right;
-	align-items:right;
-	font-size:12pt;
+   text-align:right;
+   align-items:right;
+   font-size:12pt;
 }
 /* 상품
 ------------------------------*/
 .item-space .horizontal-area{
-	margin:2px;
-	padding:3px;
-	width:200px;
-	height:220px;
-	float:left;
-	overflow:hidden;
-	text-align:center;
+   margin:2px;
+   padding:3px;
+   width:200px;
+   height:220px;
+   float:left;
+   overflow:hidden;
+   text-align:center;
 }
 .item-space .horizontal-area img{
-	width:195px;
-	height:175px;
+   width:195px;
+   height:175px;
 }
 .item-space .horizontal-area span{
-	padding:5px;
-	margin:5px;
+   padding:5px;
+   margin:5px;
 }
 label[for="order_quantity"]{
-	width:80px;
+   width:80px;
 }
 .item-image{
-	width:400px;
-	margin:0 0 10px 0;
-	float:left;
+   width:400px;
+   margin:0 0 10px 0;
+   float:left;
 }
 .item-detail li{
-	padding:0 0 5px 0;
+   padding:0 0 5px 0;
 }
 .item-detail form{
-	border:none;
-	width:470px;
-	margin:0;
-	float:left;
+   border:none;
+   width:470px;
+   margin:0;
+   float:left;
 }
 #item_total_txt{
-	color:#000;
-	font-weight:bold;
+   color:#000;
+   font-weight:bold;
 }
 input[type="number"].quantity-width{
-	width:40px;
-	margin-bottom:3px;
+   width:40px;
+   margin-bottom:3px;
 }
 .sold-out{
-	color:red;
+   color:red;
 }
 /* 장바구니
 ------------------------------*/
 form[id="cart_order"]{
-	border:none;
+   border:none;
 }
 /* footer
 ------------------------------*/
 footer {
-	margin-top: 100px;
-	width: 100%;
-	min-width: 1000px;
-	height: 320px;
-	background-color: #F5F5F5;
-	text-align: center;
-	font-size: 18px;
-	z-index: -1;
-	height: 320px;
+   margin-top: 100px;
+   width: 100%;
+   min-width: 1000px;
+   height: 320px;
+   background-color: #F5F5F5;
+   text-align: center;
+   font-size: 18px;
+   z-index: -1;
+   height: 320px;
 }
 
 footer div {
-	margin: 25px 25px 0px 25px;
+   margin: 25px 25px 0px 25px;
 }
 
 footer div a {
-	text-decoration: none;
-	color: rgba(255, 255, 255, 0.76);
-	margin-left: 20px;
+   text-decoration: none;
+   color: rgba(255, 255, 255, 0.76);
+   margin-left: 20px;
 }
 
 .footer-bottom {
-	margin-top: 10px;
-	color: rgb(255, 166, 3);
-	text-shadow: 1px 1px 1px gray;
+   margin-top: 10px;
+   color: rgb(255, 166, 3);
+   text-shadow: 1px 1px 1px gray;
 }
 
 .footer-icon {
-	margin: 0px;
+   margin: 0px;
 }
 
 .footer-icon img {
-	width: 45px;
-	height: auto;
-	margin: 10px;
+   width: 45px;
+   height: auto;
+   margin: 10px;
 }
-
 
 
 
