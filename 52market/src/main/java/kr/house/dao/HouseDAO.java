@@ -200,10 +200,8 @@ public class HouseDAO {
 			}
 			
 			//SQL문 작성
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM "
-					+ "member m INNER JOIN (SELECT * FROM houselist INNER JOIN "
-					+ "house_detail USING(house_num)) b on m.mem_num=b.mem_num WHERE"
-					+ " house_status<=?" + sub_sql +" ORDER BY house_num DESC )a) WHERE rnum >= ? AND rnum <= ?";
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member m INNER JOIN (SELECT * FROM houselist INNER JOIN house_detail USING(house_num) "
+					+ "WHERE house_status<=? "+sub_sql+ " ORDER BY NVL(house_modify_date, house_reg_date) DESC, house_reg_date DESC, house_num DESC) b on m.mem_num=b.mem_num )a) WHERE rnum >=? AND rnum <=?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
@@ -248,7 +246,6 @@ public class HouseDAO {
 				detail.setHouse_status(rs.getInt("house_status"));
 				detail.setHit(rs.getInt("hit"));
 				detail.setFavcount(house.selectFavCount(rs.getInt("house_num")));
-				
 				
 				list.add(detail);
 			}

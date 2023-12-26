@@ -62,7 +62,7 @@ $(function(){
 		$('#output_fcount').text(param.count);
 	}
 	//초기 데이터 호출
-	<c:if test="${user_num!=detail.mem_num}">selectFav();</c:if>
+	<c:if test="${user_num==null||user_num!=detail.mem_num}">selectFav();</c:if>
 });
 </script>
 </head>
