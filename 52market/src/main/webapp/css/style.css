@@ -177,7 +177,7 @@ input[type="button"]:hover, input[type="submit"]:hover{
     font-size: 14px;
     line-height: 16px;
 }
-#board_category_list{
+#board_category_list,select[name="keyfield"],#keyfield1{
 	width: 20%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
