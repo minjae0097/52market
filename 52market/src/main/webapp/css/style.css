@@ -169,7 +169,7 @@ input[type="button"],input[type="submit"]{
 input[type="button"]:hover, input[type="submit"]:hover{
 	background:lightgray;
 }
-#board_category_list,select[name="keyfield"],#keyfield1{
+#board_category_list,#keyfield1,#keyfield{
 	width: 20%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
@@ -192,7 +192,7 @@ input[type="button"]:hover, input[type="submit"]:hover{
     line-height: 16px;
 }
 input[type="search"]{
-	width: 50%;
+	width: 30%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
