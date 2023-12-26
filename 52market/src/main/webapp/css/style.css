@@ -2,10 +2,14 @@
 
 /* 전체 레이아웃
 ------------------------------*/
+*{
+	font-family: "Gowun Dodum";
+}
 body{
 	width:960px;
 	margin:0 auto;
 	/*background:#E6E6E6;*/
+	font-family: "Gowun Dodum";
 }
 a:link{
 	text-decoration:none;
@@ -56,11 +60,9 @@ a:hover{
 	padding-top:20px;
 }*/
 #main_nav{
-	width:1200px;
-	height:60px;
+	width:1000px;
 	padding:0px;
-	/*height:20px;*/
-	/*background-color:#C1BFBF;*/
+	height:60px;
 }
 #main_nav ul{
 	list-style:none;
@@ -106,7 +108,7 @@ a:hover{
 }
 /* 공통 등록, 수정 폼
 ------------------------------*/
-#write_form{
+#write_form, #update_form{
 	width:800px;
 	height:700px;
 	border:1px solid lightgray;
@@ -148,7 +150,7 @@ input[type="number"]{
 .form-notice{
 	margin-left:130px;
 }
-input[type="button"],input[type="submit"],button{
+input[type="button"],input[type="submit"]{
 	padding: 7px 12px;
     font-weight: 300;
     border-radius: 24px;
@@ -175,6 +177,17 @@ input[type="button"]:hover, input[type="submit"]:hover{
     font-size: 14px;
     line-height: 16px;
 }
+#board_category_list{
+	width: 20%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 7px;
+}
 #board_title{
 	width: 80%;
     border: 1px solid #C4C4C4;
@@ -182,7 +195,18 @@ input[type="button"]:hover, input[type="submit"]:hover{
     border-radius: 10px;
     padding: 12px 13px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 16px;
+}
+input[type="search"]{
+	width: 30%;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 200;
     font-size: 14px;
     line-height: 16px;
 }
@@ -195,8 +219,8 @@ input[type="button"]:hover, input[type="submit"]:hover{
     padding: 12px 13px;
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 20px;
 }
 #board_category:focus{
 	border: 1px solid #9ED6C0;
@@ -262,6 +286,26 @@ input[type="button"]:hover, input[type="submit"]:hover{
 	완전한 원이 됨*/
 	border-radius:50%;
 }
+#background{
+  height: 200px;
+  background-color: #9ED6C0;    
+  font-size:18pt;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+#background >span{
+	float:left;
+	align-content:center;
+}
+#myPage_list{
+	margin:10px;
+	padding:10px;
+}
+#mypage_nickname{
+	font-size:18pt;
+	font-weight:700;
+}
 /* 공통 목록
 ------------------------------*/
 form#search_form{
@@ -300,10 +344,41 @@ table th {
 table tr:hover{
 	background-color : #D3D3D3;
 }
+#content-over{
+	overflow:hidden;
+	text-overflow: ellipsis;
+	height:10px;
+}
 /* 게시판 글 상세
 ------------------------------*/
 ul.detail-info li{
 	display:inline-block;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+.content-main > h2{
+	width: 100%;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 16px;
+}
+.content-main > p{
+	width: 80%;
+	height:auto;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    overflow:hidden;
 }
 .detail-img{
 	max-width:500px;
@@ -375,6 +450,30 @@ form#mre_form{
 	border:none;
 	margin:5px;
 }
+#re_content{
+	width: 80%;
+	height:100px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+#output{
+	margin:30px;
+	margin-bottom:20px;
+}
+#output > hr{
+	margin:20px 20px;
+}
+.date{
+	text-align:right;
+	align-items:right;
+	font-size:12pt;
+}
 /* 상품
 ------------------------------*/
 .item-space .horizontal-area{
@@ -427,4 +526,48 @@ input[type="number"].quantity-width{
 form[id="cart_order"]{
 	border:none;
 }
+/* footer
+------------------------------*/
+footer {
+	margin-top: 100px;
+	width: 100%;
+	min-width: 1000px;
+	height: 320px;
+	background-color: #F5F5F5;
+	text-align: center;
+	font-size: 18px;
+	z-index: -1;
+	height: 320px;
+}
+
+footer div {
+	margin: 25px 25px 0px 25px;
+}
+
+footer div a {
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.76);
+	margin-left: 20px;
+}
+
+.footer-bottom {
+	margin-top: 10px;
+	color: rgb(255, 166, 3);
+	text-shadow: 1px 1px 1px gray;
+}
+
+.footer-icon {
+	margin: 0px;
+}
+
+.footer-icon img {
+	width: 45px;
+	height: auto;
+	margin: 10px;
+}
+
+
+
+
+
 
