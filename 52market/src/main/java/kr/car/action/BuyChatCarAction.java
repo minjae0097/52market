@@ -34,6 +34,7 @@ public class BuyChatCarAction implements Action{
 			}else {
 				CarDAO car = CarDAO.getInstance();
 				car.sellCar(carlist.getCarlist_num(), user_num);
+				car.updateCarStatusChat(chatroom_num);
 				request.setAttribute("notice_msg", "구매확정이 완료되었습니다.");
 				request.setAttribute("notice_url", 
 						request.getContextPath()+"/chatting/chatDetailCar.do?chatroom_num="+chatroom_num);
