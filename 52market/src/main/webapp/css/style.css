@@ -193,7 +193,7 @@ input[type="button"]:hover, input[type="submit"]:hover,button:hover{
     line-height: 16px;
 }
 input[type="search"]{
-   width: 50%;
+   width: 50%; 
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
