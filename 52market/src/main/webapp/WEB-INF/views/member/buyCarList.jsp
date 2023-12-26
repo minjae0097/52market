@@ -18,7 +18,7 @@
 		
 			<c:if test="${empty carList}">
 			<div>
-			판매목록이 없습니다.
+			구매목록이 없습니다.
 			</div>
 			</c:if>
 			<c:if test="${!empty carList}">
@@ -37,8 +37,8 @@
 					</ul>
 				</td>
 				<td>
-					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${carList.carlist_num}'">채팅목록</button>
-				<td>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${carList.carlist_num}'">채팅</button>
+				</td>
 			</tr>
 			</c:forEach>
 			</table>

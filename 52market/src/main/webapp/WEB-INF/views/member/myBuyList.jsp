@@ -40,7 +40,7 @@
 				</ul>
 				</td>
 				<td>
-					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerProduct.do?product_num=${product.product_num}'">채팅목록</button>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerProduct.do?product_num=${product.product_num}'">채팅</button>
 				</td>
 			</tr>
 			</c:forEach>
@@ -73,7 +73,7 @@
 				</ul>
 				</td>
 				<td>
-					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${car.carlist_num}'">채팅목록</button>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${car.carlist_num}'">채팅</button>
 				</td>
 			</tr>
 			</c:forEach>
@@ -106,7 +106,7 @@
 				</ul>
 				</td>
 				<td>
-					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerHouse.do?house_num=${house.house_num}'">채팅목록</button>
+					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerHouse.do?house_num=${house.house_num}'">채팅</button>
 				</td>
 			</tr>
 			</c:forEach>

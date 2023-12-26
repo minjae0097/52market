@@ -35,7 +35,7 @@ public class BuyCarListAction implements Action{
 		request.setAttribute("count", count);
 		request.setAttribute("page", page.getPage());
 		
-		return "/WEB-INF/views/member/sellCarList.jsp";
+		return "/WEB-INF/views/member/buyCarList.jsp";
 	}
 
 }
