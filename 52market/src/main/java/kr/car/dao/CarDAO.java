@@ -636,6 +636,7 @@ public class CarDAO {
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
+			
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {
 				CarList_DetailVO detail = new CarList_DetailVO();
@@ -651,7 +652,8 @@ public class CarDAO {
 				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
 				detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
-
+				
+				
 				list.add(detail);
 			}
 
@@ -762,6 +764,7 @@ public class CarDAO {
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
+			ChatCarDAO dao = ChatCarDAO.getInstance();
 			list = new ArrayList<CarList_DetailVO>();
 			while(rs.next()) {
 				CarList_DetailVO detail = new CarList_DetailVO();
@@ -777,6 +780,7 @@ public class CarDAO {
 				detail.setCar_origin(rs.getString("car_origin"));
 				detail.setCar_image(rs.getString("car_image"));
 				detail.setCarlist_modify_date(rs.getDate("carlist_modify_date"));
+				detail.setChatcnt(dao.getreadcountSeller(mem_num, detail.getCarlist_num()));
 
 				list.add(detail);
 			}

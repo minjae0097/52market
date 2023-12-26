@@ -38,6 +38,7 @@
 				</td>
 				<td>
 					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${carList.carlist_num}'">채팅목록</button>
+					<c:if test="${carList.chatcnt>0}"><span>(NEW)</span></c:if>
 				</td>
 			</tr>
 			</c:forEach>

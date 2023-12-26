@@ -19,7 +19,16 @@ public class CarList_DetailVO {
 	private String mem_nickname;		//닉네임
 	private Date carlist_modify_date; //수정일
 	private int carlist_status;
+	private int chatcnt;
 	
+	public int getChatcnt() {
+		return chatcnt;
+	}
+
+	public void setChatcnt(int chatcnt) {
+		this.chatcnt = chatcnt;
+	}
+
 	public int getCarlist_status() {
 		return carlist_status;
 	}
