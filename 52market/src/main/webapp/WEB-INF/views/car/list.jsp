@@ -67,7 +67,7 @@ window.onload=function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-	<img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900">
+	 <a href="${pageContext.request.contextPath}/main/main.do"><img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900"></a>
 		<h2>등록 매물</h2>
 			<form id="search_form" action="list.do" method="get">
 			<ul>
@@ -156,7 +156,7 @@ window.onload=function(){
 						<c:if test="${car.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원+</c:if>
 						</b><br>
 						관심 ${car.favcount} 조회수 ${car.carlist_hit}<br>
-						<c:if test="${car.carlist_status==1}"><span style="color:#f7b165""><b>판매완료</b></span></c:if>
+						<c:if test="${car.carlist_status==1}"><span style="background-color: #f7b165;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
 					</a>
 					</div>
 				</div>
