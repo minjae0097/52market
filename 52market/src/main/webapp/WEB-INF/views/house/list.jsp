@@ -138,7 +138,7 @@ window.onload=function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<img src="${pageContext.request.contextPath}/images/부동산배너.png" width="900">
 	<div class="content-main">
-		<h4>부동산 직거래 게시물</h4>
+		<h2>부동산 등록 매물</h2>
 		<form id="search_form" action="list.do" method="get">		
 			<ul>
 				<li>

@@ -160,11 +160,11 @@ $(function(){
 				<span id="output_fcount"></span>
 			<%-- 좋아요 끝 --%>
 			
-			<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerHouse.do?house_num=${list.house_num}'">채팅하기</button>
+			<button class="chat-btn" onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerHouse.do?house_num=${list.house_num}'">채팅하기</button>
 			</c:if>
 			<%-- 판매 변경 --%>
 			<c:if test="${user_num==detail.mem_num}">
-			<form action="updateStatus.do" id="update_form" method="post">
+			<form action="updateStatus.do" id="status_form" method="post">
 			<input type="hidden" name="house_num" value="${detail.house_num}">
 			<select name="house_status" onchange="this.form.submit()">
 				<option value="0" <c:if test="${list.house_status==0}">selected</c:if>>판매중</option>
