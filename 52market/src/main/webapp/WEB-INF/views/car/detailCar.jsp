@@ -126,12 +126,14 @@ $(function(){
 			<li>연료 : ${detail.car_fuel}</li>
 			<li>자동/수동 : ${detail.car_transmission}</li>
 		</ul>
+	<hr style="margin: 10px;" width="100%" size="1">
 	<h1>소개</h1>
 		<ul>
 			<li>
 			<span>${list.carlist_content}</span>
 			</li>
 		</ul>
+	<hr style="margin: 10px;" width="100%" size="1">
 	<h1>위치</h1>
 	<jsp:include page="/map/showMap.jsp"/>
 	<hr width="100%" size="1">

@@ -109,7 +109,6 @@ public class CarDAO {
 			if(keyword!=null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
 				else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
 			}
 			//필터
@@ -178,7 +177,6 @@ public class CarDAO {
 			if(keyword!=null&&!"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += " AND car_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += " AND mem_nickname LIKE ?";
 				else if(keyfield.equals("3")) sub_sql += " AND carlist_content LIKE ?";
 			}
 			//필터

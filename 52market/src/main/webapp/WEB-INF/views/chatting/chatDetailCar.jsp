@@ -23,7 +23,7 @@
 			<form id="chat_form">
 				<input type="hidden" value="${chatroom_num}" name="chatroom_num">
 				<input type="hidden" value="${user_num}" name="mem_num">
-				<textarea rows="8" cols="100" placeholder="내용을 입력해주세요" name="message" id="message"></textarea>
+				<textarea rows="8" cols="100" placeholder="내용을 입력해주세요" name="message" id="message" style="height: 105px;"></textarea>
 				<div id="re_first" style="float: right;width: 80px;">
 				<span class="letter-count">300/300</span>
 				</div>

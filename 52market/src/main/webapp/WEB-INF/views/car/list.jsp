@@ -66,8 +66,8 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900">
 	<div class="content-main">
+	<img src="${pageContext.request.contextPath}/images/중고차배너.png" width="900">
 		<h2>등록 매물</h2>
 			<form id="search_form" action="list.do" method="get">
 			<ul>
@@ -76,8 +76,7 @@ window.onload=function(){
 				<li>
 				<input type="button" value="필터"  id = "show_filter">
 					<select id="keyfield" name="keyfield">
-						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
+						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>모델명</option>
 						<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
 					</select>
 				</li>
@@ -89,7 +88,7 @@ window.onload=function(){
 				
 			</ul>
 			<li style="position:relative;left:250px;">
-				<input type="checkbox" name="carlist_status" id="carlist_status" value="0" style="margin: 0;"><span>판매중인 것만 보기</span>
+				<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
 			</li>
 			</ul>	
 			<div class="filter" id="filter" style="display:none;">
@@ -157,7 +156,7 @@ window.onload=function(){
 						<c:if test="${car.car_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${car.car_price/10000}"/>만원+</c:if>
 						</b><br>
 						관심 ${car.favcount} 조회수 ${car.carlist_hit}<br>
-						<c:if test="${car.carlist_status==1}"><span style="background-color: gray;color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if>
+						<c:if test="${car.carlist_status==1}"><span style="color:#f7b165""><b>판매완료</b></span></c:if>
 					</a>
 					</div>
 				</div>
@@ -173,5 +172,6 @@ window.onload=function(){
 		<input type="button" value="글쓰기" onclick="location.href='insertCarForm.do'">
 	</div>
 </div>
+ <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

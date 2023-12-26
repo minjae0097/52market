@@ -156,7 +156,7 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3><label for="carlist_content">소개</label></h3>
-					<textarea rows="4" cols="40" placeholder="내용을 입력해주세요" id="carlist_content" name="carlist_content">${list.carlist_content}</textarea>
+					<textarea rows="4" cols="40" placeholder="내용을 입력해주세요" id="carlist_content" name="carlist_content" style="height: 120px;">${list.carlist_content}</textarea>
 				</li>
 				<li>
 					<h3><label for="car_image">이미지</label></h3>

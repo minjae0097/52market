@@ -43,7 +43,6 @@
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
-				<th>채팅</th>
 			</tr>
 			<c:forEach var="carList" items="${detail}">
 			<tr>
@@ -52,9 +51,6 @@
 					<ul>
 						<li><a href="${pageContext.request.contextPath}/car/detailCar.do?carlist_num=${carList.carlist_num}">${carList.car_title}</a></li>
 					</ul>
-				</td>
-				<td>
-					<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForSellerCar.do?carlist_num=${carList.carlist_num}'">채팅목록</button>
 				</td>
 			</tr>
 			</c:forEach>
