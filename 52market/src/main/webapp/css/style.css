@@ -119,7 +119,7 @@ a:hover{
 form{ 
    width:600px;
    margin:0 auto;
-   border:1px solid #000;
+   border:1px solid #C4C4C4;
    padding:10px 10px 10px 30px;
 }
 form ul li{
@@ -182,7 +182,8 @@ input[type="button"]:hover, input[type="submit"]:hover,button:hover{
     line-height: 7px;
 }
 #board_title, #mem_nickname,#mem_passwd,#mem_id,#origin_passwd,#mem_passwd,#cpasswd,#mem_name,#mem_phone,#mem_email,#mem_zipcode,#address1,#address2
-,#product_name,#product_title,#product_price,#product_content{
+,#product_name,#product_title,#product_price,#product_content,
+#alba_title,#alba_content1,#alba_content2,#zupcode{
     width: 80%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
