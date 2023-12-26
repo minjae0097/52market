@@ -262,6 +262,17 @@ input[type="search"]{
 }
 /* MY페이지
 ------------------------------*/
+.mypage-line{
+	display:fixed;
+	margin:10px 10px;
+	padding:10px;
+}
+.mypage-div > span{
+	font-size:20pt;
+}
+.mypage-div > ul > li > label{
+	font-size:16pt;
+}
 .mypage-div{
 	width:48%;
 	float:left;

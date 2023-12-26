@@ -35,7 +35,7 @@
          <form class="align-center" id="search_form" action="list.do" method="get">
             <ul>
                <li>
-                  <select id="board_category_list">
+                  <select name="board_category" id="board_category_list">
                      <option value="1" <c:if test="${param.board_category==1}">selected</c:if>>동네생활</option>
                      <option value="2" <c:if test="${param.board_category==2}">selected</c:if>>동네백과</option> 
                      <option value="3" <c:if test="${param.board_category==3}">selected</c:if>>동네맛집</option> 

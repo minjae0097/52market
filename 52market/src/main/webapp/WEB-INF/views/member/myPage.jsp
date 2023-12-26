@@ -111,6 +111,7 @@ $(function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h3>마이페이지</h3>
+		<div class="mypage-line">
 		<div class="mypage-div align-center">
 			<c:if test="${empty member.mem_photo}">
 			<img src="${pageContext.request.contextPath}/images/face.png" width="50%" height="50%" class="my-photo">
@@ -149,7 +150,15 @@ $(function(){
 				<button onclick="location.href='modifyPasswordForm.do'">비밀번호 변경</button>
 			</div>
 		</div>
+		</div>
+		<p>
+		 
+		</p>
+		<p>
+		 
+		</p>
 		<hr size="1" width="100%">
+		<div class="mypage-line">
 		<div class="content-list align-center">
 		<h3>나의 거래</h3>
 		<ul>
@@ -162,7 +171,7 @@ $(function(){
 		<div class="content-list align-center">
 		<h3>동네 생활</h3>
 		<ul>
-			<li><a>동네생활 활동</a></li>
+			<li><a href="${pageContext.request.contextPath}/board/board_myPage.do">동네생활 활동</a></li>
 		</ul>
 		</div>
 		<hr size="1" width="100%">
@@ -182,6 +191,7 @@ $(function(){
 			<c:if test="${user_auth==3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForB.do'>지원서 목록</a></li></c:if>
 		</ul>
 		</div>
+	</div>
 	</div>
 </div>
 </body>
