@@ -228,7 +228,7 @@ public class BoardDAO {
 			}
 
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM board INNER JOIN (SELECT * FROM member INNER JOIN member_detail "
-					+ "USING(mem_num)) USING(mem_num) " +sub_sql+ ")a ORDER BY board_num DESC) WHERE rnum>=? AND rnum <=?";
+					+ "USING(mem_num)) USING(mem_num) " +sub_sql+ " ORDER BY board_num DESC)a) WHERE rnum>=? AND rnum <=?";
 
 			pstmt = conn.prepareStatement(sql);
 			if (keyword != null && !"".equals(keyword)) {
