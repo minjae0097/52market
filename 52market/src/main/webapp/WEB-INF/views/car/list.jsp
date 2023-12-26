@@ -86,7 +86,7 @@ window.onload=function(){
 				</li>
 				
 			</ul>
-			</li>
+			</li> 
 			<li style="position:relative;left:250px;">
 				<input type="checkbox" name="carlist_status" id="carlist_status" value="0"><span>판매중인 것만 보기</span>
 			</li>
