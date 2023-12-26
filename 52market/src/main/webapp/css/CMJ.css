@@ -149,3 +149,19 @@ body {
     color:yellow;
     float:left;
 }
+.chat_btn{
+	padding: 7px 12px;
+    font-weight: 300;
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    display:inline-block;
+    background-color:#9ED6C0;
+    color:white;
+    height: 50px;
+    width: 200px;
+    font-size: 30px;
+}

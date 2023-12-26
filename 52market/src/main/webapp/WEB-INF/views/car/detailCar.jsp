@@ -143,10 +143,10 @@ $(function(){
 				<span id="output_fcount"></span>
 				
 			<%-- 좋아요 끝 --%>
-			<button onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${list.carlist_num}'">채팅하기</button>
+			<button class="chat_btn" onclick="location.href='${pageContext.request.contextPath}/chatting/chattingListForBuyerCar.do?carlist_num=${list.carlist_num}'">채팅하기</button>
 			</c:if>
 			<c:if test="${user_num==detail.car_seller}">
-				<form action="updateStatus.do" id="update_form" method="post">
+				<form action="updateStatus.do" id="status_form" method="post">
 				<input type="hidden" name="carlist_num" value="${detail.carlist_num}">
 				<select name="carlist_status" onchange="this.form.submit()">
 					<option value="0" <c:if test="${list.carlist_status==0}">selected</c:if>>판매중</option>
