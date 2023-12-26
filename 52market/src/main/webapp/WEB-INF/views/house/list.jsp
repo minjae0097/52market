@@ -131,7 +131,7 @@ window.onload=function(){
 		<form id="search_form" action="list.do" method="get">		
 			<ul>
 				<li>
-					<ul class="search">		
+					<ul class="search" style="width:450px;">		
 						<li>
 							<input type="button" value="필터" id="show_filter">
 							<select name="keyfield" id="keyfield">
