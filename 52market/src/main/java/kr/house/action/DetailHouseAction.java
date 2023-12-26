@@ -24,6 +24,7 @@ public class DetailHouseAction implements Action {
 		HouseDetailVO detail = dao.getHouseDetail(house_num);
 		HouseListVO list = dao.getHouseList(house_num);
 		MemberVO seller = dao.getHouseMember(detail.getMem_num());
+		int favcount = dao.selectFavCount(house_num);
 		
 		detail.setHouse_title(StringUtil.useNoHtml(detail.getHouse_title()));
 		list.setHouse_content(StringUtil.useBrNoHtml(list.getHouse_content()));
@@ -31,6 +32,7 @@ public class DetailHouseAction implements Action {
 		request.setAttribute("detail", detail);
 		request.setAttribute("list", list);
 		request.setAttribute("seller", seller);
+		request.setAttribute("favcount", favcount);
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/house/detailHouse.jsp";
