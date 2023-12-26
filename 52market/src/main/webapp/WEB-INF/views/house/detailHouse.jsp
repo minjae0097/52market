@@ -104,15 +104,15 @@ $(function(){
 		</div>
 		<div>
 			<span>
-			<c:if test="${list.house_status == 0}"><span style="color:#f7b165"><b>판매중</b></span></c:if>
-			<c:if test="${list.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if>  
+			<c:if test="${list.house_status == 0}"><span><b>판매중</b></span></c:if>
+			<c:if test="${list.house_status == 1}"><span><b>판매완료</b></span></c:if>  
 			<c:if test="${detail.house_deal_type == 1}">전세</c:if>
 			<c:if test="${detail.house_deal_type == 2}">매매</c:if>
 			<c:if test="${detail.house_deal_type == 3}">월세</c:if>
 			<c:if test="${detail.house_deal_type == 4}">단기</c:if>
 			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원</c:if>
 			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원+</c:if><br>
-			관심 : ${favcount} 조회수 : ${list.hit}
+			관심 ${favcount} 조회수 ${list.hit}
 			</span>
 		</div>
 		<div>

@@ -104,7 +104,6 @@ public class HouseDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색처리
 				if(keyfield.equals("1")) sub_sql += "AND house_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += "AND mem_nickname LIKE ?";
 				else if(keyfield.equals("3")) sub_sql += "AND house_content LIKE ?";
 			}
 			
@@ -181,7 +180,6 @@ public class HouseDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색처리
 				if(keyfield.equals("1")) sub_sql += "AND house_title LIKE ?";
-				else if(keyfield.equals("2")) sub_sql += "AND mem_nickname LIKE ?";
 				else if(keyfield.equals("3")) sub_sql += "AND house_content LIKE ?";
 			}
 			//필터

@@ -155,3 +155,19 @@ input[type="search"]{
     left:70px;
     cursor: pointer;
 }
+.content-detail{
+	width:600px;
+	margin:20px;
+	position: relative;
+    left: 50px;
+}
+.content-detail ul{
+	margin-left: 20px;
+}	
+.content-detail ul li{
+	margin-bottom: 10px;
+	font-size: 15pt;
+}
+.content-detail h1{
+	margin-bottom: 10px;
+}

@@ -125,19 +125,20 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<img src="${pageContext.request.contextPath}/images/부동산배너.png" width="900">
 	<div class="content-main">
+		<a href="${pageContext.request.contextPath}/house/list.do">
+		<img src="${pageContext.request.contextPath}/images/부동산배너.png" width="900">
+		</a>
 		<h2>부동산 등록 매물</h2>
 		<form id="search_form" action="list.do" method="get">		
 			<ul>
 				<li>
-					<ul class="search" style="width:450px;">		
+					<ul class="search" style="width:450px">		
 						<li>
 							<input type="button" value="필터" id="show_filter">
 							<select name="keyfield" id="keyfield">
 								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>작성자</option>
-								<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>내용</option>
+								<option value="" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
 							</select>
 							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" placeholder="제목을 입력하세요">
 							<input type="submit" value="검색">
@@ -203,15 +204,14 @@ window.onload=function(){
 								<span>${house.house_title}</span>
 								<br>
 								<b>
-								<c:if test="${house.house_status == 0}"><span style="color:#f7b165"><b>판매중</b></span></c:if>
-								<c:if test="${house.house_status == 1}"><span style="color:#ff0000"><b>판매완료</b></span></c:if> 
+								<c:if test="${house.house_status == 1}"><span style="background-color:#f7b165; color: white; border-radius: 10px; padding:2px;"><b>판매완료</b></span></c:if> 
 								<c:if test="${house.house_deal_type == 1}">전세</c:if>
 								<c:if test="${house.house_deal_type == 2}">매매</c:if>
 								<c:if test="${house.house_deal_type == 3}">월세</c:if>
 								<c:if test="${house.house_deal_type == 4}">단기</c:if>
 								<c:if test="${house.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원</c:if>
 								<c:if test="${house.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${house.house_price/10000}"/>만원+</c:if></b><br>
-								관심 : ${house.favcount} 조회수 : ${house.hit}
+								관심 ${house.favcount} 조회수 ${house.hit}
 							</a>
 							</div>
 						</div>
