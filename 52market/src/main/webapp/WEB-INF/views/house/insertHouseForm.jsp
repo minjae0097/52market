@@ -98,7 +98,7 @@ window.onload=function(){
 				</li>
 				<li>
 					<h3><label for="house_cost">관리비</label></h3>
-					<input type="number" name="house_cost" id="house_cost" min="1" max="99999999">원
+					<input type="number" name="house_cost" id="house_cost" min="0" max="99999999">원
 				</li>
 				<li>
 					<h3><label for="house_space">평수</label></h3>
