@@ -112,7 +112,7 @@ $(function(){
 			<c:if test="${detail.house_deal_type == 4}">단기</c:if>
 			<c:if test="${detail.house_price%10000==0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원</c:if>
 			<c:if test="${detail.house_price%10000!=0}"><fmt:formatNumber pattern="###,###,###,###,###,###" value="${detail.house_price/10000}"/>만원+</c:if><br>
-			조회수 : ${list.hit}
+			관심 : ${favcount} 조회수 : ${list.hit}
 			</span>
 		</div>
 		<div>

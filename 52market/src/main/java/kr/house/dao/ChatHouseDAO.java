@@ -273,4 +273,31 @@ public class ChatHouseDAO {
 		
 		return houselist;
 	}
+	//판매자 readcount 개수
+	public int getreadcountSeller(int mem_num, int house_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		int cnt = 0;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM house_chat INNER JOIN house_chatroom USING(chatroom_num) WHERE read_check=1 AND house_num=? AND mem_num!=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, house_num);
+			pstmt.setInt(2, mem_num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return cnt;
+	}
 }
