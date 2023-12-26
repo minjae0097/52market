@@ -113,10 +113,10 @@ $(function(){
 		<h3>마이페이지</h3>
 		<div class="mypage-div align-center">
 			<c:if test="${empty member.mem_photo}">
-			<img src="${pageContext.request.contextPath}/images/face.png" width="100%" height="100%" class="my-photo">
+			<img src="${pageContext.request.contextPath}/images/face.png" width="50%" height="50%" class="my-photo">
 			</c:if>
 			<c:if test="${!empty member.mem_photo}">
-			<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="100%" height="100%" class="my-photo">
+			<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="50%" height="50%" class="my-photo">
 			</c:if>
 			<div class="align-center">
 				<input type="button" value="이미지 변경" id="photo_btn">
@@ -127,7 +127,7 @@ $(function(){
 				<input type="button" value="취소" id="photo_reset">
 			</div>
 			</div>
-		<div class="mypage-div" style="position: relative;top:120px;">
+		<div class="mypage-div" style="position: relative;top:50px;">
 			<span><b>${member.mem_nickname}</b>님</span>
 			<button onclick="location.href='modifyNicknameForm.do'">닉네임 변경</button>
 			<ul>
@@ -144,7 +144,7 @@ $(function(){
 					<label>가입일 : ${member.mem_regdate}</label>
 				</li>
 			</ul>
-			<div class="align-center">
+			<div>
 				<button onclick="location.href='modifyMemberForm.do'">회원정보 수정</button>
 				<button onclick="location.href='modifyPasswordForm.do'">비밀번호 변경</button>
 			</div>
@@ -165,6 +165,7 @@ $(function(){
 			<li><a>동네생활 활동</a></li>
 		</ul>
 		</div>
+		<hr size="1" width="100%">
 		<div class="content-list">
 		<h3>구매 채팅</h3>
 		<ul>
@@ -174,6 +175,7 @@ $(function(){
 		</ul>
 		</div>
 		<div class="content-list">
+		<hr size="1" width="100%">
 		<h3>알바 지원</h3>
 		<ul>
 			<c:if test="${user_auth!=3}"><li><a href='${pageContext.request.contextPath}/alba/aplistForU.do'>지원 목록</a></li></c:if>

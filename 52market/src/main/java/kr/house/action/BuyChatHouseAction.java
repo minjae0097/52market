@@ -37,6 +37,7 @@ public class BuyChatHouseAction implements Action {
 			}else {
 			HouseDAO house = HouseDAO.getInstance();
 			house.sellHouse(houselist.getHouse_num(), user_num);
+			house.updateHouseStatusChat(chatroom_num);
 			request.setAttribute("notice_msg", "구매확정이 완료되었습니다.");
 			request.setAttribute("notice_url", 
 					request.getContextPath()+"/chatting/chatDetailHouse.do?chatroom_num="+chatroom_num);

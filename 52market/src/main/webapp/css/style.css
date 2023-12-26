@@ -117,7 +117,7 @@ a:hover{
 	border:1px solid lightgray;
 	padding:10px 10px 10px 30px;
 }
-form{
+form{ 
 	width:600px;
 	margin:0 auto;
 	border:1px solid #000;
@@ -153,7 +153,7 @@ input[type="number"]{
 .form-notice{
 	margin-left:130px;
 }
-input[type="button"],input[type="submit"]{
+input[type="button"],input[type="submit"],button{
 	padding: 7px 12px;
     font-weight: 300;
     border-radius: 24px;
@@ -166,21 +166,10 @@ input[type="button"],input[type="submit"]{
     background-color:#9ED6C0;
     color:white;
 }
-input[type="button"]:hover, input[type="submit"]:hover{
+input[type="button"]:hover, input[type="submit"]:hover,button:hover{
 	background:lightgray;
 }
-#board_category{
-	width: 200px;
-    border: 1px solid #C4C4C4;
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 12px 13px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-}
-#board_category_list,select[name="keyfield"],#keyfield1{
+#board_category_list,#keyfield1,#keyfield{
 	width: 20%;
     border: 1px solid #C4C4C4;
     box-sizing: border-box;
@@ -308,6 +297,9 @@ input[type="search"]{
 #mypage_nickname{
 	font-size:18pt;
 	font-weight:700;
+}
+.content-list{
+	line-height:40px;
 }
 /* 공통 목록
 ------------------------------*/

@@ -1043,4 +1043,30 @@ public class HouseDAO {
 			
 			return count;
 		}
+		
+		//중고차 판매여부 변경(chat)
+		public void updateHouseStatusChat(int chatroom_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "UPDATE houselist SET house_status=1 WHERE house_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				ChatHouseDAO chat = ChatHouseDAO.getInsttance();
+				pstmt.setInt(1, chat.getHouselistByChatroom(chatroom_num).getHouse_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+			
+		}
 }
