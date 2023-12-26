@@ -150,7 +150,7 @@ $(function(){
 			</div>
 		</div>
 		<hr size="1" width="100%">
-		<div class="content-list">
+		<div class="content-list align-center">
 		<h3>나의 거래</h3>
 		<ul>
 			<li><a href="favList.do">관심목록</a></li>
@@ -159,14 +159,14 @@ $(function(){
 		</ul>
 		</div>
 		<hr size="1" width="100%">
-		<div class="content-list">
+		<div class="content-list align-center">
 		<h3>동네 생활</h3>
 		<ul>
 			<li><a>동네생활 활동</a></li>
 		</ul>
 		</div>
 		<hr size="1" width="100%">
-		<div class="content-list">
+		<div class="content-list align-center">
 		<h3>구매 채팅</h3>
 		<ul>
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerProduct.do'>중고거래 채팅 목록</a></li>
@@ -174,7 +174,7 @@ $(function(){
 			<li><a href='${pageContext.request.contextPath}/chatting/chattingListForBuyerHouse.do'>부동산 채팅 목록</a></li>
 		</ul>
 		</div>
-		<div class="content-list">
+		<div class="content-list align-center">
 		<hr size="1" width="100%">
 		<h3>알바 지원</h3>
 		<ul>
