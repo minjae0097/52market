@@ -22,12 +22,12 @@
 					<input type="radio" name="mem_auth" id="mem_auth2" value="3">사업자
 				</li>
 				<li>
-					<label for="mem_id">id</label>
+					<label for="mem_id">ID</label>
 					<input type="text" name="mem_id" id="mem_id" maxlength="12"
-					  autocomplete="off" class="input-check"><br>
+					  autocomplete="off" class="input-check">
 					<input type="button" value="ID중복체크" id="id_check">
 					<span id="message_id"></span> 
-					<div class="form-notice" style="position:relative;bottom: 25px;">*영문 또는 숫자(4자~12자)</div> 
+					<div class="form-notice">*영문 또는 숫자(4자~12자)</div> 
 				</li>
 				<li>
 					<label for="mem_name">이름</label>
@@ -39,7 +39,7 @@
 					<input type="text" name="mem_nickname" id="mem_nickname" maxlength="10" class="input-check">
 					<input type="button" value="닉네임 중복체크" id="nickname_check">
 					<span id="message_nickname"></span> 
-					<div class="form-notice" style="position:relative;bottom: 25px;">*(최대 10자)</div> 
+					<div class="form-notice">*(최대 10자)</div> 
 				</li>
 				<li>
 					<label for="mem_passwd">비밀번호</label>
