@@ -192,7 +192,7 @@ window.onload=function(){
 		</c:if>
 		</li>
 		<li>
-		<c:if test="${user_auth != 3 && user_auth!=9}">
+		<c:if test="${user_auth == 2}">
 		<input type="button" value="문의하기" id="call_btn">
 		<input type="button" value="지원하기" id="apply_btn">
 		</c:if>
