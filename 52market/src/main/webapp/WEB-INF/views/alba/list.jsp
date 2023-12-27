@@ -33,7 +33,7 @@ $(function(){
 <body>
 <div class="page-main1">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-		<img src="${pageContext.request.contextPath}/images/알바배너.png" width="960">
+		<a href="${pageContext.request.contextPath}/alba/list.do"><img src="${pageContext.request.contextPath}/images/알바배너.png" width="960"></a>
 		<div class="content">
 			<h2>알바 최신글</h2>
 		<form id="search_form" action="list.do" method="get" class="align-right">
