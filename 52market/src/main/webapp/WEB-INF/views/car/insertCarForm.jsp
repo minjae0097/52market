@@ -46,7 +46,7 @@ window.onload=function(){
 	//지도 검색
 	let openmap = document.getElementById('mapopen');
 	openmap.onclick = function(){
-		 let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=500, top=0,left=0";
+		 let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=600, top=0,left=0";
 
 		  window.open("${pageContext.request.contextPath}/map/insertMap.do","_blank", options);
 	};
